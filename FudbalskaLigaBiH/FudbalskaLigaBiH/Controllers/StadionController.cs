@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.EntityModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -45,6 +46,36 @@ namespace FudbalskaLigaBiH.Controllers
             Stadion s = db.Stadion.Find(sID);
 
             db.Remove(s);
+            db.SaveChanges();
+
+            return Redirect("/Stadion/Prikaz");
+        }
+
+        public IActionResult Dodaj()
+        {
+            List<SelectListItem> gradovi = db.Grad
+                                                .OrderBy(g => g.Naziv)
+                                                    .Select(g => new SelectListItem
+                                                    {
+                                                        Text = g.Naziv,
+                                                        Value = g.ID.ToString()
+                                                    }).ToList();
+
+            StadionDodajVM model = new StadionDodajVM { Gradovi = gradovi};
+
+            return View(model);
+        }
+
+        public IActionResult Snimi(StadionDodajVM s)
+        {
+            Stadion stadion = new Stadion
+            {
+                Naziv = s.Naziv,
+                Kapacitet = s.Kapacitet,
+                GradID = s.GradID
+            };
+
+            db.Stadion.Add(stadion);
             db.SaveChanges();
 
             return Redirect("/Stadion/Prikaz");

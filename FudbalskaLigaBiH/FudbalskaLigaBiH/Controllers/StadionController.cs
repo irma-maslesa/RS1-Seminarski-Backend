@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.Models;
+using FudbalskaLigaBiH.EntityModels;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -37,6 +38,16 @@ namespace FudbalskaLigaBiH.Controllers
             model.filter = filter;
 
             return View(model);
+        }
+
+        public IActionResult Obrisi(int sID)
+        {
+            Stadion s = db.Stadion.Find(sID);
+
+            db.Remove(s);
+            db.SaveChanges();
+
+            return Redirect("/Stadion/Prikaz");
         }
     }
 }

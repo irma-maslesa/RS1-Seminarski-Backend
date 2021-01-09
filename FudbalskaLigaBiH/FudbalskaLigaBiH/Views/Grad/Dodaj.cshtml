@@ -1,0 +1,18 @@
+﻿@using FudbalskaLigaBiH.Helper
+@model FudbalskaLigaBiH.Models.GradDodajVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<form asp-controller="Grad" asp-action="Snimi">
+    <label>Ime</label>
+    <input type="text" asp-for="Naziv" />
+
+    <br />
+
+    <label>Entitet</label>
+    <select asp-for="EntitetID" asp-items="Model.Entiteti"></select>
+
+    <input type="submit" value="Dodaj" />
+</form>

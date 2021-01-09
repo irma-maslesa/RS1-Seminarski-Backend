@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-FudbalskaLigaBiH-FEA133AC-3AA2-4C1F-BBFE-2F869431089F</UserSecretsId>
+    <UserSecretsId>aspnet-FudbalskaLigaBiH-A869BC18-6022-458D-80E2-14ED632DC85A</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

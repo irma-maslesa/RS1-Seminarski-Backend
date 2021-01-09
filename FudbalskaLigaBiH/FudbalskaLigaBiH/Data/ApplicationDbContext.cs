@@ -4,6 +4,7 @@ using System.Text;
 using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FudbalskaLigaBiH.EntityModels;
 
 namespace FudbalskaLigaBiH.Data
 {
@@ -13,6 +14,8 @@ namespace FudbalskaLigaBiH.Data
             : base(options)
         {
         }
+
+        public DbSet<Trener> Trener { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

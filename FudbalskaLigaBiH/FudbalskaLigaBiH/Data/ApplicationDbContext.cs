@@ -19,5 +19,6 @@ namespace FudbalskaLigaBiH.Data
         public DbSet<Grad> Grad { get; set; }
 
         public DbSet<Novinar> Novinar { get; set; }
+        public DbSet<Novost> Novost { get; set; }
     }
 }

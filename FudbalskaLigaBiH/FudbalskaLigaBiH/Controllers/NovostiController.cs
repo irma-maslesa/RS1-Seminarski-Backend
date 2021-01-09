@@ -22,116 +22,96 @@ namespace FudbalskaLigaBiH.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Prikaz()
+        public IActionResult Prikaz(string filter)
         {
-            return View();
+            List<NovostiDetaljiVM.NovostiRed> lista_novosti;
+            if (filter == "1")
+            {
+                lista_novosti = _db.Novost.OrderBy(n => n.DatumObjave)
+                    .Select(n => new NovostiDetaljiVM.NovostiRed
+                    {
+                        IDnovosti = n.ID,
+                        NaslovNovosti = n.Naslov,
+                        SadrzajNovosti = n.Sadrzaj,
+                        DatumObjaveNovosti = n.DatumObjave
+                    }).ToList();
+            }
+            else
+            {
+                lista_novosti = _db.Novost.OrderByDescending(n => n.DatumObjave)
+                    .Select(n => new NovostiDetaljiVM.NovostiRed
+                    {
+                        IDnovosti = n.ID,
+                        NaslovNovosti = n.Naslov,
+                        SadrzajNovosti = n.Sadrzaj,
+                        DatumObjaveNovosti = n.DatumObjave
+                    }).ToList();
+            }
+
+            NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
+            VMnovosti.novosti = lista_novosti;
+
+            if (_userManager.GetUserAsync(User).Result is Novinar)
+                return View("PrikazNovinar", VMnovosti);
+
+            return View(VMnovosti);
         }
 
-        //public IActionResult Prikaz(string filter)
-        //{
-        //    List<NovostiDetaljiVM.NovostiRed> lista_novosti;
-        //    if (filter == "1")
-        //    {
-        //        lista_novosti = _db.Novosti.OrderBy(n => n.DatumObjave)
-        //            .Select(n => new NovostiDetaljiVM.NovostiRed
-        //            {
-        //                IDnovosti = n.NovostiID,
-        //                NaslovNovosti = n.Naslov,
-        //                SadrzajNovosti = n.Sadrzaj,
-        //                DatumObjaveNovosti = n.DatumObjave
-        //            }).ToList();
-        //    }
-        //    else
-        //    {
-        //        lista_novosti = _db.Novosti.OrderByDescending(n => n.DatumObjave)
-        //            .Select(n => new NovostiDetaljiVM.NovostiRed
-        //            {
-        //                IDnovosti = n.NovostiID,
-        //                NaslovNovosti = n.Naslov,
-        //                SadrzajNovosti = n.Sadrzaj,
-        //                DatumObjaveNovosti = n.DatumObjave
-        //            }).ToList();
-        //    }
+        public IActionResult Obrisi(int NovostiID)
+        {
+            Novost vijestZaBrisanje = _db.Novost.Find(NovostiID);
+            _db.Remove(vijestZaBrisanje);
+            _db.SaveChanges();
+            TempData["BrisanjePoruka"] = "Uspješno ste obrisali članak.";
+            return Redirect("/Novosti/Prikaz");
+        }
 
-        //    NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
-        //    VMnovosti.novosti = lista_novosti;
+        public IActionResult Detalji(int NovostiID)
+        {
+            NovostiDetaljiVM.NovostiRed vijest = _db.Novost.Where(n => n.ID == NovostiID)
+                .Select(n => new NovostiDetaljiVM.NovostiRed
+                {
+                    IDnovosti = n.ID,
+                    NaslovNovosti = n.Naslov,
+                    SadrzajNovosti = n.Sadrzaj,
+                    DatumObjaveNovosti = n.DatumObjave
+                }).Single();
 
-        //    if (_userManager.GetUserAsync(User).Result is Novinar)
-        //        return View("PrikazNovinar", VMnovosti);
+            return View(vijest);
+        }
+        public IActionResult DodajUredi(int NovostiID)
+        {
+            NovostiDetaljiVM.NovostiRed novaVijest = NovostiID == 0 ? new NovostiDetaljiVM.NovostiRed() : _db.Novost.Where(n => n.ID == NovostiID)
+                .Select(n => new NovostiDetaljiVM.NovostiRed
+                {
+                    IDnovosti = n.ID,
+                    NaslovNovosti = n.Naslov,
+                    SadrzajNovosti = n.Sadrzaj,
+                    DatumObjaveNovosti = n.DatumObjave
+                }).Single();
 
-        //    return View(VMnovosti);
-        //}
-        ////public IActionResult PrikazNovinar()
-        ////{
-        ////    List<NovostiDetaljiVM.NovostiRed> lista_novosti = _db.Novosti.OrderByDescending(n => n.DatumObjave)
-        ////        .Select(n => new NovostiDetaljiVM.NovostiRed
-        ////        {
-        ////            IDnovosti = n.NovostiID,
-        ////            NaslovNovosti = n.Naslov,
-        ////            SadrzajNovosti = n.Sadrzaj,
-        ////            DatumObjaveNovosti = n.DatumObjave
-        ////        }).ToList();
+            return View("DodajUredi", novaVijest);
+        }
+        public IActionResult Snimi(NovostiDetaljiVM.NovostiRed x)
+        {
+            Novost nova;
+            if (x.IDnovosti == 0)
+            {
+                nova = new Novost();
+                _db.Novost.Add(nova);
+            }
+            else
+            {
+                nova = _db.Novost.Find(x.IDnovosti);
+            }
+            nova.ID = x.IDnovosti;
+            nova.Naslov = x.NaslovNovosti;
+            nova.Sadrzaj = x.SadrzajNovosti;
+            nova.DatumObjave = x.DatumObjaveNovosti;
 
-        ////    NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
-        ////    VMnovosti.novosti = lista_novosti;
+            _db.SaveChanges();
 
-        ////    return View(VMnovosti);
-        ////}
-        //public IActionResult Obrisi(int NovostiID)
-        //{
-        //    Novosti vijestZaBrisanje = _db.Novosti.Find(NovostiID);
-        //    _db.Remove(vijestZaBrisanje);
-        //    _db.SaveChanges();
-        //    TempData["BrisanjePoruka"] = "Uspješno ste obrisali članak.";
-        //    return Redirect("/Novosti/Prikaz");
-        //}
-
-        //public IActionResult Detalji(int NovostiID)
-        //{
-        //    NovostiDetaljiVM.NovostiRed vijest = _db.Novosti.Where(n => n.NovostiID == NovostiID)
-        //        .Select(n => new NovostiDetaljiVM.NovostiRed
-        //        {
-        //            IDnovosti = n.NovostiID,
-        //            NaslovNovosti = n.Naslov,
-        //            SadrzajNovosti = n.Sadrzaj,
-        //            DatumObjaveNovosti = n.DatumObjave
-        //        }).Single();
-
-        //    return View(vijest);
-        //}
-        //public IActionResult DodajUredi(int NovostiID)
-        //{
-        //    NovostiDetaljiVM.NovostiRed novaVijest = NovostiID == 0 ? new NovostiDetaljiVM.NovostiRed() : _db.Novosti.Where(n => n.NovostiID == NovostiID)
-        //        .Select(n => new NovostiDetaljiVM.NovostiRed
-        //        {
-        //            IDnovosti = n.NovostiID,
-        //            NaslovNovosti = n.Naslov,
-        //            SadrzajNovosti = n.Sadrzaj,
-        //            DatumObjaveNovosti = n.DatumObjave
-        //        }).Single();
-
-        //    return View("DodajUredi", novaVijest);
-        //}
-        //public IActionResult Snimi(NovostiDetaljiVM.NovostiRed x)
-        //{
-        //    Novosti nova;
-        //    if (x.IDnovosti == 0)
-        //    {
-        //        nova = new Novosti();
-        //        _db.Novosti.Add(nova);
-        //    }
-        //    else
-        //    {
-        //        nova = _db.Novosti.Find(x.IDnovosti);
-        //    }
-        //    nova.NovostiID = x.IDnovosti;
-        //    nova.Naslov = x.NaslovNovosti;
-        //    nova.Sadrzaj = x.SadrzajNovosti;
-        //    nova.DatumObjave = x.DatumObjaveNovosti;
-
-        //    _db.SaveChanges();
-
-        //    return Redirect("/Novosti/Prikaz");
-        //}
+            return Redirect("/Novosti/Prikaz");
+        }
     }
 }

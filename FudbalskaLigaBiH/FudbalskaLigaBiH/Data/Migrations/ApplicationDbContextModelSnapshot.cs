@@ -21,17 +21,37 @@ namespace FudbalskaLigaBiH.Data.Migrations
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Entitet", b =>
                 {
-                    b.Property<int>("EntitetID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("NazivEntiteta")
+                    b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EntitetID");
+                    b.HasKey("ID");
 
                     b.ToTable("Entitet");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Grad", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EntitetID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EntitetID");
+
+                    b.ToTable("Grad");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Korisnik", b =>
@@ -275,6 +295,15 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasBaseType("FudbalskaLigaBiH.EntityModels.Korisnik");
 
                     b.HasDiscriminator().HasValue("Novinar");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Grad", b =>
+                {
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
+                        .WithMany("Gradovi")
+                        .HasForeignKey("EntitetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

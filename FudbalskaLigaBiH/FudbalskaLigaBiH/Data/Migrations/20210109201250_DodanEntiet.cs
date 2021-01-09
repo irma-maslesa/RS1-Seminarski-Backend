@@ -2,7 +2,7 @@
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
-    public partial class entitetmig : Migration
+    public partial class DodanEntiet : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,13 +10,13 @@ namespace FudbalskaLigaBiH.Data.Migrations
                 name: "Entitet",
                 columns: table => new
                 {
-                    EntitetID = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NazivEntiteta = table.Column<string>(nullable: true)
+                    Naziv = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Entitet", x => x.EntitetID);
+                    table.PrimaryKey("PK_Entitet", x => x.ID);
                 });
         }
 

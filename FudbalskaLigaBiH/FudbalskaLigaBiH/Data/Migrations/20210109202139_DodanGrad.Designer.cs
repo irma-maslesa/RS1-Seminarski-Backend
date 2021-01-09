@@ -10,16 +10,51 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210109190241_.")]
-    partial class _
+    [Migration("20210109202139_DodanGrad")]
+    partial class DodanGrad
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Entitet", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Entitet");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Grad", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EntitetID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EntitetID");
+
+                    b.ToTable("Grad");
+                });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Korisnik", b =>
                 {
@@ -262,6 +297,15 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasBaseType("FudbalskaLigaBiH.EntityModels.Korisnik");
 
                     b.HasDiscriminator().HasValue("Novinar");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Grad", b =>
+                {
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
+                        .WithMany("Gradovi")
+                        .HasForeignKey("EntitetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

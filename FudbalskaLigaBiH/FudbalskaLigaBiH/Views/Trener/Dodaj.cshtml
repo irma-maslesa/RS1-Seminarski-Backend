@@ -1,0 +1,27 @@
+﻿@model FudbalskaLigaBiH.Models.TrenerDodajVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<form asp-controller="Trener" asp-action="Snimi">
+    <label>Ime</label>
+    <input type="text" asp-for="Ime" />
+
+    <br />
+
+    <label>Prezime</label>
+    <input type="text" asp-for="Prezime" />
+
+    <br />
+
+    <label>eMail</label>
+    <input type="email" asp-for="Mail" />
+
+    <br />
+
+    <label>Datum rođenja</label>
+    <input type="date" asp-for="DatumRodjenja" max="@DateTime.Today.AddYears(-20).ToString("yyyy-MM-dd")"/>
+
+    <input type="submit" value="Dodaj"/>
+</form>

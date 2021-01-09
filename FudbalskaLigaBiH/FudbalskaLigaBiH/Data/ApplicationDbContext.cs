@@ -17,16 +17,6 @@ namespace FudbalskaLigaBiH.Data
 
         public DbSet<Trener> Trener { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server = app.fit.ba,1431;
-                                          Database = p2036;
-                                          Trusted_Connection = False;
-                                          User ID = p2036;
-                                          Password = n?7i97Ek;
-                                          MultipleActiveResultSets = True;");
-        }
-
         public DbSet<Novinar> Novinar { get; set; }
     }
 }

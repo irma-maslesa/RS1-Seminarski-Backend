@@ -20,5 +20,6 @@ namespace FudbalskaLigaBiH.Data
         public DbSet<Stadion> Stadion { get; set; }
 
         public DbSet<Novinar> Novinar { get; set; }
+        public DbSet<Novost> Novost { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210109230148_pokusat12121")]
+    partial class pokusat12121
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,13 +133,13 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Korisnik");
                 });
 
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b => 
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b =>
                 {
                     b.Property<int>("ID")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-            
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<DateTime>("DatumObjave")
                         .HasColumnType("datetime2");
 
@@ -146,33 +148,10 @@ namespace FudbalskaLigaBiH.Data.Migrations
 
                     b.Property<string>("Sadrzaj")
                         .HasColumnType("nvarchar(max)");
-                    
+
                     b.HasKey("ID");
-                     
+
                     b.ToTable("Novost");
-            });
-            
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Stadion", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GradID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Kapacitet")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Naziv")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("GradID");
-
-                    b.ToTable("Stadion");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Trener", b =>
@@ -346,15 +325,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
                         .WithMany("Gradovi")
                         .HasForeignKey("EntitetID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Stadion", b =>
-                {
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
-                        .WithMany()
-                        .HasForeignKey("GradID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

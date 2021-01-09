@@ -1,8 +1,11 @@
-﻿<link rel="stylesheet" href="~/css/StyleSheet.css" />
+﻿<link rel="stylesheet" href="~/css/StyleSheet.css">
 
 @{
+    NovostiDetaljiVM vm_listaNovosti = Model;
+    string poruka1 = (string)TempData["edit"];
 }
 @model NovostiDetaljiVM
+
 <body>
 
     <div id="ostatak-parenta">
@@ -15,8 +18,7 @@
         </div>
         <div class="okvir-vijesti">
             @foreach (NovostiDetaljiVM.NovostiRed vijest in Model.novosti)
-        {
-            <a style="color:black;" href="/Novosti/Detalji?NovostiID=@vijest.IDnovosti">
+            {
                 <div class="vijest">
                     <div class="slika-vijesti"><img href="" alt="Slika-Vijest1" /></div>
                     <div class="clanak">
@@ -24,9 +26,17 @@
                         <span style="font-size:smaller;">@(@vijest.SadrzajNovosti!=null?vijest.SadrzajNovosti.Substring(0,vijest.SadrzajNovosti.Length>=90?90:vijest.SadrzajNovosti.Length):null)...</span>
                         <span style="font-size:small; position:absolute; float:right; bottom:5px; right:5px;margin:0;">@vijest.DatumObjaveNovosti</span>
                     </div>
+                    <div class="uredi-obrisi">
+                        <a class="btn btn-warning" href="/Novosti/DodajUredi?NovostiID=@vijest.IDnovosti">Uredi</a><br /><br />
+                        <a class="btn btn-warning" href="/Novosti/Obrisi?NovostiID=@vijest.IDnovosti">Obriši</a>
+                    </div>
                 </div>
-            </a><br />
-        }
+                <br />
+            }
         </div>
+
+        @*<div class="dodaj-clanak">
+            <a class="btn btn-warning" href="/Novosti/DodajUredi">Dodaj</a>
+        </div>*@
     </div>
 </body>

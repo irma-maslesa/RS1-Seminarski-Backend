@@ -173,7 +173,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Korisnik");
-                });
+                }));
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {

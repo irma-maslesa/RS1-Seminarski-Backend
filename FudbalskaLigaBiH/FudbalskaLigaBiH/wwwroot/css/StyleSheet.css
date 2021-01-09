@@ -1,0 +1,246 @@
+﻿
+body {
+    margin: 0;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-image:url("../img/background1.jpg");
+    overflow: hidden;
+}
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#ostatak-parenta {
+    width: 100%;
+    height: 100%;
+}
+
+/*CSS ZA DUGMAD NA POCETNOJ*/
+/*.dugmeDiv {
+    height: 100px;
+    width: 70%;
+    margin: auto;
+    top: 40%;
+    position:relative;
+    margin-top:25%;
+  
+}
+
+.dugme {
+    width: 170px;
+    height: 40px;
+    border-radius: 44px;
+    background: none;
+    border: 2px solid #282828;
+    color: #282828;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: 0 12% 0 12%;
+}
+
+    .dugme :hover {
+        color: white;
+        background-color: rgbs(169,169,169,0.5);
+    }
+
+    .dugme:first-child:hover {
+        color: white;
+        background-color: rgbs( 224, 186, 0,0.5);
+    }*/
+
+/*CSS ZA PRIKAZ NOVOSTI*/
+.okvir-vijesti {
+    width: 70%;
+    height: 80%;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    overflow: scroll;
+}
+
+    .okvir-vijesti::-webkit-scrollbar {
+        display: none;
+    }
+
+.vijest {
+    height: 30%;
+    width: 90%;
+    position: relative;
+    top: 2%;
+    left: 5%;
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
+}
+
+.slika-vijesti {
+    height: 100%;
+    width: 30%;
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
+    position: absolute;
+}
+
+    .slika-vijesti img {
+        height: 100%;
+        width: 100%;
+    }
+
+.clanak {
+    height: 100%;
+    width: 60%;
+    position: absolute;
+    left: 30%;
+    box-sizing: border-box;
+    padding: 10px;
+    word-break: break-word;
+}
+
+/*CSS ZA PRIKAZ DETALJA JEDNE NOVOSTI*/
+
+.detalji-Clanka {
+    width: 70%;
+    height: 80%;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    overflow: scroll;
+}
+
+    .detalji-Clanka::-webkit-scrollbar {
+        display: none;
+    }
+
+.slika-calnka {
+    height: 45%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    border: 1px solid grey;
+}
+
+    .slika-calnka img {
+        height: 100%;
+        width: 100%;
+    }
+
+.detalji-Clanka h3 {
+    text-align: center;
+    border-bottom: 1px solid grey;
+}
+
+.detalji-Clanka h3, .detalji-Clanka p {
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+/*CSS ZA NOVINARA-DODAVANJE I UREDJIVANJE NOVOSTI*/
+.opcije {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 10%;
+}
+
+    .opcije button {
+        margin: 0 45px 0 45px;
+        height: 45px;
+        width: 150px;
+    }
+.form-group div {
+    left: 38%;
+    top: 35px;
+    text-align: start;
+}
+
+#Okvir-Inputa {
+    margin-top: 50px;
+    width: 40%;
+}
+
+/*CSS ZA PRIKAZ VIJESTI ZA ADMINA*/
+
+.uredi-obrisi {
+    width: 10%;
+    height: 100%;
+    float: right;
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.1);
+    position: relative;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.dodaj-clanak {
+    width: 85px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+}
+
+.ikone {
+    width: 40px;
+    height: 40px;
+    padding: 20px 0 0 20px;
+}
+
+.uredi-obrisi a {
+    width: 70%;
+}
+/*CSS ZA PRIKAZ UTAKMICA KORISNIKU*/
+.korisnik-ikona {
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    border-radius: 0px 30px 0px 0px;
+    position: absolute;
+    top: 80px;
+}
+
+    .korisnik-ikona img {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 30px;
+        top: 5px;
+    }
+
+.liga-ikona {
+    height: 40px;
+    width: 150px;
+    border: 1px solid #EFC809;
+    border-radius: 30px 0px 0px 30px;
+    position: absolute;
+    top: 110px;
+    right: 0px;
+}
+
+.table td, .table th {
+    border-top: 0;
+}
+
+/*======*/
+
+.btn-group button {
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    border-radius: 0px 20px 20px 0px;
+    position: absolute;
+    border: 0;
+    top: 35px;    
+}
+.dropdown-menu{
+    min-width:30px;
+}

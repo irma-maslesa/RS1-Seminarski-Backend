@@ -51,7 +51,7 @@ namespace FudbalskaLigaBiH.Controllers
             return Redirect("/Stadion/Prikaz");
         }
 
-        public IActionResult Dodaj()
+        public IActionResult DodajUredi(int sID)
         {
             List<SelectListItem> gradovi = db.Grad
                                                 .OrderBy(g => g.Naziv)
@@ -61,21 +61,40 @@ namespace FudbalskaLigaBiH.Controllers
                                                         Value = g.ID.ToString()
                                                     }).ToList();
 
-            StadionDodajVM model = new StadionDodajVM { Gradovi = gradovi};
+
+
+            StadionDodajUrediVM model = sID == 0 ?
+                                            new StadionDodajUrediVM() :
+                                            db.Stadion.Where(s => s.ID == sID)
+                                               .Select(s => new StadionDodajUrediVM
+                                               {
+                                                   ID = s.ID,
+                                                   Naziv = s.Naziv,
+                                                   Kapacitet = s.Kapacitet,
+                                                   GradID = s.GradID
+                                               }).Single();
+            model.Gradovi = gradovi;
 
             return View(model);
         }
 
-        public IActionResult Snimi(StadionDodajVM s)
+        public IActionResult Snimi(StadionDodajUrediVM s)
         {
-            Stadion stadion = new Stadion
-            {
-                Naziv = s.Naziv,
-                Kapacitet = s.Kapacitet,
-                GradID = s.GradID
-            };
+            Stadion stadion;
 
-            db.Stadion.Add(stadion);
+            if (s.ID == 0)
+            {
+                stadion = new Stadion();
+                db.Add(stadion);
+            }
+            else
+                stadion = db.Stadion.Find(s.ID);
+
+
+            stadion.Naziv = s.Naziv;
+            stadion.Kapacitet = s.Kapacitet;
+            stadion.GradID = s.GradID;
+
             db.SaveChanges();
 
             return Redirect("/Stadion/Prikaz");

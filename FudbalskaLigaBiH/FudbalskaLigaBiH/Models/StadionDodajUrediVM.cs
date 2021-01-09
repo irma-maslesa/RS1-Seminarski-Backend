@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FudbalskaLigaBiH.Models
 {
-    public class StadionDodajVM
+    public class StadionDodajUrediVM
     {
         public int ID { get; set; }
         public string Naziv { get; set; }

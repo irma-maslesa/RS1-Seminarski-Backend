@@ -1,10 +1,12 @@
-﻿@model FudbalskaLigaBiH.Models.StadionDodajVM
+﻿@model FudbalskaLigaBiH.Models.StadionDodajUrediVM
 
 @{
     ViewData["Title"] = "Dodaj";
 }
 
 <form asp-controller="Stadion" asp-action="Snimi">
+    <input readonly hidden asp-for="ID" />
+
     <label>Naziv</label>
     <input type="text" asp-for="Naziv" />
 
@@ -20,4 +22,11 @@
 
     <br/>
     <input type="submit" value="Dodaj" />
+
+    <br />
+    <br/>
 </form>
+
+<div>
+    <input type="submit" onclick="window.location='/Stadion/Prikaz'" value="Odustani"/>
+</div>

@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210109210626_DodanStadion")]
+    partial class DodanStadion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,27 +133,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Korisnik");
                 });
 
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b => 
-                {
-                    b.Property<int>("ID")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-            
-                    b.Property<DateTime>("DatumObjave")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Naslov")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sadrzaj")
-                        .HasColumnType("nvarchar(max)");
-                    
-                    b.HasKey("ID");
-                     
-                    b.ToTable("Novost");
-            });
-            
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Stadion", b =>
                 {
                     b.Property<int>("ID")

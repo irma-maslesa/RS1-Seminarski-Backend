@@ -1,0 +1,32 @@
+﻿@model FudbalskaLigaBiH.Models.StadionDodajUrediVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<form asp-controller="Stadion" asp-action="Snimi">
+    <input readonly hidden asp-for="ID" />
+
+    <label>Naziv</label>
+    <input type="text" asp-for="Naziv" />
+
+    <br />
+
+    <label>Kapacitet</label>
+    <input type="number" asp-for="Kapacitet" min="1"/>
+
+    <br/>
+
+    <label>Grad</label>
+    <select asp-for="GradID" asp-items="Model.Gradovi"></select>
+
+    <br/>
+    <input type="submit" value="Dodaj" />
+
+    <br />
+    <br/>
+</form>
+
+<div>
+    <input type="submit" onclick="window.location='/Stadion/Prikaz'" value="Odustani"/>
+</div>

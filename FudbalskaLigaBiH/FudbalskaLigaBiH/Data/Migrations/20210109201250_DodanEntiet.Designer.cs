@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210109190545_entitetmig")]
-    partial class entitetmig
+    [Migration("20210109201250_DodanEntiet")]
+    partial class DodanEntiet
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,15 +23,15 @@ namespace FudbalskaLigaBiH.Data.Migrations
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Entitet", b =>
                 {
-                    b.Property<int>("EntitetID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("NazivEntiteta")
+                    b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EntitetID");
+                    b.HasKey("ID");
 
                     b.ToTable("Entitet");
                 });

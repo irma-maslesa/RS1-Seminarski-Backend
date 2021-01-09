@@ -11,6 +11,13 @@ namespace FudbalskaLigaBiH.Controllers
 {
     public class TrenerController : Controller
     {
+        ApplicationDbContext db;
+
+        public TrenerController(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
+
         public IActionResult Dodaj()
         {
             return View();
@@ -18,8 +25,6 @@ namespace FudbalskaLigaBiH.Controllers
 
         public IActionResult Snimi(TrenerDodajVM t)
         {
-            //ApplicationDbContext dbc = new ApplicationDbContext();
-
             Trener trener = new Trener
             {
                 Ime = t.Ime,
@@ -28,6 +33,8 @@ namespace FudbalskaLigaBiH.Controllers
                 DatumRodjenja = t.DatumRodjenja
             };
 
+            db.Trener.Add(trener);
+            db.SaveChanges();
 
             return Redirect("/");
         }

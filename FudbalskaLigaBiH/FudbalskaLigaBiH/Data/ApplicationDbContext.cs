@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FudbalskaLigaBiH.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<Korisnik>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -22,5 +23,7 @@ namespace FudbalskaLigaBiH.Data
                                           Password = n?7i97Ek;
                                           MultipleActiveResultSets = True;");
         }
+
+        public DbSet<Novinar> Novinar { get; set; }
     }
 }

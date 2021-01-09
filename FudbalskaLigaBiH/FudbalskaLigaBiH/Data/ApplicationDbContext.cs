@@ -4,7 +4,6 @@ using System.Text;
 using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using FudbalskaLigaBiH.EntityModels;
 
 namespace FudbalskaLigaBiH.Data
 {

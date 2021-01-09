@@ -11,7 +11,7 @@ namespace FudbalskaLigaBiH.Controllers
 {
     public class TrenerController : Controller
     {
-        ApplicationDbContext db;
+        private ApplicationDbContext db;
 
         public TrenerController(ApplicationDbContext db)
         {

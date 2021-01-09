@@ -21,15 +21,15 @@ namespace FudbalskaLigaBiH.Data.Migrations
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Entitet", b =>
                 {
-                    b.Property<int>("EntitetID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("NazivEntiteta")
+                    b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EntitetID");
+                    b.HasKey("ID");
 
                     b.ToTable("Entitet");
                 });

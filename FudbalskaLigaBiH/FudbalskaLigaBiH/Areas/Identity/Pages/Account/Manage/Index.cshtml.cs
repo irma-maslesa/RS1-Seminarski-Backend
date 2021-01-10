@@ -22,6 +22,7 @@ namespace FudbalskaLigaBiH.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        [Display(Name = "Korisničko ime")]
 
         public string Username { get; set; }
 
@@ -89,7 +90,7 @@ namespace FudbalskaLigaBiH.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Vaš profil je ažuriran.";
             return RedirectToPage();
         }
     }

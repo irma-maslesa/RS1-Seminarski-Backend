@@ -11,8 +11,8 @@ namespace FudbalskaLigaBiH.EntityModels
         public DateTime DatumPocetka { get; set; }
         public DateTime DatumZavrsetka { get; set; }
 
-        //public int LigaID { get; set; }
-        //public Liga Liga { get; set; }
+        public int LigaID { get; set; }
+        public Liga Liga { get; set; }
 
         //public List<Utakmica> utakmice { get; set; }
     }

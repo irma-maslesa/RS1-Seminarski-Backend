@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210110215023_DodanaSezona")]
+    partial class DodanaSezona
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,21 +133,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Korisnik");
                 });
 
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Liga", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Naziv")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Liga");
-                });
-
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b =>
                 {
                     b.Property<int>("ID")
@@ -180,12 +167,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.Property<DateTime>("DatumZavrsetka")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LigaID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("LigaID");
 
                     b.ToTable("Sezona");
                 });
@@ -384,15 +366,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
                         .WithMany("Gradovi")
                         .HasForeignKey("EntitetID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Sezona", b =>
-                {
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "Liga")
-                        .WithMany("Sezona")
-                        .HasForeignKey("LigaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

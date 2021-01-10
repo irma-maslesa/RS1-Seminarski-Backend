@@ -18,6 +18,8 @@ namespace FudbalskaLigaBiH.Data
         public DbSet<Entitet> Entitet { get; set; }
         public DbSet<Grad> Grad { get; set; }
         public DbSet<Stadion> Stadion { get; set; }
+        public DbSet<Sezona> Sezona { get; set; }
+        public DbSet<Liga> Liga { get; set; }
 
         public DbSet<Novinar> Novinar { get; set; }
         public DbSet<Novost> Novost { get; set; }

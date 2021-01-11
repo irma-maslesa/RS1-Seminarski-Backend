@@ -18,6 +18,7 @@
                     <td>
                         <div class="btn-group">
                             <button class="btn btn-outline-primary col mr-1" type="button" onclick="PrikaziSezone(@l.ID)">Sezone</button>
+                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="DodajSezonu(@l.ID)">Dodaj sezonu</button>
                         </div>
                     </td>
                 </tr>
@@ -38,4 +39,13 @@
             $("#sezone").html(sadrzaj);
         });
     }
+
+    function DodajSezonu(lID) {
+        var url = "/Sezona/Dodaj?lID=" + lID;
+
+        $.get(url, function (sadrzaj) {
+            $("#sezone").html(sadrzaj);
+        });
+    }
+
 </script>

@@ -1,0 +1,48 @@
+﻿@model FudbalskaLigaBiH.Models.SezonaDodajUrediVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<form asp-controller="Sezona" asp-action="Snimi">
+    <input readonly hidden asp-for="ID" />
+
+    <label>Liga</label>
+    <select disabled asp-for="LigaID" asp-items="Model.Lige" ></select>
+    <select hidden asp-for="LigaID" asp-items="Model.Lige"></select>
+
+    <br />
+
+    <label>Datum početka</label>
+    <input id="datumPocetka" type="date" asp-for="DatumPocetka" value="@DateTime.Today.ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+
+    <br />
+
+    <label>Datum završetka</label>
+    <input id="datumZavrsetka" type="date" asp-for="DatumZavrsetka" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"/>
+
+    <br />
+
+
+    <input type="submit" value="Dodaj" />
+
+    <br />
+    <br />
+</form>
+
+<div>
+    <input type="submit" onclick="window.location='/Liga/Prikaz'" value="Odustani"/>
+</div>
+
+@*<script>
+    $(document).ready(function () {
+        $('#datumPocetka input').on('change', function () {
+            var datearray = $('#datumPocetka input').val().split("/");
+            var year = datearray[2];
+            var month = datearray[0];
+            var day = datearray[1];
+            var minDate = (month + "/" + day + "/" + year);
+            $('#datumZavrsetka input').attr('min', minDate);
+        });
+    });
+</script>*@

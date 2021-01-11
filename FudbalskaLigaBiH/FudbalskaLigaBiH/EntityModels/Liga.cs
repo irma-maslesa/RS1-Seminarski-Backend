@@ -12,6 +12,6 @@ namespace FudbalskaLigaBiH.EntityModels
 
         public List<Sezona> Sezona { get; set; }
 
-        //public List<Klub> Klubovi { get; set; }
+        public List<Klub> Klubovi { get; set; }
     }
 }

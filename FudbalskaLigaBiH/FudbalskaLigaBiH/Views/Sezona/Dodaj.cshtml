@@ -8,7 +8,7 @@
     <input readonly hidden asp-for="ID" />
 
     <label>Liga</label>
-    <select disabled asp-for="LigaID" asp-items="Model.Lige" ></select>
+    <select disabled asp-for="LigaID" asp-items="Model.Lige"></select>
     <select hidden asp-for="LigaID" asp-items="Model.Lige"></select>
 
     <br />
@@ -19,7 +19,7 @@
     <br />
 
     <label>Datum završetka</label>
-    <input id="datumZavrsetka" type="date" asp-for="DatumZavrsetka" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"/>
+    <input id="datumZavrsetka" type="date" asp-for="DatumZavrsetka" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
 
     <br />
 
@@ -31,18 +31,37 @@
 </form>
 
 <div>
-    <input type="submit" onclick="window.location='/Liga/Prikaz'" value="Odustani"/>
+    <input type="submit" onclick="window.location='/Liga/Prikaz'" value="Odustani" />
 </div>
 
 @*<script>
-    $(document).ready(function () {
-        $('#datumPocetka input').on('change', function () {
-            var datearray = $('#datumPocetka input').val().split("/");
-            var year = datearray[2];
-            var month = datearray[0];
-            var day = datearray[1];
-            var minDate = (month + "/" + day + "/" + year);
-            $('#datumZavrsetka input').attr('min', minDate);
-        });
-    });
+    const formatDate = (date) => {
+        let d = new Date(date);
+
+        let day = "" + d.getDate();
+        let month = "" + d.getMonth() + 1;
+        let year = "" + d.getFullYear();
+
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+
+        return [month, day, year].join("/");
+
+    }
+
+    $("#datumPocetak").on("change", () => {
+        let date = $("#datumPocetka").val();
+        let newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + 1);
+
+        let dateString = formatDate(newDate);
+
+        $("#datumZavrsetka").attr("min", dateString);
+        $("#datumZavrsetka").val(dateString);
+    })
 </script>*@

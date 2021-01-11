@@ -30,7 +30,9 @@ namespace FudbalskaLigaBiH.Controllers
                                                 DatumZavrsetka = s.DatumZavrsetka.ToString("dd.MM.yyyy.")
                                             }).ToList();
 
-            SezonaPrikazVM model = new SezonaPrikazVM { Sezone = sezone };
+            Liga liga = db.Liga.Find(lID);
+
+            SezonaPrikazVM model = new SezonaPrikazVM { Sezone = sezone, NazivLige = liga.Naziv };
 
             return PartialView(model);
         }
@@ -91,6 +93,16 @@ namespace FudbalskaLigaBiH.Controllers
             sezona.DatumZavrsetka = s.DatumZavrsetka;
             sezona.LigaID = s.LigaID;
 
+            db.SaveChanges();
+
+            return Redirect("/Liga/Prikaz");
+        }
+
+        public IActionResult Obrisi(int sID)
+        {
+            Sezona s = db.Sezona.Find(sID);
+
+            db.Remove(s);
             db.SaveChanges();
 
             return Redirect("/Liga/Prikaz");

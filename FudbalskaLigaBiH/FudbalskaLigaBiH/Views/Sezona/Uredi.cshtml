@@ -33,3 +33,34 @@
 <div>
     <input type="submit" onclick="window.location='/Liga/Prikaz'" value="Odustani"/>
 </div>
+@*<script>
+    const formatDate = (date) => {
+        let d = new Date(date);
+
+        let day = "" + d.getDate();
+        let month = "" + d.getMonth() + 1;
+        let year = "" + d.getFullYear();
+
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+
+        return [month, day, year].join("/");
+
+    }
+
+    $("#datumPocetak").on("change", () => {
+        let date = $("#datumPocetka").val();
+        let newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + 1);
+
+        let dateString = formatDate(newDate);
+
+        $("#datumZavrsetka").attr("min", dateString);
+        $("#datumZavrsetka").val(dateString);
+    })
+</script>*@

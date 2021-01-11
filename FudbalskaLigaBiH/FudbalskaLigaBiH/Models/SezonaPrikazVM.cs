@@ -16,5 +16,6 @@ namespace FudbalskaLigaBiH.Models
         }
 
         public List<Row> Sezone { get; set; }
+        public string NazivLige { get; set; }
     }
 }

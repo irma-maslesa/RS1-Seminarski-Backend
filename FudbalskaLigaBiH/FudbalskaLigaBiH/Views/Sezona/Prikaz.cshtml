@@ -1,5 +1,7 @@
 ﻿@model SezonaPrikazVM
 
+<h2 class="display-4">@Model.NazivLige</h2>
+
 <body>
     <table class="table table-hover">
         <thead class="thead-dark text-center">
@@ -22,8 +24,9 @@
                     <td>
                         <div class="btn-group">
                             <button class="btn btn-outline-primary col mr-1" type="button" onclick="UrediSezonu(@s.ID)">Uredi</button>
+                            <button class="btn btn-outline-danger col mr-1" type="button" onclick="window.location='/Sezona/Obrisi?sID=@s.ID'">Obriši</button>
                             @* TO DO - Implementirati prikaz detalja *@
-                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="window.location='/Sezona/Detalji?sID=@s.ID'">Prikaži detalje</button>
+                            <button class="btn btn-outline-primary col" type="button" onclick="window.location='/Sezona/Detalji?sID=@s.ID'">Prikaži detalje</button>
                         </div>
                     </td>
                 </tr>

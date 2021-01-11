@@ -1,0 +1,45 @@
+﻿@model SezonaPrikazVM
+
+<h2 class="display-4">@Model.NazivLige</h2>
+
+<body>
+    <table class="table table-hover">
+        <thead class="thead-dark text-center">
+            <tr>
+                <th>Naziv</th>
+                <th>Datum početka</th>
+                <th>Datum završetka</th>
+                <th>Opcije</th>
+            </tr>
+
+        </thead>
+
+        <tbody class="text-center">
+            @foreach (SezonaPrikazVM.Row s in Model.Sezone)
+            {
+                <tr>
+                    <td class="align-middle">@s.Naziv</td>
+                    <td class="align-middle">@s.DatumPocetka</td>
+                    <td class="align-middle">@s.DatumZavrsetka</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="UrediSezonu(@s.ID)">Uredi</button>
+                            <button class="btn btn-outline-danger col mr-1" type="button" onclick="window.location='/Sezona/Obrisi?sID=@s.ID'">Obriši</button>
+                            @* TO DO - Implementirati prikaz detalja *@
+                            <button class="btn btn-outline-primary col" type="button" onclick="window.location='/Sezona/Detalji?sID=@s.ID'">Prikaži detalje</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+<script>
+    function UrediSezonu(sID) {
+        var url = "/Sezona/Uredi?sID=" + sID;
+
+        $.get(url, function (sadrzaj) {
+            $("#sezone").html(sadrzaj);
+        });
+    }
+</script>

@@ -5,16 +5,13 @@ using System.Threading.Tasks;
 
 namespace FudbalskaLigaBiH.EntityModels
 {
-    public class Stadion
+    public class Liga
     {
         public int ID { get; set; }
         public string Naziv { get; set; }
-        public int Kapacitet { get; set; }
 
-        public int GradID { get; set; }
-        public Grad Grad { get; set; }
+        public List<Sezona> Sezona { get; set; }
 
-        public int KlubID { get; set; }
-        public Klub Klub { get; set; }
+        public List<Klub> Klubovi { get; set; }
     }
 }

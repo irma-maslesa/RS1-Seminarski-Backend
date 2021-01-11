@@ -21,7 +21,9 @@
                     <td class="align-middle">@s.DatumZavrsetka</td>
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="window.location='/Sezona/Detalji/sID=@s.ID'">Prikaži detalje</button>
+                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="UrediSezonu(@s.ID)">Uredi</button>
+                            @* TO DO - Implementirati prikaz detalja *@
+                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="window.location='/Sezona/Detalji?sID=@s.ID'">Prikaži detalje</button>
                         </div>
                     </td>
                 </tr>
@@ -29,3 +31,12 @@
         </tbody>
     </table>
 </body>
+<script>
+    function UrediSezonu(sID) {
+        var url = "/Sezona/Uredi?sID=" + sID;
+
+        $.get(url, function (sadrzaj) {
+            $("#sezone").html(sadrzaj);
+        });
+    }
+</script>

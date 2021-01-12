@@ -37,7 +37,8 @@
                                 <input class="form-control" asp-for="BrojDresa" />
                                 <select class="form-control" asp-for="GradID" asp-items="@Model.gradovi"></select>
                                 <select class="form-control" asp-for="PozicijaID" asp-items="@Model.pozicije"></select>
-                                <select class="form-control" readonly asp-for="KlubID" asp-items="@Model.klubovi"></select>
+                                @*TREBAT CE PROVJERA, SAMO AKO JE KORISNIK DA BUDE READONLY, JER ADMIN KAD DODAJE MORA MOCI ODABRATI KLUB*@
+                                <select class="form-control" asp-for="KlubID" asp-items="@Model.klubovi"></select>
                             </div>
                         </div>
 

@@ -2,6 +2,12 @@
 
 <body>
     <div class="container">
+        <form asp-action="Filter" asp-controller="Igrac">
+            <div>
+                <input style="width:30%;" type="text" placeholder="Unesite ime i/ili prezime igrača" />
+                <button class="btn btn-secondary" style="width:15%;position:relative;float:right;" type="button" onclick="window.location='/Igrac/DodajUredi'">Dodaj igrača</button>
+            </div>
+        </form><br />
         <table class="table table-hover">
             <thead>
                 <tr>

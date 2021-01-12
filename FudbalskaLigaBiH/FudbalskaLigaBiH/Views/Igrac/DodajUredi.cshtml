@@ -37,12 +37,9 @@
                                 <input class="form-control" asp-for="BrojDresa" />
                                 <select class="form-control" asp-for="GradID" asp-items="@Model.gradovi"></select>
                                 <select class="form-control" asp-for="PozicijaID" asp-items="@Model.pozicije"></select>
-                                <input class="form-control" asp-for="KlubNaziv" />
+                                <select class="form-control" readonly asp-for="KlubID" asp-items="@Model.klubovi"></select>
                             </div>
-
                         </div>
-
-
 
                     </div><br /><br />
                     <div class="opcije" style="text-align:center">

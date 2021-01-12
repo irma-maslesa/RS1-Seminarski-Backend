@@ -26,16 +26,11 @@ namespace FudbalskaLigaBiH.Controllers
             List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Select(i => new IgracPrikazVM.IgracRow
             {
                 ID = i.IgracID,
-                Ime=i.Ime,
-                Prezime=i.Prezime,
-                DatumRodjenja=i.DatumRodjenja,
-                Email=i.Email,
-                Visina=i.Visina,
-                Tezina=i.Tezina,
-                BrojDresa=i.BrojDresa,
-                Grad=i.Grad.Naziv,
-                Pozicija=i.Pozicija.NazivPozicije,
-                KlubNaziv=i.Klub.Naziv
+                Ime = i.Ime,
+                Prezime = i.Prezime,
+                BrojDresa = i.BrojDresa,
+                Pozicija = i.Pozicija.NazivPozicije,
+                KlubNaziv = i.Klub.Naziv
             }).ToList();
             prikazIgraca.ListaIgraca = lista;
             return View(prikazIgraca);
@@ -43,28 +38,7 @@ namespace FudbalskaLigaBiH.Controllers
 
         public IActionResult Detalji(int id)
         {
-            IgracPrikazVM.IgracRow JedanIgrac = _db.Igrac.Where(i => i.IgracID == id).Select(i => new IgracPrikazVM.IgracRow
-            {
-                ID = i.IgracID,
-                Ime=i.Ime,
-                Prezime=i.Prezime,
-                DatumRodjenja=i.DatumRodjenja,
-                Email=i.Email,
-                Visina=i.Visina,
-                Tezina=i.Tezina,
-                BrojDresa=i.BrojDresa,
-                Grad=i.Grad.Naziv,
-                Pozicija=i.Pozicija.NazivPozicije,
-                KlubNaziv=i.Klub.Naziv
-            }).FirstOrDefault();
-
-            return View(JedanIgrac);
-        }
-
-        public IActionResult PrikazAdmin()
-        {
-            IgracPrikazVM prikazIgraca = new IgracPrikazVM();
-            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Select(i => new IgracPrikazVM.IgracRow
+            IgracDetaljiVM JedanIgrac = _db.Igrac.Where(i => i.IgracID == id).Select(i => new IgracDetaljiVM
             {
                 ID = i.IgracID,
                 Ime = i.Ime,
@@ -76,7 +50,23 @@ namespace FudbalskaLigaBiH.Controllers
                 BrojDresa = i.BrojDresa,
                 Grad = i.Grad.Naziv,
                 Pozicija = i.Pozicija.NazivPozicije,
-                KlubNaziv=i.Klub.Naziv
+                KlubNaziv = i.Klub.Naziv
+            }).Single();
+
+            return View(JedanIgrac);
+        }
+        //prebacit ce se jedan if u Prikaz akciju kada se dodaju role, pa nece biti ponavljanje koda
+        public IActionResult PrikazAdmin()
+        {
+            IgracPrikazVM prikazIgraca = new IgracPrikazVM();
+            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Select(i => new IgracPrikazVM.IgracRow
+            {
+                ID = i.IgracID,
+                Ime = i.Ime,
+                Prezime = i.Prezime,                
+                BrojDresa = i.BrojDresa,
+                Pozicija = i.Pozicija.NazivPozicije,
+                KlubNaziv = i.Klub.Naziv
             }).ToList();
             prikazIgraca.ListaIgraca = lista;
 
@@ -88,7 +78,7 @@ namespace FudbalskaLigaBiH.Controllers
             List<SelectListItem> gradovi = _db.Grad.Select(g => new SelectListItem
             {
                 Value = g.ID.ToString(),
-                Text=g.Naziv
+                Text = g.Naziv
             }).ToList();
 
             List<SelectListItem> pozicija = _db.Pozicija.Select(g => new SelectListItem
@@ -97,8 +87,11 @@ namespace FudbalskaLigaBiH.Controllers
                 Text = g.NazivPozicije
             }).ToList();
 
-           
-
+            List<SelectListItem> klublista = _db.Klub.Select(g => new SelectListItem
+            {
+                Value = g.ID.ToString(),
+                Text = g.Naziv
+            }).ToList();
             IgracUrediVM igrac = _db.Igrac.Where(i => i.IgracID == id).Select(i => new IgracUrediVM
             {
                 ID = i.IgracID,
@@ -109,13 +102,13 @@ namespace FudbalskaLigaBiH.Controllers
                 Visina = i.Visina,
                 Tezina = i.Tezina,
                 BrojDresa = i.BrojDresa,
-                GradID=i.GradID,
-                PozicijaID=i.PozicijaID,
-                KlubNaziv=i.Klub.Naziv
+                GradID = i.GradID,
+                PozicijaID = i.PozicijaID,
+                KlubID = (int)i.KlubID
             }).Single();
-
             igrac.gradovi = gradovi;
             igrac.pozicije = pozicija;
+            igrac.klubovi = klublista;
             return View(igrac);
         }
 
@@ -135,20 +128,19 @@ namespace FudbalskaLigaBiH.Controllers
             novi.BrojDresa = x.BrojDresa;
             novi.GradID = x.GradID;
             novi.PozicijaID = x.PozicijaID;
-            //novi.Klub.Naziv = x.KlubNaziv == null ? "Nije dodijeljen" : x.KlubNaziv;
-
+            novi.KlubID = x.KlubID;
             _db.SaveChanges();
             return Redirect("/Igrac/PrikazAdmin");
         }
 
-        public IActionResult Obrisi(int id)
-        {
-            Igrac zaBrisanje = _db.Igrac.Find(id);
-            _db.Remove(zaBrisanje);
-            _db.SaveChanges();
-            return Redirect("/Igrac/PrikazAdmin");
-        }
-            
+        //public IActionResult Obrisi(int id)
+        //{
+        //    Igrac zaBrisanje = _db.Igrac.Find(id);
+        //    _db.Remove(zaBrisanje);
+        //    _db.SaveChanges();
+        //    return Redirect("/Igrac/PrikazAdmin");
+        //}
+
 
     }
 }

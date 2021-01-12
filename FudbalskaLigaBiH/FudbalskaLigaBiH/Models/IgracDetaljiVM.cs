@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace FudbalskaLigaBiH.Models
 {
-    public class IgracUrediVM
+    public class IgracDetaljiVM
     {
         public int ID { get; set; }
         public string Ime { get; set; }
@@ -16,16 +15,9 @@ namespace FudbalskaLigaBiH.Models
         public int Visina { get; set; }
         public int Tezina { get; set; }
         public int BrojDresa { get; set; }
+        public string Grad { get; set; }
+        public string Pozicija { get; set; }
+        public string KlubNaziv { get; set; }
 
-        public int GradID { get; set; }
-
-        public int PozicijaID { get; set; }
-
-        public int KlubID { get; set; }
-
-        public List<SelectListItem> gradovi { get; set; }
-        public List<SelectListItem> pozicije { get; set; }
-        public List<SelectListItem> klubovi { get; set; }
     }
 }
-

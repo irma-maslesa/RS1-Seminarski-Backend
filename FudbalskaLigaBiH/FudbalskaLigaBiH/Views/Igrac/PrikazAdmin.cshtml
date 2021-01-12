@@ -2,9 +2,10 @@
 
 <body>
     <div class="container">
-        <form asp-action="Filter" asp-controller="Igrac">
+        <form >
             <div>
-                <input style="width:30%;" type="text" placeholder="Unesite ime i/ili prezime igrača" />
+                <input type="text"  name="pretrazivac" value="@Model.pretraga" style="width:30%;" placeholder="Unesite ime i/ili prezime igrača" />
+                <button class="btn btn-secondary " style="width:10%;" type="submit">Traži</button>
                 <button class="btn btn-secondary" style="width:15%;position:relative;float:right;" type="button" onclick="window.location='/Igrac/DodajUredi'">Dodaj igrača</button>
             </div>
         </form><br />
@@ -22,7 +23,7 @@
             <tbody>
                 @foreach (IgracPrikazVM.IgracRow x in Model.ListaIgraca)
                 {
-                    <tr>
+                    <tr class="Pretraga">
                         <td>@x.Ime</td>
                         <td>@x.Prezime</td>
                         <td>@x.BrojDresa</td>
@@ -36,10 +37,27 @@
 
                 }
             </tbody>
-
         </table>
-
     </div>
     <br />
-
 </body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function Sadrzi(txt1, txt2) {
+            if (txt1.indexOf(txt2) != -1)
+                return true;
+        }
+        $('#Pretrazivac').keyup(function () {
+            var pretrazivacText = $("#Pretrazivac").val().toLocaleLowerCase();
+            $(".Pretraga").each(function () {
+                if (!Sadrzi(this).text().toLocaleLowerCase(), pretrazivacText){
+                     $(this).hide();
+                 }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>

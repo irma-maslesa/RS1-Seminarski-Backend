@@ -20,10 +20,11 @@ namespace FudbalskaLigaBiH.Controllers
             _db = db;
         }
 
-        public IActionResult Prikaz()
+        public IActionResult Prikaz(string pretrazivac)
         {
             IgracPrikazVM prikazIgraca = new IgracPrikazVM();
-            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Select(i => new IgracPrikazVM.IgracRow
+            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Where(p=> pretrazivac == null || (p.Ime+" "+p.Prezime).ToLower().StartsWith(pretrazivac) || 
+            (p.Prezime + " " + p.Ime).ToLower().StartsWith(pretrazivac)).Select(i => new IgracPrikazVM.IgracRow
             {
                 ID = i.IgracID,
                 Ime = i.Ime,
@@ -33,6 +34,7 @@ namespace FudbalskaLigaBiH.Controllers
                 KlubNaziv = i.Klub.Naziv
             }).ToList();
             prikazIgraca.ListaIgraca = lista;
+            prikazIgraca.pretraga = pretrazivac;
             return View(prikazIgraca);
         }
 
@@ -56,20 +58,21 @@ namespace FudbalskaLigaBiH.Controllers
             return View(JedanIgrac);
         }
         //prebacit ce se jedan if u Prikaz akciju kada se dodaju role, pa nece biti ponavljanje koda
-        public IActionResult PrikazAdmin()
+        public IActionResult PrikazAdmin(string pretrazivac)
         {
             IgracPrikazVM prikazIgraca = new IgracPrikazVM();
-            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Select(i => new IgracPrikazVM.IgracRow
+            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Where(p => pretrazivac == null || (p.Ime + " " + p.Prezime).ToLower().StartsWith(pretrazivac) ||
+            (p.Prezime + " " + p.Ime).ToLower().StartsWith(pretrazivac)).Select(i => new IgracPrikazVM.IgracRow
             {
                 ID = i.IgracID,
                 Ime = i.Ime,
-                Prezime = i.Prezime,                
+                Prezime = i.Prezime,
                 BrojDresa = i.BrojDresa,
                 Pozicija = i.Pozicija.NazivPozicije,
                 KlubNaziv = i.Klub.Naziv
             }).ToList();
             prikazIgraca.ListaIgraca = lista;
-
+            prikazIgraca.pretraga = pretrazivac;
             return View(prikazIgraca);
         }
 

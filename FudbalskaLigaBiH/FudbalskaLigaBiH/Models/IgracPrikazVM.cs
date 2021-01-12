@@ -19,7 +19,6 @@ namespace FudbalskaLigaBiH.Models
   
         }
         public List<IgracRow> ListaIgraca { get; set; }
-        //public List<SelectListItem> gradovi { get; set; }
-        //public List<SelectListItem> pozicije { get; set; }
+        public string pretraga { get; set; }
     }
 }

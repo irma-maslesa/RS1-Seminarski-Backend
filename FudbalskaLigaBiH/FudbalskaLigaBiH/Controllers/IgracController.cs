@@ -63,6 +63,7 @@ namespace FudbalskaLigaBiH.Controllers
             return View(prikazIgraca);
         }
 
+
         public IActionResult Detalji(int id)
         {
             IgracDetaljiVM JedanIgrac = _db.Igrac.Where(i => i.IgracID == id).Select(i => new IgracDetaljiVM

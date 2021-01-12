@@ -20,20 +20,45 @@ namespace FudbalskaLigaBiH.Controllers
             _db = db;
         }
 
-        public IActionResult Prikaz(string pretrazivac)
+
+        public IActionResult Prikaz(string pretrazivac, string klubTxt)
         {
             IgracPrikazVM prikazIgraca = new IgracPrikazVM();
-            List<IgracPrikazVM.IgracRow> lista = _db.Igrac.Where(p=> pretrazivac == null || (p.Ime+" "+p.Prezime).ToLower().StartsWith(pretrazivac) || 
-            (p.Prezime + " " + p.Ime).ToLower().StartsWith(pretrazivac)).Select(i => new IgracPrikazVM.IgracRow
+
+            List<SelectListItem> klubovi = _db.Klub.Select(g => new SelectListItem
             {
-                ID = i.IgracID,
-                Ime = i.Ime,
-                Prezime = i.Prezime,
-                BrojDresa = i.BrojDresa,
-                Pozicija = i.Pozicija.NazivPozicije,
-                KlubNaziv = i.Klub.Naziv
+                Value = g.ID.ToString(),
+                Text = g.Naziv
             }).ToList();
+
+            
+            List<IgracPrikazVM.IgracRow> lista;
+                 lista = (List<IgracPrikazVM.IgracRow>)_db.Igrac.Where(i => pretrazivac == null ||
+                 (i.Ime + " " + i.Prezime).ToLower().StartsWith(pretrazivac) || (i.Prezime + " " + i.Ime).ToLower().StartsWith(pretrazivac))
+                .Select(i => new IgracPrikazVM.IgracRow
+                {
+                    ID = i.IgracID,
+                    Ime = i.Ime,
+                    Prezime = i.Prezime,
+                    BrojDresa = i.BrojDresa,
+                    Pozicija = i.Pozicija.NazivPozicije,
+                    KlubNaziv = i.Klub.Naziv,
+                }).ToList();
+
+            if (klubTxt!=null)
+            {
+                List<IgracPrikazVM.IgracRow>listaIgracaPoKlubu=new List<IgracPrikazVM.IgracRow>();
+
+                foreach (var x in lista)
+                {
+                    if (x.KlubNaziv == klubTxt)
+                        listaIgracaPoKlubu.Add(x);
+                }
+                lista = listaIgracaPoKlubu;
+            }
             prikazIgraca.ListaIgraca = lista;
+        
+            prikazIgraca.klubovi = klubovi;
             prikazIgraca.pretraga = pretrazivac;
             return View(prikazIgraca);
         }
@@ -95,6 +120,7 @@ namespace FudbalskaLigaBiH.Controllers
                 Value = g.ID.ToString(),
                 Text = g.Naziv
             }).ToList();
+
             IgracUrediVM igrac;
             if (id == 0)
                 igrac = new IgracUrediVM();

@@ -63,7 +63,7 @@ namespace FudbalskaLigaBiH
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Igrac}/{action=Prikaz}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

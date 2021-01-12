@@ -51,23 +51,3 @@
     </div>
     <br />
 </body>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        function Sadrzi(txt1, txt2) {
-            if (txt1.indexOf(txt2) != -1)
-                return true;
-        }
-        $('#Pretrazivac').keyup(function () {
-            var pretrazivacText = $("#Pretrazivac").val().toLocaleLowerCase();
-            $(".Pretraga").each(function () {
-                if (!Sadrzi(this).text().toLocaleLowerCase(), pretrazivacText){
-                     $(this).hide();
-                 }
-                else {
-                    $(this).show();
-                }
-            });
-        });
-    });
-</script>

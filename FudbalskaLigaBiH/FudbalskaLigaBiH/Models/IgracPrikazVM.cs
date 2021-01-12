@@ -19,6 +19,8 @@ namespace FudbalskaLigaBiH.Models
   
         }
         public List<IgracRow> ListaIgraca { get; set; }
+        public int KlubID { get; set; }
+        public List<SelectListItem> klubovi { get; set; }
         public string pretraga { get; set; }
     }
 }

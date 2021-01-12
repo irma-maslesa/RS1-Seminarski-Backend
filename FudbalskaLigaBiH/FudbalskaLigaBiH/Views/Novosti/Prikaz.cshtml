@@ -15,18 +15,18 @@
         </div>
         <div class="okvir-vijesti">
             @foreach (NovostiDetaljiVM.NovostiRed vijest in Model.novosti)
-        {
-            <a style="color:black;" href="/Novosti/Detalji?NovostiID=@vijest.IDnovosti">
-                <div class="vijest">
-                    <div class="slika-vijesti"><img href="" alt="Slika-Vijest1" /></div>
-                    <div class="clanak">
-                        <h6>@vijest.NaslovNovosti</h6><br />
-                        <span style="font-size:smaller;">@(@vijest.SadrzajNovosti!=null?vijest.SadrzajNovosti.Substring(0,vijest.SadrzajNovosti.Length>=90?90:vijest.SadrzajNovosti.Length):null)...</span>
-                        <span style="font-size:small; position:absolute; float:right; bottom:5px; right:5px;margin:0;">@vijest.DatumObjaveNovosti</span>
+            {
+                <a style="color:black;" href="/Novosti/Detalji?NovostiID=@vijest.IDnovosti">
+                    <div class="vijest">
+                        <div class="slika-vijesti"><img href="" alt="Slika-Vijest1" /></div>
+                        <div class="clanak">
+                            <h6>@vijest.NaslovNovosti</h6><br />
+                            <span style="font-size:smaller;">@(@vijest.SadrzajNovosti!=null?vijest.SadrzajNovosti.Substring(0,vijest.SadrzajNovosti.Length>=90?90:vijest.SadrzajNovosti.Length):null)...</span>
+                            <span style="font-size:small; position:absolute; float:right; bottom:5px; right:5px;margin:0;">@vijest.DatumObjaveNovosti</span>
+                        </div>
                     </div>
-                </div>
-            </a><br />
-        }
+                </a><br />
+            }
         </div>
     </div>
 </body>

@@ -1,11 +1,21 @@
 ﻿@model IgracPrikazVM
 
 <body>
+    <div class="btn-group" style="position:relative;top:35px">
+        <button class="btn btn-secondary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
+        <div class="dropdown-menu">
+            @foreach (var x in Model.klubovi)
+            {
+                <a class="dropdown-item" href="/Igrac/PrikazAdmin?klubTxt=@x.Text">@x.Text</a>
+            }
+        </div>
+    </div>
     <div class="container">
-        <form >
+        <form>
             <div>
-                <input type="text"  name="pretrazivac" value="@Model.pretraga" style="width:30%;" placeholder="Unesite ime i/ili prezime igrača" />
+                <input type="text" name="pretrazivac" value="@Model.pretraga" style="width:30%;" placeholder="Unesite ime i/ili prezime igrača" />
                 <button class="btn btn-secondary " style="width:10%;" type="submit">Traži</button>
+                <button class="btn btn-secondary" style="width:10%;" type="button" onclick="window.location='/Igrac/PrikazAdmin'">Reset</button>
                 <button class="btn btn-secondary" style="width:15%;position:relative;float:right;" type="button" onclick="window.location='/Igrac/DodajUredi'">Dodaj igrača</button>
             </div>
         </form><br />

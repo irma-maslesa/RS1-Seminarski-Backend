@@ -1,0 +1,66 @@
+﻿@model FudbalskaLigaBiH.Models.KlubDodajUrediVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<form asp-controller="Klub" asp-action="Snimi">
+    <input readonly hidden asp-for="ID" />
+
+    <label>Naziv</label>
+    <input type="text" asp-for="Naziv" />
+    <br />
+    <label>Mail</label>
+    <input type="email" asp-for="Mail" />
+    <br />
+    <label>Adresa</label>
+    <input type="text" asp-for="Adresa" />
+
+    <br />
+
+    <label>Trener</label>
+    <select asp-for="TrenerID" asp-items="Model.Treneri">
+        @if (Model.TrenerID == null)
+        {
+            <option value="0">Izaberi trenera</option>
+        }
+    </select>
+    <button type="button" class="ml-3" onclick="DodajTrenera()">Dodaj trenera</button>
+    <br />
+    <label>Stadion</label>
+    <select asp-for="StadionID" asp-items="Model.Stadioni"> </select>
+    @*<button type="button" class="ml-3" onclick="DodajStadion()">Dodaj stadion</button>*@
+    <br />
+    <label>Liga</label>
+    <select asp-for="LigaID" asp-items="Model.Lige"></select>
+    <br />
+    <input type="submit" value="Dodaj" />
+
+    <br />
+    <br />
+</form>
+
+<div>
+    <input type="submit" onclick="window.location='/Klub/Prikaz'" value="Odustani" />
+</div>
+
+
+<br />
+
+<div id="dodaj"></div>
+
+<script>
+    function DodajTrenera() {
+        var url = "/Trener/Dodaj";
+        $.get(url, function (sadrzaj) {
+            $('#dodaj').html(sadrzaj);
+        });
+    }
+
+    //function DodajStadion() {
+    //    var url = "/Stadion/DodajUredi?sID=0";
+    //    $.get(url, function (sadrzaj) {
+    //        $('#dodaj').html(sadrzaj);
+    //    });
+    //}
+</script>

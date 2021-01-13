@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210113221811_PopravljenaRelacijaKlubStadion2")]
+    partial class PopravljenaRelacijaKlubStadion2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,54 +54,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasIndex("EntitetID");
 
                     b.ToTable("Grad");
-                });
-
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Igrac", b =>
-                {
-                    b.Property<int>("IgracID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrojDresa")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DatumRodjenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GradID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("KlubID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PozicijaID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Tezina")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Visina")
-                        .HasColumnType("int");
-
-                    b.HasKey("IgracID");
-
-                    b.HasIndex("GradID");
-
-                    b.HasIndex("KlubID");
-
-                    b.HasIndex("PozicijaID");
-
-                    b.ToTable("Igrac");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Klub", b =>
@@ -252,21 +206,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Novost");
-                });
-
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Pozicija", b =>
-                {
-                    b.Property<int>("PozicijaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("NazivPozicije")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PozicijaID");
-
-                    b.ToTable("Pozicija");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Sezona", b =>
@@ -486,25 +425,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
                         .WithMany("Gradovi")
                         .HasForeignKey("EntitetID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Igrac", b =>
-                {
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
-                        .WithMany()
-                        .HasForeignKey("GradID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "Klub")
-                        .WithMany()
-                        .HasForeignKey("KlubID");
-
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Pozicija", "Pozicija")
-                        .WithMany()
-                        .HasForeignKey("PozicijaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

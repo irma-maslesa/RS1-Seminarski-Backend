@@ -20,7 +20,7 @@ namespace FudbalskaLigaBiH.Controllers
 
         public IActionResult Dodaj()
         {
-            return View();
+            return PartialView();
         }
 
         public IActionResult Snimi(TrenerDodajVM t)
@@ -36,7 +36,7 @@ namespace FudbalskaLigaBiH.Controllers
             db.Trener.Add(trener);
             db.SaveChanges();
 
-            return Redirect("/");
+            return Redirect("/Klub/Prikaz");
         }
     }
 }

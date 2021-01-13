@@ -75,7 +75,7 @@ namespace FudbalskaLigaBiH.Controllers
                                                }).Single();
             model.Gradovi = gradovi;
 
-            return View(model);
+            return PartialView(model);
         }
 
         public IActionResult Snimi(StadionDodajUrediVM s)

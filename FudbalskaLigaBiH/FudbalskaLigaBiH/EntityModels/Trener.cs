@@ -13,7 +13,6 @@ namespace FudbalskaLigaBiH.EntityModels
         public string Mail { get; set; }
         public DateTime DatumRodjenja { get; set; }
 
-        public int? KlubID { get; set; }
         public Klub Klub { get; set; }
     }
 }

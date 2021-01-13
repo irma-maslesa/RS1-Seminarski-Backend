@@ -8,7 +8,7 @@
                 <div class="input-group-append">
                     <input class="btn btn-outline-secondary rounded" type="submit" value="Pretraži" />
                 </div>
-                <button class="btn btn-outline-secondary col-6 ml-2 mr-2" type="button" onclick="window.location='/Stadion/DodajUredi'">Dodaj stadion</button>
+                <button class="btn btn-outline-secondary col-6 ml-2 mr-2" type="button" onclick="DodajStadion(0)">Dodaj stadion</button>
             </div>
         </div>
     </form>
@@ -34,7 +34,7 @@
                     <td class="align-middle">@s.Grad</td>
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="window.location='/Stadion/DodajUredi?sID=@s.ID'">Uredi</button>
+                            <button class="btn btn-outline-primary col mr-1" type="button" onclick="DodajStadion(@s.ID)">Uredi</button>
                             <button class="btn btn-outline-danger col" type="button" onclick="window.location='/Stadion/Obrisi?sID=@s.ID'">Obriši</button>
                         </div>
                     </td>
@@ -42,4 +42,17 @@
             }
         </tbody>
     </table>
+
+    <br />
+    <div id="dodaj"></div>
 </body>
+
+<script>
+    function DodajStadion(sID) {
+        var url = "/Stadion/DodajUredi?sID=" + sID;
+
+        $.get(url, function (sadrzaj) {
+            $("#dodaj").html(sadrzaj);
+        });
+    }
+</script>

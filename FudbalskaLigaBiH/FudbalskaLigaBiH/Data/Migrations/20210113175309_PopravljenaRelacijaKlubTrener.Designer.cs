@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210113175309_PopravljenaRelacijaKlubTrener")]
+    partial class PopravljenaRelacijaKlubTrener
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,9 +84,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("LigaID");
-
-                    b.HasIndex("StadionID")
-                        .IsUnique();
 
                     b.HasIndex("TrenerID")
                         .IsUnique()
@@ -242,12 +241,19 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.Property<int>("Kapacitet")
                         .HasColumnType("int");
 
+                    b.Property<int?>("KlubID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("GradID");
+
+                    b.HasIndex("KlubID")
+                        .IsUnique()
+                        .HasFilter("[KlubID] IS NOT NULL");
 
                     b.ToTable("Stadion");
                 });
@@ -435,12 +441,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Stadion", "Stadion")
-                        .WithOne("Klub")
-                        .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "StadionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Trener", "Trener")
                         .WithOne("Klub")
                         .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "TrenerID");
@@ -462,6 +462,10 @@ namespace FudbalskaLigaBiH.Data.Migrations
                         .HasForeignKey("GradID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "Klub")
+                        .WithOne("Stadion")
+                        .HasForeignKey("FudbalskaLigaBiH.EntityModels.Stadion", "KlubID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

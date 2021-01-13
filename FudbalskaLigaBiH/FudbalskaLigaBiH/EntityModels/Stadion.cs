@@ -14,7 +14,6 @@ namespace FudbalskaLigaBiH.EntityModels
         public int GradID { get; set; }
         public Grad Grad { get; set; }
 
-        public int? KlubID { get; set; }
         public Klub Klub { get; set; }
     }
 }

@@ -26,15 +26,15 @@ namespace FudbalskaLigaBiH.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Klub>()
-                .HasOne<Trener>(k => k.Trener)
-                .WithOne(t => t.Klub)
-                .HasForeignKey<Trener>(t => t.KlubID);
+            //modelBuilder.Entity<Klub>()
+            //    .HasOne<Trener>(k => k.Trener)
+            //    .WithOne(t => t.Klub)
+            //    .HasForeignKey<Trener>(t => t.KlubID);
 
-            modelBuilder.Entity<Klub>()
-                .HasOne<Stadion>(k => k.Stadion)
-                .WithOne(s => s.Klub)
-                .HasForeignKey<Stadion>(s => s.KlubID);
+            //modelBuilder.Entity<Klub>()
+            //    .HasOne<Stadion>(k => k.Stadion)
+            //    .WithOne(s => s.Klub)
+            //    .HasForeignKey<Stadion>(s => s.KlubID);
 
         }
 

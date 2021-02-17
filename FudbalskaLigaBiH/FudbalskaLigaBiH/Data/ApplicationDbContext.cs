@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -25,6 +26,12 @@ namespace FudbalskaLigaBiH.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //promjena kaskadnog brisanja
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
             //modelBuilder.Entity<Klub>()
             //    .HasOne<Trener>(k => k.Trener)

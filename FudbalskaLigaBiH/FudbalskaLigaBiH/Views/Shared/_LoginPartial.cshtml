@@ -12,7 +12,11 @@
             </a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <a class="nav-link text-dark" asp-action="ChangePassword" asp-controller="Account">LOZINKA</a>
+
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-action="Logout" asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">ODJAVA</button>
             </form>
         </li>
@@ -20,10 +24,10 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">REGISTRUJ SE</a>
+            <a class="nav-link text-dark" asp-action="Register" asp-controller="Account">REGISTRUJ SE</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">PRIJAVI SE</a>
+            <a class="nav-link text-dark" asp-action="Login" asp-controller="Account">PRIJAVI SE</a>
         </li>
     }
 </ul>

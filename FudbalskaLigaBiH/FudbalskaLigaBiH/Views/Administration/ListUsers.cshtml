@@ -1,0 +1,64 @@
+﻿@using FudbalskaLigaBiH.EntityModels
+@using Microsoft.AspNetCore.Authorization
+
+@model IEnumerable<Korisnik>
+
+
+
+@{ 
+    ViewBag.Title = "All Users";
+}
+
+<body>
+    <div class="container">
+        <br />
+        <h2>Svi korisnici</h2>
+        @if (Model.Any())
+        {
+            <a class="btn btn-primary mb-3" asp-controller="Account" asp-action="Register">
+                Kreiraj novog korisnika
+            </a> 
+            foreach (var user in Model)
+            {
+                if (@user.Ime != "SuperAdmin")
+                {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Korisnik ID: @user.Id
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@user.Ime @user.Prezime | @user.Email</h5>
+                    </div>
+                    <div class="card-footer">
+                        <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                            <a class="btn btn-primary" asp-action="EditUser"
+                               asp-controller="Administration"
+                               asp-route-id="@user.Id">Uredi</a>
+                            <button type="submit" class="btn btn-danger"
+                             onclick="return confirm('Da li ste sigurni da želite obrisati : @user.UserName?')">Obriši</button>
+
+                        </form>
+                    </div>
+                </div>
+                }
+            }
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-header">
+                    No users have been created yet.
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Klikni na dugme ispod za kreiranje korisnika:
+                    </h5>
+                    <a class="btn btn-primary" asp-controller="Account" asp-action="Register">
+                        Kreiraj novog korisnika
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+

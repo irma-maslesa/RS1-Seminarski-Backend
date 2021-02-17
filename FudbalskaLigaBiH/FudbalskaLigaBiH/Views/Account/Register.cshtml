@@ -1,0 +1,59 @@
+﻿@using FudbalskaLigaBiH.Models
+
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<br />
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <h4>Kreiraj novi račun</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FirstName"></label>
+                        <input id="FirstName" name="FirstName" asp-for="FirstName" class="form-control" type="text"
+                               data-val="true" data-val-required="Ime polje je obavezno." />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName"></label>
+                        <input id="LastName" name="LastName" asp-for="LastName" class="form-control" type="text"
+                               data-val="true" data-val-required="Prezime polje je obavezno." />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input id="Email" name="Email" asp-for="Email" class="form-control" type="email"
+                               data-val="true" data-val-required="Email polje je obavezno." />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input id="Password" name="Password" asp-for="Password" class="form-control" type="password"
+                               data-val="true" data-val-required="Lozinka polje je obavezno." />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input id="ConfirmPassword" name="ConfirmPassword" asp-for="ConfirmPassword" class="form-control" type="password"
+                               data-val="true" data-val-required="Potvrda lozinke polje je obavezno." />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registruj se</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

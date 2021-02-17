@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210213152118_identity")]
+    partial class identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -482,7 +484,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
                         .WithMany("Gradovi")
                         .HasForeignKey("EntitetID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -491,18 +493,17 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "Klub")
                         .WithMany()
-                        .HasForeignKey("KlubID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("KlubID");
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Pozicija", "Pozicija")
                         .WithMany()
                         .HasForeignKey("PozicijaID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -511,19 +512,18 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "Liga")
                         .WithMany("Klubovi")
                         .HasForeignKey("LigaID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Stadion", "Stadion")
                         .WithOne("Klub")
                         .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "StadionID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Trener", "Trener")
                         .WithOne("Klub")
-                        .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "TrenerID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "TrenerID");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Sezona", b =>
@@ -531,7 +531,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "Liga")
                         .WithMany("Sezona")
                         .HasForeignKey("LigaID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -540,7 +540,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -549,7 +549,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -558,7 +558,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -567,7 +567,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -576,13 +576,13 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -591,7 +591,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

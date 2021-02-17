@@ -1,0 +1,53 @@
+﻿@using FudbalskaLigaBiH.Models
+
+@model LoginViewModel
+
+@{ ViewData["Title"] = "Register"; }
+
+<br />
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <section>
+                        <h4>Prijavi se na profil</h4>
+                    <hr />
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input id="Email" name="Email" asp-for="Email" class="form-control" type="email" 
+                                   data-val="true" data-val-required="Email polje je obavezno."/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Lozinka</label>
+                            <input id="Password" name="Password" asp-for="Password" class="form-control"
+                                   type="password" data-val="true" data-val-required="Lozinka polje je obavezno." />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input asp-for="RememberMe" />
+                                <label>Zapamti me</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Prijava</button>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <a asp-action="ForgotPassword">Zaboravljena lozinka?</a>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <a asp-action="Register">Registruj se kao novi korisnik</a>
+                            </p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>

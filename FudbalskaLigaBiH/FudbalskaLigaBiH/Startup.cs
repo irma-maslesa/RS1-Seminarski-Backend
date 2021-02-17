@@ -13,6 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FudbalskaLigaBiH.EntityModels;
+using Microsoft.AspNetCore.Http;
+using FudbalskaLigaBiH.Interfaces;
+using FudbalskaLigaBiH.DTOs;
 
 namespace FudbalskaLigaBiH
 {
@@ -31,10 +34,20 @@ namespace FudbalskaLigaBiH
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<Korisnik>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<Korisnik, IdentityRole>(
+                options=> 
+                {
+                    options.SignIn.RequireConfirmedEmail = true;
+                }).AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSingleton<IEmail, MailJet>();
+            services.Configure<EmailOptionsDTO>(Configuration.GetSection("MailJet"));
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

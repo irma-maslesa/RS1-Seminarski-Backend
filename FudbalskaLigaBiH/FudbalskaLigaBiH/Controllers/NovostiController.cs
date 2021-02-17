@@ -7,6 +7,7 @@ using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -21,7 +22,7 @@ namespace FudbalskaLigaBiH.Controllers
             _db = db;
             _userManager = userManager;
         }
-
+        [Authorize]
         public IActionResult Prikaz(string filter)
         {
             List<NovostiDetaljiVM.NovostiRed> lista_novosti;
@@ -51,7 +52,7 @@ namespace FudbalskaLigaBiH.Controllers
             NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
             VMnovosti.novosti = lista_novosti;
 
-            if (_userManager.GetUserAsync(User).Result is Novinar)
+            if (User.IsInRole("Novinar"))
                 return View("PrikazNovinar", VMnovosti);
 
             return View(VMnovosti);

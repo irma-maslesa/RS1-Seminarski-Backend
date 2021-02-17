@@ -38,27 +38,27 @@ namespace FudbalskaLigaBiH.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public string DodajNovinara(string ime, string prezime)
-        {
-            var email = ime + "." + prezime + "@sport.ba";
-            var noviKorisnik = new Novinar
-            {
-                Ime = ime,
-                Prezime = prezime,
-                Email = email,
-                UserName = email,
-                EmailConfirmed = true
+        //public string DodajNovinara(string ime, string prezime)
+        //{
+        //    var email = ime + "." + prezime + "@sport.ba";
+        //    var noviKorisnik = new Novinar
+        //    {
+        //        Ime = ime,
+        //        Prezime = prezime,
+        //        Email = email,
+        //        UserName = email,
+        //        EmailConfirmed = true
                
-            };
-            IdentityResult rezultat = _userManager.CreateAsync(noviKorisnik, "Mostar2020!").Result;
+        //    };
+        //    IdentityResult rezultat = _userManager.CreateAsync(noviKorisnik, "Mostar2020!").Result;
 
-            if (!rezultat.Succeeded)
-            {
-                return "Errors: " + string.Join('|', rezultat.Errors);
-            }
+        //    if (!rezultat.Succeeded)
+        //    {
+        //        return "Errors: " + string.Join('|', rezultat.Errors);
+        //    }
 
-            return "Novinar je uspjesno dodan";
-        }
+        //    return "Novinar je uspjesno dodan";
+        //}
 
     }
 }

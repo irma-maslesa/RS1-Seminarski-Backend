@@ -3,53 +3,71 @@
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
 
-@*SVE STO JE OVDJE KOMENTARISANO NE DIRAJ, SJEST CE NA SVOJE !!!! haha*@
 
-@{
-    Korisnik trenutniUser = UserManager.GetUserAsync(User).Result;
-    //IgraciPrikazVM listaigraca = Model;
-}
-@*@model IgraciPrikazVM*@
-@if (trenutniUser is Novinar)
+@*Za provjeru po rolama=> signInManager.IsSignedIn(User)&& User.IsInRole("Admin")*@
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Novosti" asp-action="Prikaz">PODEŠAVANJA</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Novosti" asp-action="DodajUredi">DODAJ NOVOST</a>
-    </li>
-}
-@*else if (trenutniUser is UtakmiceAdmin)
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="PrikazIgraca">PODEŠAVANJA</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="#">DODAJ IGRAČA</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="#">DODAJ TRANSFER</a>
-    </li>
-    <li>
-        <form class="form-inline my-2 my-lg-0" style="padding-left:80px;">
-            <input class="form-control mr-sm-2" type="text" placeholder="Traži.." aria-label="Search" name="pretraga" value="@Model.pretraga">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Traži</button>
-        </form>
-    </li>
-}*@
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
-    </li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            TAKMIČENJA
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            UPRAVLJANJE
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/Utakmice/Prikaz">Premijer Liga BiH</a>
-            <a class="dropdown-item" href="#">Federalna liga</a>
-            <a class="dropdown-item" href="#">Liga RS</a>
+            <a asp-action="ListUsers" asp-controller="Administration" class="dropdown-item">Korisnici</a>
+            <a asp-action="ListRoles" asp-controller="Administration" class="dropdown-item">Uloge</a>
         </div>
     </li>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Novinar"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">PODEŠAVANJA</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Novosti" asp-action="DodajUredi">DODAJ NOVOST</a>
+    </li>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Igraca"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Igrac" asp-action="PrikazAdmin">PODEŠAVANJA</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Igrac" asp-action="DodajUredi">DODAJ IGRAČA</a>
+    </li>
+}
+
+@*else if (trenutniUser is UtakmiceAdmin)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="PrikazIgraca">PODEŠAVANJA</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="#">DODAJ IGRAČA</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="#">DODAJ TRANSFER</a>
+        </li>
+        <li>
+            <form class="form-inline my-2 my-lg-0" style="padding-left:80px;">
+                <input class="form-control mr-sm-2" type="text" placeholder="Traži.." aria-label="Search" name="pretraga" value="@Model.pretraga">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Traži</button>
+            </form>
+        </li>
+    }*@
+else
+{
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        TAKMIČENJA
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="/Utakmice/Prikaz">Premijer Liga BiH</a>
+        <a class="dropdown-item" href="#">Federalna liga</a>
+        <a class="dropdown-item" href="#">Liga RS</a>
+    </div>
+</li>
 }

@@ -58,7 +58,7 @@ else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Igraca")
 else
 {
 <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
+    <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
 </li>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,5 +69,8 @@ else
         <a class="dropdown-item" href="#">Federalna liga</a>
         <a class="dropdown-item" href="#">Liga RS</a>
     </div>
+</li>
+<li>
+    <a class="nav-link text-dark" href="#">OMILJENJE UTAKMICE</a>
 </li>
 }

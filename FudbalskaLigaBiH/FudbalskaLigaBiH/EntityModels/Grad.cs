@@ -13,6 +13,6 @@ namespace FudbalskaLigaBiH.EntityModels
         public int EntitetID { get; set; }
         public Entitet Entitet { get; set; }
 
-        //public List<Igrac> Igraci { get; set; }
+        public List<Igrac> Igraci { get; set; }
     }
 }

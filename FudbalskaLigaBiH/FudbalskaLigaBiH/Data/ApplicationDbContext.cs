@@ -45,9 +45,10 @@ namespace FudbalskaLigaBiH.Data
 
         }
 
-        public DbSet<Novinar> Novinar { get; set; }
         public DbSet<Novost> Novost { get; set; }
         public DbSet<Pozicija> Pozicija { get; set; }
         public DbSet<Igrac> Igrac { get; set; }
+        public DbSet<Utakmica> Utakmica { get; set; }
+        public DbSet<KorisnikUtakmica> KorisnikUtakmica { get; set; }
     }
 }

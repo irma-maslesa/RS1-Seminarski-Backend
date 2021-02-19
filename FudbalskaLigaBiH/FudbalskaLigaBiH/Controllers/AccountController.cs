@@ -27,9 +27,11 @@ namespace FudbalskaLigaBiH.Controllers
         private readonly ILogger<AccountController> logger;
         private readonly IOptions<EmailOptionsDTO> emailOptions;
         private readonly IEmail _email;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public AccountController(UserManager<Korisnik> userManager,SignInManager<Korisnik> signInManager,
-            ApplicationDbContext context,ILogger<AccountController>logger, IOptions<EmailOptionsDTO> emailOptions, IEmail email)
+            ApplicationDbContext context,ILogger<AccountController>logger, IOptions<EmailOptionsDTO> emailOptions, IEmail email,
+            RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -37,6 +39,7 @@ namespace FudbalskaLigaBiH.Controllers
             this.logger = logger;
             this.emailOptions = emailOptions;
             _email = email;
+            this.roleManager = roleManager;
         }
 
         [AllowAnonymous]
@@ -202,13 +205,6 @@ namespace FudbalskaLigaBiH.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
         //akcija koja se poziva nakon sto se potvrdi Email
         [AllowAnonymous]
         [HttpGet]
@@ -241,6 +237,14 @@ namespace FudbalskaLigaBiH.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -255,6 +259,14 @@ namespace FudbalskaLigaBiH.Controllers
                     PhoneNumber = model.PhoneNumber
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
+
+                var ManageRole = await userManager.AddToRolesAsync(user, roleManager.Roles.Where(x => x.Name=="GostKorisnik").Select(y => y.Name));
+
+                if (!ManageRole.Succeeded)
+                {
+                    ModelState.AddModelError(string.Empty, "Nije moguće dodijeliti korisniku odabranu ulogu.");
+                    return View(model);
+                }
 
                 if (result.Succeeded)
                 {
@@ -271,7 +283,11 @@ namespace FudbalskaLigaBiH.Controllers
 
                     if (signInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
                     {
-                        return RedirectToAction("ListUsers", "Administration");
+                        ViewBag.Title = "Potvrdite Email";
+                        return View("EmailConfirmationNeeded", confirmationLink);
+
+                        //return RedirectToAction("ListUsers", "Administration");
+
                     }
 
                     ViewBag.Title = "Potvrdite Vaš Email";
@@ -304,6 +320,47 @@ namespace FudbalskaLigaBiH.Controllers
                 return Json($"Email {email} je već u upotrebi.");
             }
         }
-       
+
+        [TempData]
+        public string StatusMessage { get; set; }
+
+        [HttpGet]
+        public async Task<IActionResult> ProfileAsync()
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Korisnik nije pronađen.");
+            }
+
+            ProfileViewModel model = new ProfileViewModel();
+
+            model.UserID = user.Id;
+            model.FirstName = user.Ime;
+            model.LastName = user.Prezime;
+            model.PhoneNumber = user.PhoneNumber;
+            model.Email = user.Email;
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Korisnik nije pronađen.");
+            }
+
+          
+            user.Ime = model.FirstName;
+            user.Prezime = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+           
+            _context.SaveChanges();
+
+            StatusMessage = "Vaš profil je ažuriran";
+            return Redirect("/Account/Profile");
+        }
     }
 }

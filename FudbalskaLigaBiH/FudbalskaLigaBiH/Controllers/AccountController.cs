@@ -260,14 +260,17 @@ namespace FudbalskaLigaBiH.Controllers
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
 
-                var ManageRole = await userManager.AddToRolesAsync(user, roleManager.Roles.Where(x => x.Name=="GostKorisnik").Select(y => y.Name));
-
-                if (!ManageRole.Succeeded)
+                if (signInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
                 {
-                    ModelState.AddModelError(string.Empty, "Nije moguće dodijeliti korisniku odabranu ulogu.");
-                    return View(model);
-                }
+                    var ManageRole = await userManager.AddToRolesAsync(user, roleManager.Roles.Where(x => x.Name == "GostKorisnik").Select(y => y.Name));
+                
 
+                    if (!ManageRole.Succeeded)
+                    {
+                        ModelState.AddModelError(string.Empty, "Nije moguće dodijeliti korisniku odabranu ulogu.");
+                        return View(model);
+                    }
+                }
                 if (result.Succeeded)
                 {
                     //kreiranje tokena

@@ -22,7 +22,6 @@ namespace FudbalskaLigaBiH.Controllers
             _db = db;
             _userManager = userManager;
         }
-        [Authorize]
         public IActionResult Prikaz(string filter)
         {
             List<NovostiDetaljiVM.NovostiRed> lista_novosti;

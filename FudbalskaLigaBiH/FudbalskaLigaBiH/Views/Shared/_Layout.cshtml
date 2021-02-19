@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using FudbalskaLigaBiH.Data
+@{ 
+    ApplicationDbContext db;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,8 +31,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">POČETNA</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                TAKMIČENJA
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/Utakmica/Prikaz">Premijer Liga BiH</a>
+                                <a class="dropdown-item" href="#">Federalna liga</a>
+                                <a class="dropdown-item" href="#">Liga RS</a>
+                            </div>
+                        </li>
                         <partial name="_UlogePartial" />
-                       
+
 
                     </ul>
                 </div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210219233900_mig")]
-    partial class mig
+    [Migration("20210220001942_proba2")]
+    partial class proba2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

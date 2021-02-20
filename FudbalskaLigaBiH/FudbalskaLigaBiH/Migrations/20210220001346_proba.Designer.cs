@@ -4,14 +4,16 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210220001346_proba")]
+    partial class proba
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,17 +221,7 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("KorisnikId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("UtakmicaID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("KorisnikId");
-
-                    b.HasIndex("UtakmicaID");
 
                     b.ToTable("KorisnikUtakmica");
                 });
@@ -370,7 +362,7 @@ namespace FudbalskaLigaBiH.Migrations
                     b.Property<DateTime>("DatumOdrzavanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsOmiljena")
+                    b.Property<bool>("IsOmiljena")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsProduzeci")
@@ -378,12 +370,6 @@ namespace FudbalskaLigaBiH.Migrations
 
                     b.Property<bool>("IsZavrsena")
                         .HasColumnType("bit");
-
-                    b.Property<int>("KlubDomacinID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KlubGostID")
-                        .HasColumnType("int");
 
                     b.Property<int>("MinutaIgre")
                         .HasColumnType("int");
@@ -395,10 +381,6 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("UtakmicaID");
-
-                    b.HasIndex("KlubDomacinID");
-
-                    b.HasIndex("KlubGostID");
 
                     b.ToTable("Utakmica");
                 });
@@ -583,20 +565,6 @@ namespace FudbalskaLigaBiH.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.KorisnikUtakmica", b =>
-                {
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", "Korisnik")
-                        .WithMany()
-                        .HasForeignKey("KorisnikId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Utakmica", "Utakmica")
-                        .WithMany()
-                        .HasForeignKey("UtakmicaID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b =>
                 {
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", "Korisnik")
@@ -619,21 +587,6 @@ namespace FudbalskaLigaBiH.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Utakmica", b =>
-                {
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "KlubDomacin")
-                        .WithMany()
-                        .HasForeignKey("KlubDomacinID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "KlubGost")
-                        .WithMany()
-                        .HasForeignKey("KlubGostID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

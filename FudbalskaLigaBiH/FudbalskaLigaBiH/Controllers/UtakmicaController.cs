@@ -26,25 +26,26 @@ namespace FudbalskaLigaBiH.Controllers
 
         public IActionResult Prikaz()
         {
-            //UtakmicaPrikazVM model = new UtakmicaPrikazVM();
+            UtakmicaPrikazVM model = new UtakmicaPrikazVM();
 
-            //List<UtakmicaPrikazVM.Row> listaUtakm = db.Utakmica.Select(u => new UtakmicaPrikazVM.Row
-            //{
-            //    UtakmicaID=u.UtakmicaID,
-            //    KlubDomacin=u.KlubDomacin.Naziv,
-            //    KlubGost=u.KlubGost.Naziv,
-            //    RezultatDomacin=u.RezultatDomacin,
-            //    RezultatGost=u.RezultatGost,
-            //    IsZavrsena=u.IsZavrsena,
-            //    IsProduzeci=u.IsProduzeci,
-            //    MinutaIgre=u.MinutaIgre,
-            //    IsOmiljena=u.IsOmiljena
-            //}).ToList();
+            List<UtakmicaPrikazVM.Row> listaUtakm = db.Utakmica.Select(u => new UtakmicaPrikazVM.Row
+            {
+                UtakmicaID = u.UtakmicaID,
+                KlubDomacin = u.KlubDomacin.Naziv,
+                KlubGost = u.KlubGost.Naziv,
+                RezultatDomacin = u.RezultatDomacin,
+                RezultatGost = u.RezultatGost,
+                IsZavrsena = u.IsZavrsena,
+                IsProduzeci = u.IsProduzeci,
+                MinutaIgre = u.MinutaIgre,
+                IsOmiljena= (bool)u.IsOmiljena
+            }).ToList();
 
-            //List<Klub> listaklub = db.Klub.ToList();
+            List<Klub> listaklub = db.Klub.ToList();
 
-            //model.listaKlubova = listaklub;
-            return View(/*model*/);
+            model.listaKlubova = listaklub;
+            model.listaUtakmica = listaUtakm;
+            return View(model);
         }
     }
 }

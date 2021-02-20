@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FudbalskaLigaBiH.Migrations
 {
-    public partial class mig : Migration
+    public partial class proba : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,6 +62,18 @@ namespace FudbalskaLigaBiH.Migrations
             //    });
 
             //migrationBuilder.CreateTable(
+            //    name: "KorisnikUtakmica",
+            //    columns: table => new
+            //    {
+            //        Id = table.Column<int>(nullable: false)
+            //            .Annotation("SqlServer:Identity", "1, 1")
+            //    },
+            //    constraints: table =>
+            //    {
+            //        table.PrimaryKey("PK_KorisnikUtakmica", x => x.Id);
+            //    });
+
+            //migrationBuilder.CreateTable(
             //    name: "Liga",
             //    columns: table => new
             //    {
@@ -101,6 +113,25 @@ namespace FudbalskaLigaBiH.Migrations
             //    constraints: table =>
             //    {
             //        table.PrimaryKey("PK_Trener", x => x.ID);
+            //    });
+
+            //migrationBuilder.CreateTable(
+            //    name: "Utakmica",
+            //    columns: table => new
+            //    {
+            //        UtakmicaID = table.Column<int>(nullable: false)
+            //            .Annotation("SqlServer:Identity", "1, 1"),
+            //        DatumOdrzavanja = table.Column<DateTime>(nullable: false),
+            //        RezultatDomacin = table.Column<int>(nullable: false),
+            //        RezultatGost = table.Column<int>(nullable: false),
+            //        IsZavrsena = table.Column<bool>(nullable: false),
+            //        IsProduzeci = table.Column<bool>(nullable: false),
+            //        MinutaIgre = table.Column<int>(nullable: false),
+            //        IsOmiljena = table.Column<bool>(nullable: false)
+            //    },
+            //    constraints: table =>
+            //    {
+            //        table.PrimaryKey("PK_Utakmica", x => x.UtakmicaID);
             //    });
 
             //migrationBuilder.CreateTable(
@@ -464,56 +495,62 @@ namespace FudbalskaLigaBiH.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
+            //migrationBuilder.DropTable(
+            //    name: "AspNetRoleClaims");
+
+            //migrationBuilder.DropTable(
+            //    name: "AspNetUserClaims");
+
+            //migrationBuilder.DropTable(
+            //    name: "AspNetUserLogins");
+
+            //migrationBuilder.DropTable(
+            //    name: "AspNetUserRoles");
+
+            //migrationBuilder.DropTable(
+            //    name: "AspNetUserTokens");
+
+            //migrationBuilder.DropTable(
+            //    name: "Igrac");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                name: "KorisnikUtakmica");
+
+            //migrationBuilder.DropTable(
+            //    name: "Novost");
+
+            //migrationBuilder.DropTable(
+            //    name: "Sezona");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                name: "Utakmica");
 
-            migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
+            //migrationBuilder.DropTable(
+            //    name: "AspNetRoles");
 
-            migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+            //migrationBuilder.DropTable(
+            //    name: "Klub");
 
-            migrationBuilder.DropTable(
-                name: "Igrac");
+            //migrationBuilder.DropTable(
+            //    name: "Pozicija");
 
-            migrationBuilder.DropTable(
-                name: "Novost");
+            //migrationBuilder.DropTable(
+            //    name: "AspNetUsers");
 
-            migrationBuilder.DropTable(
-                name: "Sezona");
+            //migrationBuilder.DropTable(
+            //    name: "Liga");
 
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
+            //migrationBuilder.DropTable(
+            //    name: "Stadion");
 
-            migrationBuilder.DropTable(
-                name: "Klub");
+            //migrationBuilder.DropTable(
+            //    name: "Trener");
 
-            migrationBuilder.DropTable(
-                name: "Pozicija");
+            //migrationBuilder.DropTable(
+            //    name: "Grad");
 
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Liga");
-
-            migrationBuilder.DropTable(
-                name: "Stadion");
-
-            migrationBuilder.DropTable(
-                name: "Trener");
-
-            migrationBuilder.DropTable(
-                name: "Grad");
-
-            migrationBuilder.DropTable(
-                name: "Entitet");
+            //migrationBuilder.DropTable(
+            //    name: "Entitet");
         }
     }
 }

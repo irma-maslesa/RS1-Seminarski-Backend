@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FudbalskaLigaBiH.Data.Migrations
+namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210113221811_PopravljenaRelacijaKlubStadion2")]
-    partial class PopravljenaRelacijaKlubStadion2
+    [Migration("20210220001346_proba")]
+    partial class proba
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("ProductVersion", "3.1.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -54,6 +54,54 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasIndex("EntitetID");
 
                     b.ToTable("Grad");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Igrac", b =>
+                {
+                    b.Property<int>("IgracID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrojDresa")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DatumRodjenja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GradID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("KlubID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PozicijaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Prezime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tezina")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Visina")
+                        .HasColumnType("int");
+
+                    b.HasKey("IgracID");
+
+                    b.HasIndex("GradID");
+
+                    b.HasIndex("KlubID");
+
+                    b.HasIndex("PozicijaID");
+
+                    b.ToTable("Igrac");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Klub", b =>
@@ -105,10 +153,6 @@ namespace FudbalskaLigaBiH.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -168,8 +212,18 @@ namespace FudbalskaLigaBiH.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Korisnik");
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.KorisnikUtakmica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KorisnikUtakmica");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Liga", b =>
@@ -197,6 +251,9 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.Property<DateTime>("DatumObjave")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("KorisnikId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Naslov")
                         .HasColumnType("nvarchar(max)");
 
@@ -205,7 +262,24 @@ namespace FudbalskaLigaBiH.Data.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("KorisnikId");
+
                     b.ToTable("Novost");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Pozicija", b =>
+                {
+                    b.Property<int>("PozicijaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NazivPozicije")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PozicijaID");
+
+                    b.ToTable("Pozicija");
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Sezona", b =>
@@ -276,6 +350,39 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Trener");
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Utakmica", b =>
+                {
+                    b.Property<int>("UtakmicaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DatumOdrzavanja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsOmiljena")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsProduzeci")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsZavrsena")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MinutaIgre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RezultatDomacin")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RezultatGost")
+                        .HasColumnType("int");
+
+                    b.HasKey("UtakmicaID");
+
+                    b.ToTable("Utakmica");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -356,12 +463,10 @@ namespace FudbalskaLigaBiH.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -398,12 +503,10 @@ namespace FudbalskaLigaBiH.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -413,19 +516,32 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novinar", b =>
-                {
-                    b.HasBaseType("FudbalskaLigaBiH.EntityModels.Korisnik");
-
-                    b.HasDiscriminator().HasValue("Novinar");
-                });
-
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Grad", b =>
                 {
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Entitet", "Entitet")
                         .WithMany("Gradovi")
                         .HasForeignKey("EntitetID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Igrac", b =>
+                {
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
+                        .WithMany("Igraci")
+                        .HasForeignKey("GradID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "Klub")
+                        .WithMany()
+                        .HasForeignKey("KlubID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Pozicija", "Pozicija")
+                        .WithMany()
+                        .HasForeignKey("PozicijaID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -434,18 +550,27 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "Liga")
                         .WithMany("Klubovi")
                         .HasForeignKey("LigaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Stadion", "Stadion")
                         .WithOne("Klub")
                         .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "StadionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Trener", "Trener")
                         .WithOne("Klub")
-                        .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "TrenerID");
+                        .HasForeignKey("FudbalskaLigaBiH.EntityModels.Klub", "TrenerID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b =>
+                {
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Sezona", b =>
@@ -453,7 +578,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "Liga")
                         .WithMany("Sezona")
                         .HasForeignKey("LigaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -462,7 +587,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -471,7 +596,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -480,7 +605,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -489,7 +614,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -498,13 +623,13 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -513,7 +638,7 @@ namespace FudbalskaLigaBiH.Data.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

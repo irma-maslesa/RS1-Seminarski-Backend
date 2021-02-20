@@ -239,9 +239,15 @@ namespace FudbalskaLigaBiH.Controllers
 
 
         [HttpGet]
-        public IActionResult ListUsers()
+        public async Task<IActionResult> ListUsersAsync()
         {
-            var users = userManager.Users;
+            List<Korisnik> users=new List<Korisnik>();
+
+            foreach (var u in userManager.Users)
+            {
+                if (!await userManager.IsInRoleAsync(u, "SuperAdmin"))
+                    users.Add(u);
+            }
             return View(users);
         }
 

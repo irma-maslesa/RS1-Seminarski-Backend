@@ -2,19 +2,29 @@
 @using FudbalskaLigaBiH.EntityModels
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
+@{ 
 
+}
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-action="Profile" asp-controller="Account" asp-route-UserID="@UserManager.GetUserId(Context.User)">
+                    <img src="~/img/user.png" style="width:30px;height:30px;" />
+                </a>
+            </li>*@
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               >
                 <img src="~/img/user.png" style="width:30px;height:30px;" />
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-action="ChangePassword" asp-controller="Account">LOZINKA</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-action="Profile" asp-controller="Account">Upravljanje podacima</a>
 
+                <a class="dropdown-item" asp-action="ChangePassword" asp-controller="Account">Promijeni lozinku</a>
+            </div>
         </li>
+        //asp-route-UserID="@UserManager.GetUserId(Context.User)"
         <li class="nav-item">
             <form class="form-inline" asp-action="Logout" asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">ODJAVA</button>

@@ -3,7 +3,6 @@
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
 
-
 @*Za provjeru po rolama=> signInManager.IsSignedIn(User)&& User.IsInRole("Admin")*@
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
 {
@@ -55,19 +54,9 @@ else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Igraca")
             </form>
         </li>
     }*@
-else
+else if (SignInManager.IsSignedIn(User))
 {
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        TAKMIČENJA
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="/Utakmice/Prikaz">Premijer Liga BiH</a>
-        <a class="dropdown-item" href="#">Federalna liga</a>
-        <a class="dropdown-item" href="#">Liga RS</a>
-    </div>
-</li>
+    <li>
+        <a class="nav-link text-dark" href="#">OMILJENJE UTAKMICE</a>
+    </li>
 }

@@ -20,8 +20,6 @@
             </a> 
             foreach (var user in Model)
             {
-                if (@user.Ime != "SuperAdmin")
-                {
                 <div class="card mb-3">
                     <div class="card-header">
                         Korisnik ID: @user.Id
@@ -40,7 +38,7 @@
                         </form>
                     </div>
                 </div>
-                }
+                
             }
         }
         else

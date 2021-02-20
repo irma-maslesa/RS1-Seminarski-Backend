@@ -36,18 +36,18 @@ namespace FudbalskaLigaBiH.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Trenutna lozinka")]
+            [Display(Name = "Current password")]
             public string OldPassword { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Nova lozinka")]
+            [Display(Name = "New password")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Potvrda lozinke")]
-            [Compare("NewPassword", ErrorMessage = "Nova lozinka i potvrđena lozinka se ne podudaraju.")]
+            [Display(Name = "Confirm new password")]
+            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -93,7 +93,7 @@ namespace FudbalskaLigaBiH.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Lozinka je uspješno promijenjena";
+            StatusMessage = "Your password has been changed.";
 
             return RedirectToPage();
         }

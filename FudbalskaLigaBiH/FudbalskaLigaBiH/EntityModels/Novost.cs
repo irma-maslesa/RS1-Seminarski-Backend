@@ -12,6 +12,7 @@ namespace FudbalskaLigaBiH.EntityModels
         public string Sadrzaj { get; set; }
         public DateTime DatumObjave { get; set; }
         public Korisnik Korisnik { get; set; }
+        public string Slika { get; set; }
 
     }
 }

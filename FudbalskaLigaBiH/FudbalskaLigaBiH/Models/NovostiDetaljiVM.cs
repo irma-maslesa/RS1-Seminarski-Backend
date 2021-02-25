@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace FudbalskaLigaBiH.Models
             public string NaslovNovosti { get; set; }
             public string SadrzajNovosti { get; set; }
             public DateTime DatumObjaveNovosti { get; set; }
+            public IFormFile SlikaNovosti { get; set; }
+            public string slika { get; set; }
         }
         public List<NovostiRed> novosti { get; set; }
     }

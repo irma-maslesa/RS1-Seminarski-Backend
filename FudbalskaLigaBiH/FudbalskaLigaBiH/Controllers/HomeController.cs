@@ -24,24 +24,8 @@ namespace FudbalskaLigaBiH.Controllers
             this.roleManager = roleManager;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            var SuperUser = new Korisnik
-            {
-                Ime = "SuperAdmin",
-                Prezime = "FIT",
-                UserName = "SuperAdmin.ba",
-                Email = "SuperAdmin@sport.ba",
-                PhoneNumber = "",
-                PasswordHash = "SuperAdmin123.",
-                EmailConfirmed = true
-            };
-            if (!_userManager.Users.Contains(SuperUser))
-            {
-                var result = await _userManager.CreateAsync(SuperUser, SuperUser.PasswordHash);
-                var ManageRole = await _userManager.AddToRolesAsync(SuperUser, roleManager.Roles.Where(x => x.Name == "SuperAdmin").Select(y => y.Name));
-            }
-
             return View();
         }
 

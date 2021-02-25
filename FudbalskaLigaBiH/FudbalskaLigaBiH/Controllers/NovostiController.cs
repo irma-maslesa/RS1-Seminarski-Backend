@@ -8,6 +8,7 @@ using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -74,7 +75,8 @@ namespace FudbalskaLigaBiH.Controllers
                     IDnovosti = n.ID,
                     NaslovNovosti = n.Naslov,
                     SadrzajNovosti = n.Sadrzaj,
-                    DatumObjaveNovosti = n.DatumObjave
+                    DatumObjaveNovosti = n.DatumObjave,
+                    slika = n.Slika
                 }).Single();
 
             return View(vijest);
@@ -87,7 +89,8 @@ namespace FudbalskaLigaBiH.Controllers
                     IDnovosti = n.ID,
                     NaslovNovosti = n.Naslov,
                     SadrzajNovosti = n.Sadrzaj,
-                    DatumObjaveNovosti = n.DatumObjave
+                    DatumObjaveNovosti = n.DatumObjave,
+                    slika=n.Slika
                 }).Single();
 
             return View("DodajUredi", novaVijest);
@@ -108,6 +111,21 @@ namespace FudbalskaLigaBiH.Controllers
             nova.Naslov = x.NaslovNovosti;
             nova.Sadrzaj = x.SadrzajNovosti;
             nova.DatumObjave = x.DatumObjaveNovosti;
+
+            if(x.SlikaNovosti!=null)
+            {
+                string ekstenzija = Path.GetExtension(x.SlikaNovosti.FileName);
+                string contentType = x.SlikaNovosti.ContentType;
+
+                var fileName = $"{Guid.NewGuid()}{ekstenzija}";
+                string folder = "wwwroot/upload/";
+                bool exist = System.IO.Directory.Exists(folder);
+                if (!exist)
+                    System.IO.Directory.CreateDirectory(folder);
+
+                x.SlikaNovosti.CopyTo(new FileStream(folder+fileName,FileMode.Create));
+                nova.Slika =fileName;
+            }
 
             _db.SaveChanges();
 

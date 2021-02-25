@@ -1,23 +1,37 @@
 ﻿<link rel="stylesheet" href="~/css/StyleSheet.css">
 <link rel="stylesheet" href="~/css/site.css" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+@using FudbalskaLigaBiH.Models
 
 @{
     Layout = null;
 }
 @model NovostiDetaljiVM.NovostiRed
-
 @*INPUT POLJA*@
 
 <body>
-    <form asp-action="Snimi" asp-controller="Novosti">
+    <form asp-action="Snimi" enctype="multipart/form-data" asp-controller="Novosti">
 
         <div id="Okvir-Inputa" class="container">
-            <div class="form-group"style="display:none;">
-                    <label class="col-sm-auto col-form-label">ID Novosti</label>
-                    <input class="form-control" readonly  asp-for="IDnovosti" />
-                </div>
+            <div class="form-group" style="display:none;">
+                <label class="col-sm-auto col-form-label">ID Novosti</label>
+                <input class="form-control" readonly asp-for="IDnovosti" />
+            </div>
+            <div class="form-group">
+                <label>Trenutna slika</label>
+                <img id="previewImg" style="height:100px; display:block" src="~/upload/@Model.slika" />
+            </div>
+
+            <div class="form-group">
+                <label>Odaberi sliku</label>
+                <input asp-for="SlikaNovosti" class="form-control" accept="image/*" onchange="generisiPreview(this)" 
+                      />
+            </div>
+
+
             <div class="form-group">
                 <label class="col-sm-auto col-form-label">Naslov članka</label>
                 <input class="form-control" asp-for="NaslovNovosti" />
@@ -33,11 +47,23 @@
         </div>
         <div class="opcije">
 
-            <a class="btn btn-warning" id="odustaniDugme" style="margin: 0 45px 0 45px; height: 45px; width: 150px; padding-top: 10px;" 
+            <a class="btn btn-warning" id="odustaniDugme" style="margin: 0 45px 0 45px; height: 45px; width: 150px; padding-top: 10px;"
                type="button" href="/Novosti/Prikaz">Odustani</a>
             <button class="btn btn-warning" type="submit" value="Spasi">Spasi</button>
-
         </div>
     </form>
 </body>
+<script>
+        function generisiPreview(input) {
+            var file = input.files[0];
 
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function () {
+                    $("#previewImg").attr("src", reader.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>

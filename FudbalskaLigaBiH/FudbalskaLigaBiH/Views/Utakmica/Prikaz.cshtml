@@ -1,8 +1,11 @@
 ﻿<link rel="stylesheet" href="~/css/StyleSheet.css" />
 
+
+
 @model UtakmicaPrikazVM
 
 <body>
+    
     <div class="btn-group">
         <button class="liga-ikona" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Klubovi
@@ -10,64 +13,54 @@
         <div class="dropdown-menu">
             @foreach (var item in Model.listaKlubova)
             {
-              <a class="dropdown-item" href="#">@item.Naziv</a>   
+              <a class="dropdown-item" href="#">@item.Text</a>   
             }
         </div>
     </div>
 
-    <div class="liga-ikona"></div>
+   
 
     <div class="container">
-        <table class="table">
-            @*<thead>
-                     <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                     </tr>
-                </thead> *@
+        <div>
+            <a class="btn btn-warning" asp-action="Prikaz" asp-route-tip="1">Sve</a>
+            <a class="btn btn-warning" asp-action="Prikaz" asp-route-tip="4">Aktuelne</a>
+            <a class="btn btn-warning"asp-action="Prikaz" asp-route-tip="2">Najavljene</a>
+            <a class="btn btn-warning"asp-action="Prikaz" asp-route-tip="3">Prosle</a>
+        </div>
+        <table class="table">            
             <tbody>
                 @foreach (var item in Model.listaUtakmica)
                 {
-                <tr class="border">
-                    @if (item.IsZavrsena)
-                    {
-                        <td style="text-align:center;">Kraj</td>
-                    }
-                    else
-                    {
-                        if (item.IsProduzeci)
+                    <tr class="border">
+                        @if (item.IsZavrsena)
                         {
-                            <td style="text-align:center;">@item.MinutaIgre' (Produžeci)</td>
+                            <td style="text-align:center;">Kraj</td>
                         }
                         else
                         {
-                            <td style="text-align:center;">@item.MinutaIgre'</td>
+                            if (item.IsProduzeci)
+                            {
+                                <td style="text-align:center;">@item.MinutaIgre' (Produžeci)</td>
+                            }
+                            else
+                            {
+                                <td style="text-align:center;">@item.MinutaIgre'</td>
+                            }
                         }
-                    }
-                    <td style="float:right">@item.KlubDomacin</td>
-                    <td><img style="width:20px;height:20px;float:left;" src="~/img/krupa.png" alt="grb" /></td>
-                    <td style="float:right;">@item.RezultatDomacin</td>
-                    <td style="text-align:center"><span>-</span></td>
-                    <td style="float:left;">@item.RezultatGost</td>
-                    <td><img style="width:20px;height:20px;float:right;" src="~/img/borac.png" alt="grb" /></td>
-                    <td style="float:left">@item.KlubGost</td>
-                    <td>
-                        <div class="form-check">
-                            <input asp-for="@item.IsOmiljena" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        </div>
-                    </td>
-                </tr>
-
+                        <td style="float:right">@item.KlubDomacin</td>
+                        <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
+                        <td style="float:right;">@item.RezultatDomacin</td>
+                        <td style="text-align:center"><span>-</span></td>
+                        <td style="float:left;">@item.RezultatGost</td>
+                        <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
+                        <td style="float:left">@item.KlubGost</td>
+                        @*<td>
+                            <div class="form-check">
+                                <input asp-for="@item.IsOmiljena" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            </div>
+                        </td>*@
+                    </tr>
                 }
-
             </tbody>
         </table>
     </div>

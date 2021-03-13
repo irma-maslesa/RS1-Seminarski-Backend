@@ -2,13 +2,13 @@
 
 namespace FudbalskaLigaBiH.Migrations
 {
-    public partial class slika : Migration
+    public partial class slikaigrac : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "Slika",
-                table: "Novost",
+                table: "Igrac",
                 nullable: true);
         }
 
@@ -16,7 +16,7 @@ namespace FudbalskaLigaBiH.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Slika",
-                table: "Novost");
+                table: "Igrac");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace FudbalskaLigaBiH.EntityModels
     {
         public string Ime{ get; set; }
         public string Prezime{ get; set; }
+        public int brojNotifikacija{ get; set; }
 
     }
 }

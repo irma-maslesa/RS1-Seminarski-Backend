@@ -1,5 +1,6 @@
 ﻿@using FudbalskaLigaBiH.Data
-@{ 
+
+@{
     ApplicationDbContext db;
 }
 <!DOCTYPE html>
@@ -31,19 +32,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">POČETNA</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                TAKMIČENJA
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/Utakmica/Prikaz">Premijer Liga BiH</a>
-                                <a class="dropdown-item" href="#">Federalna liga</a>
-                                <a class="dropdown-item" href="#">Liga RS</a>
-                            </div>
-                        </li>
+
                         <partial name="_UlogePartial" />
 
 
@@ -52,15 +41,25 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-
+    @*<div class="container">  *@
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+    @*</div>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+<script>
+    var myhub = new signalR.HubConnectionBuilder().withUrl("/myhub").build();
+
+    myhub.start().then(function () {
+        console.info("started signalR hub");
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+</script>

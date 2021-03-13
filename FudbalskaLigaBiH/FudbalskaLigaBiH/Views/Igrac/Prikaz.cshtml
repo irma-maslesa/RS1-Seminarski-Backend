@@ -36,6 +36,7 @@
                 @foreach (IgracPrikazVM.IgracRow x in Model.ListaIgraca)
                 {
                     <tr>
+                        <td><img href="@x.slika" /></td>
                         <td>@x.Ime</td>
                         <td>@x.Prezime</td>
                         <td>@x.BrojDresa</td>

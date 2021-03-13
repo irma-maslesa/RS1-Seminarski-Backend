@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace FudbalskaLigaBiH.Models
         public int PozicijaID { get; set; }
 
         public int KlubID { get; set; }
+        public IFormFile SlikaIgraca { get; set; }
+        public string slika { get; set; }
 
         public List<SelectListItem> gradovi { get; set; }
         public List<SelectListItem> pozicije { get; set; }

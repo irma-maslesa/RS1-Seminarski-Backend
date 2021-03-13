@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210220152922_slika")]
-    partial class slika
+    [Migration("20210303204842_as1")]
+    partial class as1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,6 +121,9 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slika")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StadionID")
@@ -390,6 +393,9 @@ namespace FudbalskaLigaBiH.Migrations
                     b.Property<int>("KlubGostID")
                         .HasColumnType("int");
 
+                    b.Property<int>("LigaID")
+                        .HasColumnType("int");
+
                     b.Property<int>("MinutaIgre")
                         .HasColumnType("int");
 
@@ -404,6 +410,8 @@ namespace FudbalskaLigaBiH.Migrations
                     b.HasIndex("KlubDomacinID");
 
                     b.HasIndex("KlubGostID");
+
+                    b.HasIndex("LigaID");
 
                     b.ToTable("Utakmica");
                 });
@@ -639,6 +647,12 @@ namespace FudbalskaLigaBiH.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "KlubGost")
                         .WithMany()
                         .HasForeignKey("KlubGostID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "liga")
+                        .WithMany()
+                        .HasForeignKey("LigaID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

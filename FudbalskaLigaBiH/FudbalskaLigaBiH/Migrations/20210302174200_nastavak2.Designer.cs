@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210221013439_nesto")]
-    partial class nesto
+    [Migration("20210302174200_nastavak2")]
+    partial class nastavak2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

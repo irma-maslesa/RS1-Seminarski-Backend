@@ -22,5 +22,8 @@ namespace FudbalskaLigaBiH.EntityModels
         public bool IsProduzeci { get; set; }
         public int MinutaIgre { get; set; }
         public bool? IsOmiljena { get; set; }
+
+        public int LigaID { get; set; }
+        public Liga liga { get; set; }
     }
 }

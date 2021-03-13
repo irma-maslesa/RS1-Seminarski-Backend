@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210220001825_proba1")]
-    partial class proba1
+    [Migration("20210307114503_slika-igrac")]
+    partial class slikaigrac
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,9 @@ namespace FudbalskaLigaBiH.Migrations
                     b.Property<string>("Prezime")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Slika")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Tezina")
                         .HasColumnType("int");
 
@@ -121,6 +124,9 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slika")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StadionID")
@@ -214,6 +220,28 @@ namespace FudbalskaLigaBiH.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.KorisnikUtakmica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("KorisnikId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UtakmicaID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KorisnikId");
+
+                    b.HasIndex("UtakmicaID");
+
+                    b.ToTable("KorisnikUtakmica");
+                });
+
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Liga", b =>
                 {
                     b.Property<int>("ID")
@@ -246,6 +274,9 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sadrzaj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slika")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -350,7 +381,7 @@ namespace FudbalskaLigaBiH.Migrations
                     b.Property<DateTime>("DatumOdrzavanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsOmiljena")
+                    b.Property<bool?>("IsOmiljena")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsProduzeci")
@@ -358,6 +389,15 @@ namespace FudbalskaLigaBiH.Migrations
 
                     b.Property<bool>("IsZavrsena")
                         .HasColumnType("bit");
+
+                    b.Property<int>("KlubDomacinID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KlubGostID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LigaID")
+                        .HasColumnType("int");
 
                     b.Property<int>("MinutaIgre")
                         .HasColumnType("int");
@@ -369,6 +409,12 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("UtakmicaID");
+
+                    b.HasIndex("KlubDomacinID");
+
+                    b.HasIndex("KlubGostID");
+
+                    b.HasIndex("LigaID");
 
                     b.ToTable("Utakmica");
                 });
@@ -553,6 +599,20 @@ namespace FudbalskaLigaBiH.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.KorisnikUtakmica", b =>
+                {
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Utakmica", "Utakmica")
+                        .WithMany()
+                        .HasForeignKey("UtakmicaID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Novost", b =>
                 {
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Korisnik", "Korisnik")
@@ -575,6 +635,27 @@ namespace FudbalskaLigaBiH.Migrations
                     b.HasOne("FudbalskaLigaBiH.EntityModels.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FudbalskaLigaBiH.EntityModels.Utakmica", b =>
+                {
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "KlubDomacin")
+                        .WithMany()
+                        .HasForeignKey("KlubDomacinID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Klub", "KlubGost")
+                        .WithMany()
+                        .HasForeignKey("KlubGostID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FudbalskaLigaBiH.EntityModels.Liga", "liga")
+                        .WithMany()
+                        .HasForeignKey("LigaID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

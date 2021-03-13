@@ -1,0 +1,53 @@
+﻿body {
+    margin: 0;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    overflow: scroll;    
+    background-image: url("../img/background.jpg");
+}
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.OkvirLogina {
+    margin: auto;
+    width: 30%;
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+.form-group input {
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid grey;
+    color: lightgrey;
+}
+.checkbox{
+    float:left;
+}
+.btn {
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #EFC809;
+    color: black;
+    width:290px;
+    margin:auto;
+}
+    .btn:hover {
+        color: #EFC809;
+    }
+.linkAcc {
+    float: left;
+    color: black;
+}
+    .linkAcc:hover {
+        color: #EFC809;
+    }

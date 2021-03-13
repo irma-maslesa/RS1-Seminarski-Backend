@@ -1,4 +1,5 @@
 ﻿using FudbalskaLigaBiH.EntityModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace FudbalskaLigaBiH.Models
             public string KlubDomacin { get; set; }
             public string KlubGost { get; set; }
 
-            //slike za grbove klubova
+            public string slikaDomacin { get; set; }
+            public string slikaGost { get; set; }
 
             public int RezultatDomacin { get; set; }
             public int RezultatGost { get; set; }
@@ -24,9 +26,12 @@ namespace FudbalskaLigaBiH.Models
             public bool IsProduzeci { get; set; }
             public int MinutaIgre { get; set; }
             public bool IsOmiljena { get; set; }
+            public int LigaID { get; set; }
         }
         public List<Row> listaUtakmica { get; set; }
-        public List<Klub> listaKlubova { get; set; }
 
+        public int KlubID { get; set; }
+        public List<SelectListItem> listaKlubova { get; set; }
+        public int LigaID { get; set; }
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using FudbalskaLigaBiH.Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -16,16 +18,21 @@ namespace FudbalskaLigaBiH.Controllers
         private readonly ILogger<HomeController> _logger;
         private UserManager<Korisnik> _userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ApplicationDbContext db;
 
-        public HomeController(ILogger<HomeController> logger,UserManager<Korisnik>userManager, RoleManager<IdentityRole> roleManager)
+
+        public HomeController(ApplicationDbContext _db,ILogger<HomeController> logger,UserManager<Korisnik>userManager, RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
             _userManager = userManager;
             this.roleManager = roleManager;
+            db = _db;
         }
 
+       
         public IActionResult Index()
         {
+
             return View();
         }
 

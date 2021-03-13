@@ -3,47 +3,66 @@
 
 <body>
     <br /><br /><br />
-                <form asp-action="Snimi" asp-controller="Igrac">
+    <form asp-action="Snimi" enctype="multipart/form-data" asp-controller="Igrac">
 
-                    <div class="container">
-                        <div class="row border">
-                            <div class="col-sm-4 border-right">
-                                <img src="~/img/sdfs.png" alt="Slika igraca" />
-                            </div>
-                            <div class="col-sm-4 " style="text-align:right;">
-                                <p>Ime : </p>
-                                <p>Prezime : </p>
-                                <p>Datum rodjenja : </p>
-                                <p>Email : </p>
-                                <p>Visina : </p>
-                                <p>Tezina : </p>
-                                <p>Broj dresa : </p>
-                                <p>Grad : </p>
-                                <p>Pozicija : </p>
-                                <p>Klub : </p>
-                            </div>
-                            <div class="col-sm-4" style="text-align:left;">
-                                <input class="form-control" style="display:none;" asp-for="ID" />
-                                <input class="form-control" asp-for="Ime" />
-                                <input class="form-control" asp-for="Prezime" />
-                                <input class="form-control" asp-for="DatumRodjenja" />
-                                <input class="form-control" asp-for="Email" />
-                                <input class="form-control" asp-for="Visina" />
-                                <input class="form-control" asp-for="Tezina" />
-                                <input class="form-control" asp-for="BrojDresa" />
-                                <select class="form-control" asp-for="GradID" asp-items="@Model.gradovi"></select>
-                                <select class="form-control" asp-for="PozicijaID" asp-items="@Model.pozicije"></select>
-                                @*TREBAT CE PROVJERA, SAMO AKO JE KORISNIK DA BUDE READONLY, JER ADMIN KAD DODAJE MORA MOCI ODABRATI KLUB*@
-                                <select class="form-control" asp-for="KlubID" asp-items="@Model.klubovi"></select>
-                            </div>
-                        </div>
+        <div class="container">
+            <div class="row border">
+                <div class="form-group">
+                    <label>Trenutna slika</label>
+                    <img id="previewImg" style="height:100px; display:block" src="~/upload/@Model.slika" />
+                </div><br /><br />
+                <div class="form-group">
+                    <label>Odaberi sliku</label>
+                    <input asp-for="SlikaIgraca" class="form-control" accept="image/*" onchange="generisiPreview(this)" />
+                </div>
+                <div class="col-sm-2 " style="text-align:right;">
+                    <p>Ime : </p>
+                    <p>Prezime : </p>
+                    <p>Datum rodjenja : </p>
+                    <p>Email : </p>
+                    <p>Visina : </p>
+                    <p>Tezina : </p>
+                    <p>Broj dresa : </p>
+                    <p>Grad : </p>
+                    <p>Pozicija : </p>
+                    <p>Klub : </p>
+                </div>
+                <div class="col-sm-2" style="text-align:left;">
+                    <input class="form-control" style="display:none;" asp-for="ID" />
+                    <input class="form-control" asp-for="Ime" />
+                    <input class="form-control" asp-for="Prezime" />
+                    <input class="form-control" asp-for="DatumRodjenja" />
+                    <input class="form-control" asp-for="Email" />
+                    <input class="form-control" asp-for="Visina" />
+                    <input class="form-control" asp-for="Tezina" />
+                    <input class="form-control" asp-for="BrojDresa" />
+                    <select class="form-control" asp-for="GradID" asp-items="@Model.gradovi"></select>
+                    <select class="form-control" asp-for="PozicijaID" asp-items="@Model.pozicije"></select>
+                    @*TREBAT CE PROVJERA, SAMO AKO JE KORISNIK DA BUDE READONLY, JER ADMIN KAD DODAJE MORA MOCI ODABRATI KLUB*@
+                    <select class="form-control" asp-for="KlubID" asp-items="@Model.klubovi"></select>
+                </div>
+            </div>
 
-                    </div><br /><br />
-                    <div class="opcije" style="text-align:center">
+        </div><br /><br />
+        <div class="opcije" style="text-align:center">
 
-                        <button class="btn btn-warning" type="button" onclick="window.location='/Igrac/PrikazAdmin'">Odustani</button>
-                        <button class="btn btn-warning" type="submit" value="Spasi">Spasi</button>
+            <button class="btn btn-warning" type="button" onclick="window.location='/Igrac/PrikazAdmin'">Odustani</button>
+            <button class="btn btn-warning" type="submit" value="Spasi">Spasi</button>
 
-                    </div>
-                </form>
+        </div>
+    </form>
 </body>
+<script>
+    function generisiPreview(input) {
+        var file = input.files[0];
+
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                $("#previewImg").attr("src", reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

@@ -1,5 +1,5 @@
 ﻿@using FudbalskaLigaBiH.Models
-
+<link href="~/css/Account.css" rel="stylesheet" />
 @model LoginViewModel
 
 @{ ViewData["Title"] = "Register"; }
@@ -8,22 +8,21 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="OkvirLogina" style="text-align:center;">
                 <section>
-                        <h4>Prijavi se na profil</h4>
+                    <h3>Prijava</h3>
+                    <h6>Molimo da unesete Vaš Email i lozinku</h6>
                     <hr />
                     <form method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
-                            <label>Email</label>
                             <input id="Email" name="Email" asp-for="Email" class="form-control" type="email" 
-                                   data-val="true" data-val-required="Email polje je obavezno."/>
+                                   data-val="true" data-val-required="Email polje je obavezno." placeholder="Email"/>
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label>Lozinka</label>
                             <input id="Password" name="Password" asp-for="Password" class="form-control"
-                                   type="password" data-val="true" data-val-required="Lozinka polje je obavezno." />
+                                   type="password" data-val="true" data-val-required="Lozinka polje je obavezno." placeholder="Lozinka" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -33,17 +32,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Prijava</button>
+                            <button type="submit" class="btn">Prijava</button>
                         </div>
-                        <div class="form-group">
-                            <p>
-                                <a asp-action="ForgotPassword">Zaboravljena lozinka?</a>
-                            </p>
+                        <div >
+                                <a class="linkAcc" asp-action="ForgotPassword">Zaboravljena lozinka?</a>
                         </div>
-                        <div class="form-group">
-                            <p>
-                                <a asp-action="Register">Registruj se kao novi korisnik</a>
-                            </p>
+                        <div >
+                          
+                                <a class="linkAcc"asp-action="Register">Registruj se kao novi korisnik</a>
                         </div>
                     </form>
                 </section>

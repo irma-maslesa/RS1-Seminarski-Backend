@@ -24,5 +24,8 @@ namespace FudbalskaLigaBiH.EntityModels
 
         public int? KlubID { get; set; }
         public Klub Klub { get; set; }
+        public string Slika { get; set; }
+
+
     }
 }

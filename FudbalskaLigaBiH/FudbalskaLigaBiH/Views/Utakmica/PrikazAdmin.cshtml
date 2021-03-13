@@ -1,0 +1,113 @@
+﻿<link rel="stylesheet" href="~/css/StyleSheet.css" />
+@{
+}
+@model UtakmicaPrikazVM
+
+<body>
+    <input hidden asp-for="LigaID" />
+    <div class="btn-group">
+        <button class="liga-ikona" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Klubovi
+        </button>
+        <div class="dropdown-menu">
+            @foreach (var item in Model.listaKlubova)
+            {
+                <a class="dropdown-item" href="#">@item.Text</a>
+            }
+        </div>
+    </div>
+
+    <div class="container">
+        <div>
+            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=1&ligaid=@Model.LigaID">Sve</a>
+            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=4&ligaid=@Model.LigaID">Aktuelne</a>
+            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=2&ligaid=@Model.LigaID">Najavljene</a>
+            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=3&ligaid=@Model.LigaID">Prosle</a>
+        </div>
+
+            <a class="btn btn-warning" href="/Utakmica/DodajUredi?UtakmicaID=0&LigaID=@Model.LigaID">Dodaj utakmicu</a>
+
+
+        <table class="table">
+            
+            <tbody>
+                @foreach (var item in Model.listaUtakmica)
+                {
+                    <tr class="border">
+                        @if (item.IsZavrsena)
+                        {
+                            <td style="text-align:center;">Kraj</td>
+                        }
+                        else if (item.MinutaIgre == -1)
+                        {
+                            <td style="text-align:center;">-</td>
+
+                        }
+                        else
+                        {
+                            if (item.IsProduzeci)
+                            {
+                                <td style="text-align:center;">@item.MinutaIgre' (Produžeci)</td>
+                            }
+                            else
+                            {
+                                <td style="text-align:center;">@item.MinutaIgre'</td>
+                            }
+                        }
+                        <td style="float:right">@item.KlubDomacin</td>
+                        <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
+                        @if (item.MinutaIgre == -1)
+                        {
+                            <td style="float:right;">/</td>
+                            <td style="text-align:center"><span>-</span></td>
+                            <td style="float:left;">/</td>
+
+                        }
+                        else
+                        {
+                            <td style="float:right;">@item.RezultatDomacin</td>
+                            <td style="text-align:center"><span>-</span></td>
+                            <td style="float:left;">@item.RezultatGost</td>
+                        }
+                        <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
+                        <td style="float:left">@item.KlubGost</td>
+                        @if (item.MinutaIgre == -1)
+                        {
+                            <td>
+                                <div class="form-check">
+                                    <a class="btn btn-warning" href="DodajUredi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Uredi</a>
+                                    <a class="btn btn-warning" href="Obrisi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Obrisi</a>
+                                    <a class="btn btn-outline-warning" asp-action="Pocni" asp-route-id="@item.UtakmicaID">Pocni</a>
+                                </div>
+                            </td>
+                        }
+                        else if (item.MinutaIgre >= 0 && !item.IsZavrsena)
+                        {
+                            <td>
+                                <div class="form-check">
+                                    <a class="btn btn-outline-warning">Uredi</a>
+                                    <a class="btn btn-outline-warning">Obrisi</a>
+                                    <a class="btn btn-outline-warning" asp-action="Poluvrijeme" asp-route-id="@item.UtakmicaID">Poluvrijeme</a>
+                                    <a class="btn btn-outline-warning" asp-action="Zavrsi" asp-route-id="@item.UtakmicaID">Zavrsi</a>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="form-check">
+                                    <a class="btn btn-outline-warning">Uredi</a>
+                                    <a class="btn btn-outline-warning">Obrisi</a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+</body>

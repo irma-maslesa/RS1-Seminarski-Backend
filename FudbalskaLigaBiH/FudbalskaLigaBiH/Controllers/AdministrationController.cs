@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.EntityModels;
 using FudbalskaLigaBiH.Models;
+using FudbalskaLigaBiH.SignalR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace FudbalskaLigaBiH.Controllers
@@ -18,12 +20,14 @@ namespace FudbalskaLigaBiH.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<Korisnik> userManager;
         private readonly ApplicationDbContext _context;
+        private IHubContext<MyHub> _hubContext;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Korisnik> userManager, ApplicationDbContext _context)
+        public AdministrationController(IHubContext<MyHub> hubContext,RoleManager<IdentityRole> roleManager, UserManager<Korisnik> userManager, ApplicationDbContext _context)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
             this._context = _context;
+            _hubContext = hubContext;
         }
 
      
@@ -56,6 +60,7 @@ namespace FudbalskaLigaBiH.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
+            await _hubContext.Clients.All.SendAsync("prijemPoruke", User, "porukica");
 
             return View(model);
         }

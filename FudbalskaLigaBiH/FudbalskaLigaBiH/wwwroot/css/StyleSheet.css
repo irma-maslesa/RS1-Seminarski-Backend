@@ -18,50 +18,6 @@ body {
     padding: 0;
 }
 
-#ostatak-parenta {
-    width: 100%;
-    height: 100%;
-}
-
-/*CSS ZA DUGMAD NA POCETNOJ*/
-/*.dugmeDiv {
-    height: 100px;
-    width: 70%;
-    margin: auto;
-    top: 40%;
-    position:relative;
-    margin-top:25%;
-  
-}
-
-.dugme {
-    width: 170px;
-    height: 40px;
-    border-radius: 44px;
-    background: none;
-    border: 2px solid #282828;
-    color: #282828;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    font-size: medium;
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    margin: 0 12% 0 12%;
-}
-
-    .dugme :hover {
-        color: white;
-        background-color: rgbs(169,169,169,0.5);
-    }
-
-    .dugme:first-child:hover {
-        color: white;
-        background-color: rgbs( 224, 186, 0,0.5);
-    }*/
-
 /*CSS ZA PRIKAZ NOVOSTI*/
 .okvir-vijesti {
     width: 70%;
@@ -69,19 +25,37 @@ body {
     position: absolute;
     left: 15%;
     top: 15%;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
     .okvir-vijesti::-webkit-scrollbar {
-        display: none;
+        display:normal;
+    }
+/* width */
+    .okvir-vijesti::-webkit-scrollbar {
+        width: 10px;
     }
 
+/* Track */
+    .okvir-vijesti::-webkit-scrollbar-track {
+        background: #ededed;
+    }
+
+/* Handle */
+    .okvir-vijesti::-webkit-scrollbar-thumb {
+        background: #EFC809;
+    }
+
+    /* Handle on hover */
+        .okvir-vijesti::-webkit-scrollbar-thumb:hover {
+            background: #efbd09;
+        }
 .vijest {
-    height: 30%;
-    width: 90%;
+    height: 20%;
+    width: 60%;
     position: relative;
     top: 2%;
-    left: 5%;
+    left: 20%;
     box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
 }
 
@@ -127,12 +101,12 @@ body {
     width: 100%;
     box-sizing: border-box;
     padding: 5px;
-    border: 1px solid grey;
+    text-align:center;
 }
 
     .slika-calnka img {
         height: 100%;
-        width: 100%;
+        width: auto;
     }
 
 .detalji-Clanka h3 {
@@ -178,7 +152,7 @@ body {
     box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.1);
     position: relative;
     text-align: center;
-    padding-top: 30px;
+    padding: 10px;
 }
 
 .dodaj-clanak {
@@ -196,7 +170,8 @@ body {
 }
 
 .uredi-obrisi a {
-    width: 70%;
+    width: 100%;
+    font-size:11px;
 }
 /*CSS ZA PRIKAZ UTAKMICA KORISNIKU*/
 .korisnik-ikona {
@@ -239,7 +214,10 @@ body {
     border-radius: 0px 20px 20px 0px;
     position: absolute;
     border: 0;
-    top: 35px;    
+    top: 35px;
+}
+.btn-group:focus {
+    outline: none;
 }
 .dropdown-menu{
     min-width:30px;

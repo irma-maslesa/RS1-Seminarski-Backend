@@ -1,0 +1,30 @@
+﻿<link rel="stylesheet" href="~/css/StyleSheet.css" />
+
+@model UtakmicaDodajUrediVM
+
+<body>
+    <form asp-controller="Utakmica"asp-action="Snimi">
+        <input hidden asp-for="@Model.LigaID" />
+        <div class="container">
+
+            <input hidden asp-for="@Model.UtakmicaID" />
+            <input hidden asp-for="@Model.slikaDomacin" />
+            <input hidden asp-for="@Model.slikaGost" />
+            <div>
+                <label>Klub domacin</label>
+                <select asp-for="KlubDomacinID" asp-items="@Model.KlubDomacin"></select>
+            </div>
+            <div>
+                <label>Klub gost</label>
+                <select asp-for="KlubGostID" asp-items="@Model.KlubGost"></select>
+            </div>
+            <div>
+                <label>Datum i vrijeme odrzavanja</label>
+                <input asp-for="DatumOdrzavanja" />
+            </div>
+        </div>
+        <a  class="btn btn-warning" href="Prikaz?tip=0&ligaid=@Model.LigaID">Odustani</a>
+        <button type="submit" class="btn btn-warning">Snimi</button>
+    </form>
+
+</body>

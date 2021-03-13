@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FudbalskaLigaBiH.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210220002224_proba3")]
-    partial class proba3
+    [Migration("20210302180630_nastavak23")]
+    partial class nastavak23
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,6 +121,9 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slika")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StadionID")
@@ -268,6 +271,9 @@ namespace FudbalskaLigaBiH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sadrzaj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slika")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

@@ -1,15 +1,6 @@
 ﻿@model IgracPrikazVM
 
 <body>
-    <div class="btn-group" style="position:relative;top:35px">
-        <button class="btn btn-secondary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
-        <div class="dropdown-menu">
-            @foreach (var x in Model.klubovi)
-            {
-                <a class="dropdown-item" href="/Igrac/PrikazAdmin?klubTxt=@x.Text">@x.Text</a>
-            }
-        </div>
-    </div>
     <div class="container">
         <form>
             <div>
@@ -22,6 +13,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>Slika</th>
                     <th>Ime</th>
                     <th>Prezime</th>
                     <th>Broj dresa</th>
@@ -34,6 +26,7 @@
                 @foreach (IgracPrikazVM.IgracRow x in Model.ListaIgraca)
                 {
                     <tr class="Pretraga">
+                        <td><img style="width:50px;" src="~/upload/@x.slika" alt="Slika-Igrac" /></td>
                         <td>@x.Ime</td>
                         <td>@x.Prezime</td>
                         <td>@x.BrojDresa</td>

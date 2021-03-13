@@ -16,6 +16,7 @@ namespace FudbalskaLigaBiH.Models
             public int BrojDresa{ get; set; }
             public string Pozicija { get; set; }
             public string KlubNaziv { get; set; }
+            public string slika { get; set; }
   
         }
         public List<IgracRow> ListaIgraca { get; set; }

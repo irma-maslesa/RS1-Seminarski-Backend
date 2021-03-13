@@ -2,8 +2,14 @@
 @using FudbalskaLigaBiH.EntityModels
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
+@inject FudbalskaLigaBiH.Data.ApplicationDbContext context
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
 
-@*Za provjeru po rolama=> signInManager.IsSignedIn(User)&& User.IsInRole("Admin")*@
+@{
+    var logged = User.Identity.Name;
+    var ko = UserManager.Users.Where(u => u.Email == User.Identity.Name);
+
+}
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
 {
     <li class="nav-item dropdown">
@@ -20,7 +26,7 @@
 else if (SignInManager.IsSignedIn(User) && User.IsInRole("Novinar"))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">PODEŠAVANJA</a>
+        <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">NOVOSTI</a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-dark" asp-controller="Novosti" asp-action="DodajUredi">DODAJ NOVOST</a>
@@ -31,32 +37,82 @@ else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Igraca")
     <li class="nav-item">
         <a class="nav-link text-dark" asp-controller="Igrac" asp-action="PrikazAdmin">PODEŠAVANJA</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Igrac" asp-action="DodajUredi">DODAJ IGRAČA</a>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Utakmica"))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link text-dark" href="/Utakmica/Index">TAKMIČENJA</a>
+
     </li>
 }
-
-@*else if (trenutniUser is UtakmiceAdmin)
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="PrikazIgraca">PODEŠAVANJA</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="#">DODAJ IGRAČA</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Igraci" asp-action="#">DODAJ TRANSFER</a>
-        </li>
-        <li>
-            <form class="form-inline my-2 my-lg-0" style="padding-left:80px;">
-                <input class="form-control mr-sm-2" type="text" placeholder="Traži.." aria-label="Search" name="pretraga" value="@Model.pretraga">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Traži</button>
-            </form>
-        </li>
-    }*@
 else if (SignInManager.IsSignedIn(User))
 {
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Novosti" asp-action="Prikaz">
+            NOVOSTI
+            <span class="noti badge" style=" background-color: #EFC809;">
+                <span class="count-noti">@(ko.FirstOrDefault().brojNotifikacija)</span>
+            </span>
+        </a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            TAKMIČENJA
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/Utakmica/Prikaz">Premijer Liga BiH</a>
+            <a class="dropdown-item" href="#">Federalna liga</a>
+            <a class="dropdown-item" href="#">Liga RS</a>
+        </div>
+    </li>
     <li>
-        <a class="nav-link text-dark" href="#">OMILJENJE UTAKMICE</a>
+        <div class="notification-icon" style="margin-top:10px">
+            <span class="glyphicon glyphicon-envelope"></span>
+            <span class="badge" id="ntCnt"></span>
+        </div>
     </li>
 }
+<script>
+    var myhub = new signalR.HubConnectionBuilder().withUrl("/myhub").build();
+
+    function resetCountKorisnik() {
+        $.ajax({
+            url: '/Novosti/ResetCountKorisnik',
+            type: 'GET',
+            data: { Email: "@logged" },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+    $("span.badge").click(function (e) {
+        e.stopPropagation();
+        var count = 0;
+        count = parseInt($('span.count-noti').html()) || 0;
+        $('span.count', this).html('0');
+        resetCountKorisnik();
+    });
+
+
+    function updateNotificationCount() {
+        var count = 0;
+        count = parseInt($("span.count-noti").html()) || 0;
+        count++;
+        $("span.count-noti").html(count);
+    }
+
+    myhub.start().then(function () {
+        console.info("started signalR hub");
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    myhub.on("prijemPoruke", function (message) {
+        if (message == "dodanaNovost") {
+            updateNotificationCount();
+        }
+    });
+
+        </script>

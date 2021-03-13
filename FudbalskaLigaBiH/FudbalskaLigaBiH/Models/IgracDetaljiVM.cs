@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace FudbalskaLigaBiH.Models
         public string Grad { get; set; }
         public string Pozicija { get; set; }
         public string KlubNaziv { get; set; }
+        public string slika { get; set; }
+
 
     }
 }

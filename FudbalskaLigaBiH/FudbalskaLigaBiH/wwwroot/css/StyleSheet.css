@@ -6,7 +6,7 @@ body {
     background-repeat: no-repeat;
     background-position: top;
     background-image:url("../img/background1.jpg");
-    overflow: hidden;
+    overflow: scroll;
 }
 
     body::-webkit-scrollbar {
@@ -17,7 +17,84 @@ body {
     margin: 0;
     padding: 0;
 }
+.OkvirUtak {
+    margin: auto;
+    width: 30%;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+    color: black;
+}
+#btn1 {
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #EFC809;
+    color: black;
+    margin: 5%;
+    width:40%;
+    float:left;
+}
 
+    #btn1,#btn11:hover {
+        color: black;
+        background-color: #EFC809;
+    }
+
+#igracin input {
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid grey;
+    color: black;
+    margin-bottom:2px;
+}
+.inputcss {
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid grey;
+    color: black;
+    height: 35px;
+    width: 30%;
+    text-align: center;
+}
+.okvirIgraca1 {
+    margin: auto;
+    width: 40%;
+    text-align: center;
+    padding: 25px;
+    color: black;
+    text-align:start;
+}
+.okvirIgraca {
+    padding-top: 20px;
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    overflow-y: scroll;
+}
+.okvirIgraca::-webkit-scrollbar {
+    display: normal;
+}
+/* width */
+    .okvirIgraca::-webkit-scrollbar {
+        width: 10px;
+    }
+
+/* Track */
+    .okvirIgraca::-webkit-scrollbar-track {
+        background: #ededed;
+    }
+
+/* Handle */
+    .okvirIgraca::-webkit-scrollbar-thumb {
+        background: #EFC809;
+    }
+
+    /* Handle on hover */
+        .okvirIgraca::-webkit-scrollbar-thumb:hover {
+            background: #efbd09;
+        }
 /*CSS ZA PRIKAZ NOVOSTI*/
 .okvir-vijesti {
     width: 70%;

@@ -1,18 +1,15 @@
 ﻿<link rel="stylesheet" href="~/css/StyleSheet.css" />
-@{
-}
+
 @model UtakmicaPrikazVM
 
 <body>
     <input hidden asp-for="LigaID" />
     <div class="btn-group">
-        <button class="liga-ikona" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Klubovi
-        </button>
+        <button type="button" style="outline:none;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
         <div class="dropdown-menu">
             @foreach (var item in Model.listaKlubova)
             {
-                <a class="dropdown-item" href="#">@item.Text</a>
+                <a class="dropdown-item" href="/Utakmica/Prikaz?tip=0&ligaid=@Model.LigaID&filterKlub=@item.Text">@item.Text</a>
             }
         </div>
     </div>
@@ -22,18 +19,16 @@
             <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=1&ligaid=@Model.LigaID">Sve</a>
             <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=4&ligaid=@Model.LigaID">Aktuelne</a>
             <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=2&ligaid=@Model.LigaID">Najavljene</a>
-            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=3&ligaid=@Model.LigaID">Prosle</a>
+            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=3&ligaid=@Model.LigaID">Prošle</a>
+            <a class="btn btn-warning" style="float:right;" href="/Utakmica/DodajUredi?UtakmicaID=0&LigaID=@Model.LigaID">Dodaj utakmicu</a>
         </div>
-
-            <a class="btn btn-warning" href="/Utakmica/DodajUredi?UtakmicaID=0&LigaID=@Model.LigaID">Dodaj utakmicu</a>
-
-
+        <br />
         <table class="table">
-            
+
             <tbody>
                 @foreach (var item in Model.listaUtakmica)
                 {
-                    <tr class="border">
+                    <tr class="border-bottom">
                         @if (item.IsZavrsena)
                         {
                             <td style="text-align:center;">Kraj</td>
@@ -77,7 +72,7 @@
                                 <div class="form-check">
                                     <a class="btn btn-warning" href="DodajUredi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Uredi</a>
                                     <a class="btn btn-warning" href="Obrisi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Obrisi</a>
-                                    <a class="btn btn-outline-warning" asp-action="Pocni" asp-route-id="@item.UtakmicaID">Pocni</a>
+                                    <a class="btn btn-outline-warning" asp-action="Pocni" asp-route-id="@item.UtakmicaID">Počni</a>
                                 </div>
                             </td>
                         }

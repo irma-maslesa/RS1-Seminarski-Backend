@@ -40,7 +40,7 @@ namespace FudbalskaLigaBiH.Controllers
         }
 
         //tip 1 i 0 = sve utakmice; tip 2= neodigrane; tip 3= zavrsene
-        public IActionResult Prikaz(int tip,int ligaid)
+        public IActionResult Prikaz(int tip,int ligaid,string filterKlub)
         {
             UtakmicaPrikazVM model = new UtakmicaPrikazVM();
             if (tip == 1 || tip==0)
@@ -130,7 +130,29 @@ namespace FudbalskaLigaBiH.Controllers
                     }).ToList();
                    model.listaUtakmica = listaUtakm;
             }
+            //vraca sve utakmice u kojima se pojavljuje ovaj klub
+            if(filterKlub != null)
+            {
+                List<UtakmicaPrikazVM.Row> listaUtakm = db.Utakmica
+                    .Where(k=>k.LigaID==ligaid && (k.KlubDomacin.Naziv== filterKlub || k.KlubGost.Naziv== filterKlub))
+                    .Select(u => new UtakmicaPrikazVM.Row
+                    {
+                        UtakmicaID = u.UtakmicaID,
+                        KlubDomacin = u.KlubDomacin.Naziv,
+                        KlubGost = u.KlubGost.Naziv,
+                        RezultatDomacin = u.RezultatDomacin,
+                        RezultatGost = u.RezultatGost,
+                        IsZavrsena = u.IsZavrsena,
+                        IsProduzeci = u.IsProduzeci,
+                        MinutaIgre = u.MinutaIgre,
+                        IsOmiljena = (bool)u.IsOmiljena,
+                        slikaDomacin = u.KlubDomacin.Slika,
+                        slikaGost = u.KlubGost.Slika,
+                        LigaID = u.LigaID
+                    }).ToList();
+                model.listaUtakmica = listaUtakm;
 
+            }
 
             List<SelectListItem> listaklub = db.Klub.Select(k => new SelectListItem
             {

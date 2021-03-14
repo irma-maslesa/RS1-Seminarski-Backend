@@ -16,6 +16,22 @@
     margin: 0;
     padding: 0;
 }
+
+.slicice {
+    height: 10%;
+    width: 35%;
+}
+
+.OkvirPotvrde {
+    margin: auto;
+    width: 70%;
+    background-color: rgba(0, 0, 0, 0.04);
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+    color:black;
+}
+
 .OkvirLogina {
     margin: auto;
     width: 30%;
@@ -28,21 +44,21 @@
     border-radius: 25px;
     background-color: rgba(255, 255, 255, 0.4);
     border: 1px solid grey;
-    color: lightgrey;
+    color: black;
 }
 .checkbox{
     float:left;
 }
-.btn {
+#btn1 {
     border-radius: 25px;
     background-color: rgba(255, 255, 255, 0.6);
     border: 1px solid #EFC809;
     color: black;
-    width:290px;
     margin:auto;
 }
-    .btn:hover {
-        color: #EFC809;
+    #btn1:hover {
+        color: black;
+        background-color: #EFC809;
     }
 .linkAcc {
     float: left;

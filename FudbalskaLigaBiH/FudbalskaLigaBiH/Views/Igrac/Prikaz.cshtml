@@ -1,59 +1,61 @@
-﻿
+﻿<link href="~/css/StyleSheet.css" rel="stylesheet" />
+
 @model IgracPrikazVM
 
 <body>
-    <div class="btn-group" style="position:relative;top:35px">
-        <button class="btn btn-secondary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
+    <div class="btn-group">
+        <button type="button" style="outline:none;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
         <div class="dropdown-menu">
-            @foreach (var x in Model.klubovi)
+            @foreach (var item in Model.klubovi)
             {
-                <a class="dropdown-item" href="/Igrac/Prikaz?klubTxt=@x.Text">@x.Text</a>
+                <a class="dropdown-item" href="/Igrac/Prikaz?filterKlub=@item.Text">@item.Text</a>
             }
         </div>
     </div>
     <div class="container">
-        <form>
-            <div>
-                <input type="text" name="pretrazivac" value="@Model.pretraga" style="width:30%;" placeholder="Unesite ime i/ili prezime igrača" />
-                <button class="btn btn-secondary " style="width:10%;" type="submit">Traži</button>
-                <button class="btn btn-secondary" style="width:10%;" type="button" onclick="window.location='/Igrac/Prikaz'">Reset</button>
+        <div class="okvirIgraca">
+            <form>
+                <div>
+                    <input type="text" name="pretrazivac" value="@Model.pretraga"  class="inputcss" placeholder="Unesite ime i/ili prezime igrača" />
+                    <button class="btn btn-warning " style="width:10%;" type="submit">Traži</button>
+                    <button class="btn btn-warning" style="width:10%;" type="button" onclick="window.location='/Igrac/PrikazAdmin'">Reset</button>
 
-            </div>
-        </form><br />
+                </div>
+            </form><br />
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Broj dresa</th>
-                    <th>Pozicija</th>
-                    <th>Klub</th>
-                    <th>Akcije</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (IgracPrikazVM.IgracRow x in Model.ListaIgraca)
-                {
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td><img href="@x.slika" /></td>
-                        <td>@x.Ime</td>
-                        <td>@x.Prezime</td>
-                        <td>@x.BrojDresa</td>
-                        <td>@x.Pozicija</td>
-                        <td>@(@x.KlubNaziv==null?"Nije pridružen klubu":x.KlubNaziv)</td>
-                        <td>
-                            <a class="btn btn-secondary" href="/Igrac/Detalji?id=@x.ID">Detalji</a>
-                        </td>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Broj dresa</th>
+                        <th>Pozicija</th>
+                        <th>Klub</th>
+                        <th>Akcije</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach (IgracPrikazVM.IgracRow x in Model.ListaIgraca)
+                    {
+                        <tr>
+                            <td><img href="@x.slika" /></td>
+                            <td>@x.Ime</td>
+                            <td>@x.Prezime</td>
+                            <td>@x.BrojDresa</td>
+                            <td>@x.Pozicija</td>
+                            <td>@(@x.KlubNaziv==null?"Nije pridružen klubu":x.KlubNaziv)</td>
+                            <td>
+                                <a class="btn btn-secondary" href="/Igrac/Detalji?id=@x.ID">Detalji</a>
+                            </td>
+                        </tr>
 
-                }
-            </tbody>
+                    }
+                </tbody>
 
-        </table>
+            </table>
 
-    </div>
-    <br />
-
+        </div>
+        <br />
+        </div>
 </body>
 

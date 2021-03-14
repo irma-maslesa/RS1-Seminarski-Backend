@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -194,6 +193,7 @@ namespace FudbalskaLigaBiH.Controllers
                     }
                     else
                     {
+                        TempData["Message"] = "Uspješno ste se prijavili. Dobrodošli!";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -294,7 +294,7 @@ namespace FudbalskaLigaBiH.Controllers
 
                     }
 
-                    ViewBag.Title = "Potvrdite Vaš Email";
+                    ViewBag.Title = "Potvrdite Vaš Email za nastavak.";
                     ViewBag.Message = "Molimo provjerite Vašu poštu za potrebe potvrde Email-a." +"\n"+
                         "Ukoliko se ne radi o pravom Email-u za potrebe demonstracije Email možete potvrditi klikom na >>Potvrdite Email<<";
                     return View("EmailConfirmationNeeded",confirmationLink);
@@ -324,9 +324,6 @@ namespace FudbalskaLigaBiH.Controllers
                 return Json($"Email {email} je već u upotrebi.");
             }
         }
-
-        [TempData]
-        public string StatusMessage { get; set; }
 
         [HttpGet]
         public async Task<IActionResult> ProfileAsync()
@@ -362,8 +359,7 @@ namespace FudbalskaLigaBiH.Controllers
             user.PhoneNumber = model.PhoneNumber;
            
             _context.SaveChanges();
-
-            StatusMessage = "Vaš profil je ažuriran";
+             TempData["StatusMessage"]="Vaš profil je ažuriran";
             return Redirect("/Account/Profile");
         }
     }

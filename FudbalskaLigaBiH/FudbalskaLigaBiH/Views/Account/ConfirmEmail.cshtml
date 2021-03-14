@@ -1,14 +1,25 @@
-﻿@{ var email = ViewBag.Email; }
+﻿<link href="~/css/Account.css" rel="stylesheet" />
+@{ var email = ViewBag.Email; }
 
 <br />
-<div class="text-center">
-    <h3 class="text-success">
-        Uspješno ste potvrdili Vaš Email >>@email<<
-        Od sada koristite ovaj Email za prijavu na stranicu.
-    </h3>
+<body style="background-image:url(" .. /img/background1.jpg");">
+    <div class="container">
+        <div class="row">
+            <div class="OkvirPotvrde" >
+                <div class="text-center">
+                    <img class="slicice" src="~/img/check.png" />
+                    <br />
+                    <h3 class="text-success">
+                        Uspješno ste potvrdili Vaš Email!
+                        Od sada koristite ovaj Email [@email] za prijavu na stranicu.
+                    </h3>
 
-    <br />
-    <br />
-    <h4><a asp-action="Index" asp-controller="Home">Početna</a></h4>
-    <h4><a asp-action="ListUsers" asp-controller="Administration">Lista korisnika</a></h4>
-</div>
+                    <br />
+                    <br />
+                    <h4><a class="text-success" asp-action="Index" asp-controller="Home"><u>Početna</u></a></h4>
+                    <h4><a class="text-success" asp-action="ListUsers" asp-controller="Administration"><u>Lista korisnika</u></a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

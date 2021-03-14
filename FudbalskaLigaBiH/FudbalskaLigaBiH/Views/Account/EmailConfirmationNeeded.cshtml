@@ -1,18 +1,27 @@
 ﻿@{ var title = ViewBag.Title;
-                var message = ViewBag.Message; }
+   var message = ViewBag.Message; }
+<link href="~/css/Account.css" rel="stylesheet" />
 
-<div class="text-center">
-    <br />
-    <img src="~/images/almost-there.png" />
+<body >
+    <div class="container">
+        <div class="row">
+            <div class="OkvirPotvrde">
+                <div class="text-center">
+                    <br />
+                    <img class="slicice" src="~/img/email.png" />
 
-    <br />
-    <h3 class="text-success">@ViewBag.Title</h3>
+                    <br /><br />
+                    <h3 class="text-success">@ViewBag.Title</h3>
 
-    <br />
-    <h4 class="text-success">@ViewBag.Message</h4>
+                    <br />
+                    <h4 class="text-success">@ViewBag.Message</h4>
 
-    <br />
-    <br />
-    <h4><a href="@Model">Potvrdite Email</a></h4>
+                    <br />
+                    <br />
+                    <h4><a class="text-success" href="@Model"><u>Potvrdite Email</u></a></h4>
 
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

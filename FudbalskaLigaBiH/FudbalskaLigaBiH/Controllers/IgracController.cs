@@ -22,91 +22,7 @@ namespace FudbalskaLigaBiH.Controllers
         }
 
 
-        public IActionResult Prikaz(string pretrazivac, string klubTxt)
-        {
-            IgracPrikazVM prikazIgraca = new IgracPrikazVM();
-
-            List<SelectListItem> klubovi = _db.Klub.Select(g => new SelectListItem
-            {
-                Value = g.ID.ToString(),
-                Text = g.Naziv
-            }).ToList();
-
-            List<IgracPrikazVM.IgracRow> lista;
-            if (klubTxt != null)
-            {
-                lista = (List<IgracPrikazVM.IgracRow>)_db.Igrac.Where(i => pretrazivac == null ||
-                (i.Ime + " " + i.Prezime).ToLower().StartsWith(pretrazivac) || (i.Prezime + " " + i.Ime).ToLower().StartsWith(pretrazivac)
-                && i.Klub.Naziv == klubTxt)
-               .Select(i => new IgracPrikazVM.IgracRow
-               {
-                   ID = i.IgracID,
-                   Ime = i.Ime,
-                   Prezime = i.Prezime,
-                   BrojDresa = i.BrojDresa,
-                   Pozicija = i.Pozicija.NazivPozicije,
-                   KlubNaziv = i.Klub.Naziv,
-                   slika=i.Slika
-               }).ToList();
-            }
-            else
-            {
-                lista = (List<IgracPrikazVM.IgracRow>)_db.Igrac.Where(i => pretrazivac == null ||
-                (i.Ime + " " + i.Prezime).ToLower().StartsWith(pretrazivac) || (i.Prezime + " " + i.Ime).ToLower().StartsWith(pretrazivac)
-                )
-               .Select(i => new IgracPrikazVM.IgracRow
-               {
-                   ID = i.IgracID,
-                   Ime = i.Ime,
-                   Prezime = i.Prezime,
-                   BrojDresa = i.BrojDresa,
-                   Pozicija = i.Pozicija.NazivPozicije,
-                   KlubNaziv = i.Klub.Naziv,
-                   slika = i.Slika
-               }).ToList();
-            }
-
-            //if (klubTxt!=null)
-            //{
-            //    List<IgracPrikazVM.IgracRow>listaIgracaPoKlubu=new List<IgracPrikazVM.IgracRow>();
-
-            //    foreach (var x in lista)
-            //    {
-            //        if (x.KlubNaziv == klubTxt)
-            //            listaIgracaPoKlubu.Add(x);
-            //    }
-            //    lista = listaIgracaPoKlubu;
-            //}
-            prikazIgraca.ListaIgraca = lista;
-        
-            prikazIgraca.klubovi = klubovi;
-            prikazIgraca.pretraga = pretrazivac;
-            return View(prikazIgraca);
-        }
-
-
-        public IActionResult Detalji(int id)
-        {
-            IgracDetaljiVM JedanIgrac = _db.Igrac.Where(i => i.IgracID == id).Select(i => new IgracDetaljiVM
-            {
-                ID = i.IgracID,
-                Ime = i.Ime,
-                Prezime = i.Prezime,
-                DatumRodjenja = i.DatumRodjenja,
-                Email = i.Email,
-                Visina = i.Visina,
-                Tezina = i.Tezina,
-                BrojDresa = i.BrojDresa,
-                Grad = i.Grad.Naziv,
-                Pozicija = i.Pozicija.NazivPozicije,
-                KlubNaziv = i.Klub.Naziv,
-                slika = i.Slika
-            }).Single();
-
-            return View(JedanIgrac);
-        }
-        //prebacit ce se jedan if u Prikaz akciju kada se dodaju role, pa nece biti ponavljanje koda
-        public IActionResult PrikazAdmin(string pretrazivac, string klubTxt)
+        public IActionResult Prikaz(string pretrazivac, string filterKlub)
         {
             IgracPrikazVM prikazIgraca = new IgracPrikazVM();
 
@@ -131,13 +47,13 @@ namespace FudbalskaLigaBiH.Controllers
                slika = i.Slika
            }).ToList();
 
-            if (klubTxt != null)
+            if (filterKlub != null)
             {
                 List<IgracPrikazVM.IgracRow> listaIgracaPoKlubu = new List<IgracPrikazVM.IgracRow>();
 
                 foreach (var x in lista)
                 {
-                    if (x.KlubNaziv == klubTxt)
+                    if (x.KlubNaziv == filterKlub)
                         listaIgracaPoKlubu.Add(x);
                 }
                 lista = listaIgracaPoKlubu;
@@ -145,10 +61,34 @@ namespace FudbalskaLigaBiH.Controllers
             prikazIgraca.ListaIgraca = lista;
 
             prikazIgraca.klubovi = klubovi;
-            prikazIgraca.pretraga = pretrazivac;
+            if (User.IsInRole("Administrator_Igraca"))
+                return View("PrikazAdmin", prikazIgraca);
+
             return View(prikazIgraca);
         }
-   
+
+
+        public IActionResult Detalji(int id)
+        {
+            IgracDetaljiVM JedanIgrac = _db.Igrac.Where(i => i.IgracID == id).Select(i => new IgracDetaljiVM
+            {
+                ID = i.IgracID,
+                Ime = i.Ime,
+                Prezime = i.Prezime,
+                DatumRodjenja = i.DatumRodjenja,
+                Email = i.Email,
+                Visina = i.Visina,
+                Tezina = i.Tezina,
+                BrojDresa = i.BrojDresa,
+                Grad = i.Grad.Naziv,
+                Pozicija = i.Pozicija.NazivPozicije,
+                KlubNaziv = i.Klub.Naziv,
+                slika = i.Slika
+            }).Single();
+
+            return View(JedanIgrac);
+        }
+        
 
         public IActionResult DodajUredi(int id)
         {
@@ -199,45 +139,49 @@ namespace FudbalskaLigaBiH.Controllers
 
         public IActionResult Snimi(IgracUrediVM x)
         {
-            Igrac novi;
-            if(x.ID==0)
+            if (ModelState.IsValid)
             {
-                novi = new Igrac();
-                _db.Igrac.Add(novi);
+                Igrac novi;
+                if (x.ID == 0)
+                {
+                    novi = new Igrac();
+                    _db.Igrac.Add(novi);
+                }
+                else
+                {
+                    novi = _db.Igrac.Find(x.ID);
+                }
+
+                novi.IgracID = x.ID;
+                novi.Ime = x.Ime;
+                novi.Prezime = x.Prezime;
+                novi.DatumRodjenja = x.DatumRodjenja;
+                novi.Email = x.Email;
+                novi.Tezina = x.Tezina;
+                novi.Visina = x.Visina;
+                novi.BrojDresa = x.BrojDresa;
+                novi.GradID = x.GradID;
+                novi.PozicijaID = x.PozicijaID;
+                novi.KlubID = x.KlubID;
+
+                if (x.SlikaIgraca != null)
+                {
+                    string ekstenzija = Path.GetExtension(x.SlikaIgraca.FileName);
+                    string contentType = x.SlikaIgraca.ContentType;
+
+                    var fileName = $"{Guid.NewGuid()}{ekstenzija}";
+                    string folder = "wwwroot/upload/";
+                    bool exist = System.IO.Directory.Exists(folder);
+                    if (!exist)
+                        System.IO.Directory.CreateDirectory(folder);
+
+                    x.SlikaIgraca.CopyTo(new FileStream(folder + fileName, FileMode.Create));
+                    novi.Slika = fileName;
+                }
+                _db.SaveChanges();
+                return Redirect("/Igrac/Prikaz");
             }
-            else
-            {
-            novi = _db.Igrac.Find(x.ID);    
-            }
-
-            novi.IgracID = x.ID;
-            novi.Ime = x.Ime;
-            novi.Prezime = x.Prezime;
-            novi.DatumRodjenja = x.DatumRodjenja;
-            novi.Email = x.Email;
-            novi.Tezina = x.Tezina;
-            novi.Visina = x.Visina;
-            novi.BrojDresa = x.BrojDresa;
-            novi.GradID = x.GradID;
-            novi.PozicijaID = x.PozicijaID;
-            novi.KlubID = x.KlubID;
-
-            if (x.SlikaIgraca != null)
-            {
-                string ekstenzija = Path.GetExtension(x.SlikaIgraca.FileName);
-                string contentType = x.SlikaIgraca.ContentType;
-
-                var fileName = $"{Guid.NewGuid()}{ekstenzija}";
-                string folder = "wwwroot/upload/";
-                bool exist = System.IO.Directory.Exists(folder);
-                if (!exist)
-                    System.IO.Directory.CreateDirectory(folder);
-
-                x.SlikaIgraca.CopyTo(new FileStream(folder + fileName, FileMode.Create));
-                novi.Slika = fileName;
-            }
-            _db.SaveChanges();
-            return Redirect("/Igrac/PrikazAdmin");
+            return View("DodajUredi");
         }
 
         public IActionResult Obrisi(int id)
@@ -245,7 +189,7 @@ namespace FudbalskaLigaBiH.Controllers
             Igrac zaBrisanje = _db.Igrac.Find(id);
             _db.Remove(zaBrisanje);
             _db.SaveChanges();
-            return Redirect("/Igrac/PrikazAdmin");
+            return Redirect("/Igrac/Prikaz");
         }
 
 

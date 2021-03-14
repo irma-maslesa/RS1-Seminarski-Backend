@@ -166,6 +166,8 @@ namespace FudbalskaLigaBiH.Controllers
                     _db.SaveChanges();
                     TempData["successMessage"] = "Uspješno ste dodali novost.";
                 }
+                else                
+                    TempData["successMessage"] = "Uspješno ste ažurirali novost [ "+nova.Naslov+" ].";
 
                 return Redirect("/Novosti/Prikaz");
             }

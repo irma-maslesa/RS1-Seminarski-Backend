@@ -1,23 +1,25 @@
 ﻿@using FudbalskaLigaBiH.Models
+<link href="~/css/Account.css" rel="stylesheet" />
 
 @model ProfileViewModel
 
 @{ ViewData["Title"] = "Profile";
-    var message = TempData["StatusMessage"]; }
+    var message = TempData["StatusMessage"];
+    }
 
-<br />
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="OkvirLogina" style=" text-align:start; ">
                 <form method="post">
-                    <h4>Upravljanje računom</h4>
+                    <h3 style="text-align:center;">Upravljanje računom</h3>
+                    <h6 style="text-align:center;">Uredite svoje podatke</h6>
                     <hr />
-                    <br />
-                    @if (message!=null)
+                    @if (message != null)
                     {
-                        <div>
-                            <p>@message</p>
+                        <div class="alert alert-success" data-alert="alert">
+                            <button class="close" data-dismiss="alert">&times;</button>
+                            <p class="text-center text-info" style="margin:0;" >@message</p>
                         </div>
                     }
                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -40,14 +42,15 @@
                         <input readonly id="Email" name="Email" asp-for="Email" class="form-control" type="email"
                                data-val="true" data-val-required="Email polje je obavezno." />
                         <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>                 
+                    </div>
                     <div class="form-group">
                         <label asp-for="PhoneNumber"></label>
                         <input asp-for="PhoneNumber" class="form-control" />
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div><br />
+                    <div class="form-group">
+                        <input id="btn1" type="submit" class="form-control" value="Snimi" />
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Snimi</button>
                 </form>
             </div>
         </div>

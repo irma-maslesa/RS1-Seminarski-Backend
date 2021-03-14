@@ -6,10 +6,8 @@
 <link rel="stylesheet" href="~/css/StyleSheet.css">
 <link rel="stylesheet" href="~/css/site.css" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-@*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-@*<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>*@
 <script src="~/js/site.js"></script>
 
 @using FudbalskaLigaBiH.Models
@@ -18,10 +16,9 @@
     Layout = null;
 }
 @model NovostiDetaljiVM.NovostiRed
-@*INPUT POLJA*@
 
 <body>
-    <form enctype="multipart/form-data"method="post">
+    <form enctype="multipart/form-data" method="post">
 
         <div id="Okvir-Inputa" class="container">
             <div class="form-group" style="display:none;">
@@ -35,7 +32,7 @@
 
             <div class="form-group">
                 <label>Odaberi sliku</label>
-                <input asp-for="SlikaNovosti" alt="slikanovosti" class="form-control" accept="image/*" onchange="generisiPreview(this)" />
+                <input asp-for="SlikaNovosti" alt="slikanovosti" class="form-control" style="height:unset;" accept="image/*" onchange="generisiPreview(this)" />
             </div>
 
 
@@ -66,7 +63,7 @@
         </div>
     </form>
 </body>
-@*<script>
+<script>
         function generisiPreview(input) {
             var file = input.files[0];
 
@@ -79,25 +76,4 @@
                 reader.readAsDataURL(file);
             }
         }
-        var myhub = new signalR.HubConnectionBuilder().withUrl("/myhub").build();
-
-
-        myhub.start().then(function () {
-            console.info("started signalR hub");
-
-        }).catch(function (err) {
-            return console.error(err.toString());
-        });
-
-        myhub.on("prijemPoruke", function (user, message) {
-            //if (SignInManager.IsSignedIn(User) && User.IsInRole("GostKorisnik")) {
-            //    alert("povratna info=>" + message);//postaviti css da se ubaci notifikacija
-            //}
-            if ("GostKorisnik"=="GostKorisnik") {
-                alert("povratna info=>" + message);//postaviti css da se ubaci notifikacija
-            }
-        });
-        //$("#dugmeporuka").click(a => {
-        //    myhub.invoke("PosaljiPoruku", "Novinar", "Zdravo");
-        //});
-    </script>*@
+    </script>

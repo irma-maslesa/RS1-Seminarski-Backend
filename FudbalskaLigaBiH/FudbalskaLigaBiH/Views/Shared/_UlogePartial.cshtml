@@ -35,7 +35,7 @@ else if (SignInManager.IsSignedIn(User) && User.IsInRole("Novinar"))
 else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Igraca"))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Igrac" asp-action="PrikazAdmin">PODEŠAVANJA</a>
+        <a class="nav-link text-dark" asp-controller="Igrac" asp-action="Prikaz">PODEŠAVANJA</a>
     </li>
 }
 else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Utakmica"))
@@ -56,14 +56,8 @@ else if (SignInManager.IsSignedIn(User))
         </a>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            TAKMIČENJA
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/Utakmica/Prikaz">Premijer Liga BiH</a>
-            <a class="dropdown-item" href="#">Federalna liga</a>
-            <a class="dropdown-item" href="#">Liga RS</a>
-        </div>
+        <a class="nav-link text-dark" href="/Utakmica/Index">TAKMIČENJA</a>
+
     </li>
     <li>
         <div class="notification-icon" style="margin-top:10px">

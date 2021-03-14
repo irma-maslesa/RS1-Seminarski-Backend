@@ -20,10 +20,11 @@
         <div class="okvir-vijesti">
         @if (successMessage != null)
         {
-            <div class="alert alert-info alert-prijava" data-alert="alert">
+            <div class="alert alert-success" data-alert="alert">
                 <a class="close" data-dismiss="alert">&times;</a>
-                <p class="text-center text-info">@successMessage</p>
-            </div>}
+                <p class="text-center text-info" style="margin:0;">@successMessage</p>
+            </div>
+            }
 
             @foreach (NovostiDetaljiVM.NovostiRed vijest in Model.novosti)
             {

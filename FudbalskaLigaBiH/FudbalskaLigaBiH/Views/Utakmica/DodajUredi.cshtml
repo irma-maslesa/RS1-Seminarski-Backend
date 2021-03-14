@@ -1,30 +1,34 @@
 ﻿<link rel="stylesheet" href="~/css/StyleSheet.css" />
-
 @model UtakmicaDodajUrediVM
 
 <body>
-    <form asp-controller="Utakmica"asp-action="Snimi">
-        <input hidden asp-for="@Model.LigaID" />
-        <div class="container">
-
-            <input hidden asp-for="@Model.UtakmicaID" />
-            <input hidden asp-for="@Model.slikaDomacin" />
-            <input hidden asp-for="@Model.slikaGost" />
-            <div>
-                <label>Klub domacin</label>
-                <select asp-for="KlubDomacinID" asp-items="@Model.KlubDomacin"></select>
-            </div>
-            <div>
-                <label>Klub gost</label>
-                <select asp-for="KlubGostID" asp-items="@Model.KlubGost"></select>
-            </div>
-            <div>
-                <label>Datum i vrijeme odrzavanja</label>
-                <input asp-for="DatumOdrzavanja" />
+    <div class="container">
+        <div class="row">
+            <div class="OkvirUtak" style=" text-align:start; ">
+                <form asp-controller="Utakmica" asp-action="Snimi">
+                    <input hidden asp-for="@Model.LigaID" />
+                        <input hidden asp-for="@Model.UtakmicaID" />
+                        <input hidden asp-for="@Model.slikaDomacin" />
+                        <input hidden asp-for="@Model.slikaGost" />
+                        <div class="form-group">
+                            <label>Klub domacin</label>
+                            <select class="form-control" asp-for="KlubDomacinID" asp-items="@Model.KlubDomacin"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Klub gost</label>
+                            <select class="form-control" asp-for="KlubGostID" asp-items="@Model.KlubGost"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Datum i vrijeme odrzavanja</label>
+                            <input class="form-control" asp-for="DatumOdrzavanja" />
+                        </div>
+                    <br />
+                    <div class="form-group">
+                        <input id="btn1" type="submit" class="form-control" href="Prikaz?tip=0&ligaid=@Model.LigaID" value="Odustani" />
+                        <input id="btn1" type="submit" class="form-control" value="Snimi" />
+                    </div>
+                </form>
+                </div>
             </div>
         </div>
-        <a  class="btn btn-warning" href="Prikaz?tip=0&ligaid=@Model.LigaID">Odustani</a>
-        <button type="submit" class="btn btn-warning">Snimi</button>
-    </form>
-
 </body>

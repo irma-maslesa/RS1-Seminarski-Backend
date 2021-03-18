@@ -56,8 +56,8 @@ namespace FudbalskaLigaBiH.Controllers
                     RezultatGost = u.RezultatGost,
                     IsZavrsena = u.IsZavrsena,
                     IsProduzeci = u.IsProduzeci,
+                    IsPoluvrijeme=u.IsPoluvrijeme,
                     MinutaIgre = u.MinutaIgre,
-                    IsOmiljena = (bool)u.IsOmiljena,
                     slikaDomacin = u.KlubDomacin.Slika,
                     slikaGost = u.KlubGost.Slika,
                     LigaID=u.LigaID
@@ -78,8 +78,8 @@ namespace FudbalskaLigaBiH.Controllers
                     RezultatGost = u.RezultatGost,
                     IsZavrsena = u.IsZavrsena,
                     IsProduzeci = u.IsProduzeci,
+                    IsPoluvrijeme = u.IsPoluvrijeme,
                     MinutaIgre = u.MinutaIgre,
-                    IsOmiljena = (bool)u.IsOmiljena,
                     slikaDomacin = u.KlubDomacin.Slika,
                     slikaGost = u.KlubGost.Slika,
                     LigaID=u.LigaID
@@ -100,8 +100,8 @@ namespace FudbalskaLigaBiH.Controllers
                         RezultatGost = u.RezultatGost,
                         IsZavrsena = u.IsZavrsena,
                         IsProduzeci = u.IsProduzeci,
+                        IsPoluvrijeme = u.IsPoluvrijeme,
                         MinutaIgre = u.MinutaIgre,
-                        IsOmiljena = (bool)u.IsOmiljena,
                         slikaDomacin = u.KlubDomacin.Slika,
                         slikaGost = u.KlubGost.Slika,
                         LigaID = u.LigaID
@@ -122,8 +122,8 @@ namespace FudbalskaLigaBiH.Controllers
                         RezultatGost = u.RezultatGost,
                         IsZavrsena = u.IsZavrsena,
                         IsProduzeci = u.IsProduzeci,
+                        IsPoluvrijeme = u.IsPoluvrijeme,
                         MinutaIgre = u.MinutaIgre,
-                        IsOmiljena = (bool)u.IsOmiljena,
                         slikaDomacin = u.KlubDomacin.Slika,
                         slikaGost = u.KlubGost.Slika,
                         LigaID = u.LigaID
@@ -144,8 +144,8 @@ namespace FudbalskaLigaBiH.Controllers
                         RezultatGost = u.RezultatGost,
                         IsZavrsena = u.IsZavrsena,
                         IsProduzeci = u.IsProduzeci,
+                        IsPoluvrijeme = u.IsPoluvrijeme,
                         MinutaIgre = u.MinutaIgre,
-                        IsOmiljena = (bool)u.IsOmiljena,
                         slikaDomacin = u.KlubDomacin.Slika,
                         slikaGost = u.KlubGost.Slika,
                         LigaID = u.LigaID
@@ -257,6 +257,28 @@ namespace FudbalskaLigaBiH.Controllers
             db.SaveChanges();
 
             return Redirect("/Utakmica/Prikaz?tip=0&ligaid=" + utakmica.LigaID);
+        }
+        public IActionResult Poluvrijeme(int id)
+        {
+            var utakmica = db.Utakmica.Find(id);
+            utakmica.IsPoluvrijeme=true;
+            db.SaveChanges();
+
+            return Redirect("/Utakmica/Prikaz?tip=0&ligaid=" + utakmica.LigaID);
+        }
+
+        public void UpdateRezultatDomacin(int id, int rezultatDomacin)
+        {
+            var rezultat = db.Utakmica.Find(id);
+            rezultat.RezultatDomacin = rezultatDomacin;
+            db.SaveChanges();
+        }
+
+        public void UpdateRezultatGost(int id, int rezultatgost)
+        {
+            var rezultat = db.Utakmica.Find(id);
+            rezultat.RezultatGost = rezultatgost;
+            db.SaveChanges();
         }
     }
 }

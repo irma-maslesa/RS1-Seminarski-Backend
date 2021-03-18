@@ -25,7 +25,7 @@ namespace FudbalskaLigaBiH.Models
             public bool IsZavrsena { get; set; }
             public bool IsProduzeci { get; set; }
             public int MinutaIgre { get; set; }
-            public bool IsOmiljena { get; set; }
+            public bool IsPoluvrijeme { get; set; }
             public int LigaID { get; set; }
         }
         public List<Row> listaUtakmica { get; set; }

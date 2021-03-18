@@ -4,13 +4,12 @@
     <div class="container">
         <div class="row border">
             <div class="col-sm-4 border-right">
-                <img src="~/img/sdfs.png" alt="Slika igraca" />
+                <img src="~/upload/@Model.slika" alt="Slika igraca" />
             </div>
             <div class="col-sm-4 " style="text-align:right;">
                 <p>Ime : </p>
                 <p>Prezime : </p>
                 <p>Datum rodjenja : </p>
-                <p>Email : </p>
                 <p>Visina : </p>
                 <p>Tezina : </p>
                 <p>Broj dresa : </p>
@@ -22,7 +21,6 @@
                 <p>@Model.Ime</p>
                 <p>@Model.Prezime</p>
                 <p>@Model.DatumRodjenja.ToString("dd.MM.yyyy")</p>
-                <p>@Model.Email</p>
                 <p>@Model.Visina cm</p>
                 <p>@Model.Tezina kg</p>
                 <p>@Model.BrojDresa</p>

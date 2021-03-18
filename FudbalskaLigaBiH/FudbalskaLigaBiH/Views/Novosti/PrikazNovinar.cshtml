@@ -1,4 +1,5 @@
 ﻿<link rel="stylesheet" href="~/css/StyleSheet.css">
+<script src="~/js/site.js"></script>
 
 @{
     string successMessage = (string)TempData["successMessage"];
@@ -18,12 +19,12 @@
             </div>
         </div>
         <div class="okvir-vijesti">
-        @if (successMessage != null)
-        {
-            <div class="alert alert-success" data-alert="alert">
-                <a class="close" data-dismiss="alert">&times;</a>
-                <p class="text-center text-info" style="margin:0;">@successMessage</p>
-            </div>
+            @if (successMessage != null)
+            {
+                <div class="alert alert-success" data-alert="alert">
+                    <a class="close" data-dismiss="alert">&times;</a>
+                    <p class="text-center text-info" style="margin:0;">@successMessage</p>
+                </div>
             }
 
             @foreach (NovostiDetaljiVM.NovostiRed vijest in Model.novosti)
@@ -39,10 +40,26 @@
                         </div>
                         <div class="uredi-obrisi">
                             <a class="btn btn-warning" href="/Novosti/DodajUredi?NovostiID=@vijest.IDnovosti" style="padding:5px;">Uredi</a><br /><br />
-                            <a class="btn btn-warning" href="/Novosti/Obrisi?NovostiID=@vijest.IDnovosti" style="padding:5px;">Obriši</a>
+                            <a class="btn btn-warning"style="padding:5px;" data-target="#brisanjeModal" data-toggle="modal">Obriši</a>
                         </div>
                     </div>
-                </a><br />
+                </a>
+                <div class="modal" id="brisanjeModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header"></div>
+                            <div class="modal-body">
+                                <span>Jeste li sigurni da želite obrisati?</span>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-warning" href="/Novosti/Obrisi?NovostiID=@vijest.IDnovosti">Da</a>
+                                <a class="btn btn-warning" data-dismiss="modal">Ne</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+             <br />
             }
         </div>
 

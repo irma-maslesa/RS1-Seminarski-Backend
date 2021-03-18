@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Authorization
+<script src="~/js/site.js"></script>
 
 @model IEnumerable<IdentityRole>
 
@@ -12,14 +13,14 @@
         <br />
         @if (Model.Any())
         {
-            <a class="btn btn-primary mb-3" asp-controller="Administration" asp-action="CreateRole">
-            Kreiraj novu ulogu
-              </a>
+            <a class="btn btn-warning mb-3" asp-controller="Administration" asp-action="CreateRole">
+                Kreiraj novu ulogu
+            </a>
             foreach (var role in Model)
             {
                 if (role.Name != "SuperAdmin")
                 {
-                     <div class="card mb-3">
+                    <div class="card mb-3">
                         <div class="card-header">
                             Uloga ID: @role.Id
                         </div>
@@ -29,17 +30,24 @@
                         <div class="card-footer">
                             <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
 
-                                <a class="btn btn-primary"
+                                <a class="btn btn-outline-warning"
                                    asp-action="EditRole"
                                    asp-controller="Administration"
                                    asp-route-id="@role.Id">Uredi</a>
-                                <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Da li ste sigurni da želite obrisati : @role.Name?')">
-                                    Obriši
-                                </button>
-                             </form>
+
+                                <span id="PotvrdaBrisanjaSpan_@role.Id" style="display:none;">
+                                    <span>Jeste li sigurni da želite obrisati?</span>
+                                    <button type="submit" class="btn btn-warning">Da</button>
+                                    <a class="btn btn-warning" onclick="PotvrdaBrisanja('@role.Id',false)">Ne</a>
+                                </span>
+
+                                <span id="spanBrisanje_@role.Id">
+                                    <a class="btn btn-outline-warning" onclick="PotvrdaBrisanja('@role.Id',true)">Obriši</a>
+                                </span>
+
+                            </form>
                         </div>
-                 </div> 
+                    </div>
                 }
             }
         }
@@ -58,8 +66,7 @@
                     </a>
                 </div>
             </div>
-         }
+        }
 
     </div>
 </body>
-

@@ -45,8 +45,22 @@
                             <td>@(@x.KlubNaziv==null?"Nije pridružen klubu":x.KlubNaziv)</td>
                             <td>
                                 <a class="btn btn-warning" href="/Igrac/DodajUredi?id=@x.ID">Uredi</a>
-                                <a class="btn btn-warning" href="/Igrac/Obrisi?id=@x.ID">Obriši</a>
+                                <a class="btn btn-warning" data-target="#brisanjeModal" data-toggle="modal" >Obriši</a>
                             </td>
+                            <div class="modal" id="brisanjeModal" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header"></div>
+                                        <div class="modal-body">
+                                            <span>Jeste li sigurni da želite obrisati?</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-warning" href="/Igrac/Obrisi?id=@x.ID">Da</a>
+                                            <a class="btn btn-warning" data-dismiss="modal">Ne</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
 
                     }

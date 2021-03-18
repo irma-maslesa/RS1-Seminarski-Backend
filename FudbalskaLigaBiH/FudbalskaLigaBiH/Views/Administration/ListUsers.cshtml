@@ -1,11 +1,12 @@
 ﻿@using FudbalskaLigaBiH.EntityModels
 @using Microsoft.AspNetCore.Authorization
+<script src="~/js/site.js"></script>
 
 @model IEnumerable<Korisnik>
 
 
 
-@{ 
+@{
     ViewBag.Title = "All Users";
 }
 
@@ -15,9 +16,9 @@
         <h2>Svi korisnici</h2>
         @if (Model.Any())
         {
-            <a class="btn btn-primary mb-3" asp-controller="Account" asp-action="Register">
+            <a class="btn btn-warning mb-3" asp-controller="Account" asp-action="Register">
                 Kreiraj novog korisnika
-            </a> 
+            </a>
             foreach (var user in Model)
             {
                 <div class="card mb-3">
@@ -29,16 +30,23 @@
                     </div>
                     <div class="card-footer">
                         <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
-                            <a class="btn btn-primary" asp-action="EditUser"
+                            <a class="btn btn-outline-warning" asp-action="EditUser"
                                asp-controller="Administration"
                                asp-route-id="@user.Id">Uredi</a>
-                            <button type="submit" class="btn btn-danger"
-                             onclick="return confirm('Da li ste sigurni da želite obrisati : @user.UserName?')">Obriši</button>
+                            <span id="PotvrdaBrisanjaSpan_@user.Id" style="display:none;">
+                                <span>Jeste li sigurni da želite obrisati?</span>
+                                <button type="submit" class="btn btn-warning">Da</button>
+                                <a class="btn btn-warning" onclick="PotvrdaBrisanja('@user.Id',false)">Ne</a>
+                            </span>
+
+                            <span id="spanBrisanje_@user.Id">
+                                <a class="btn btn-outline-warning" onclick="PotvrdaBrisanja('@user.Id',true)">Obriši</a>
+                            </span>
 
                         </form>
                     </div>
                 </div>
-                
+
             }
         }
         else

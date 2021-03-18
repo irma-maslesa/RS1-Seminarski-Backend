@@ -28,81 +28,144 @@
             <tbody>
                 @foreach (var item in Model.listaUtakmica)
                 {
-                    <tr class="border-bottom">
-                        @if (item.IsZavrsena)
-                        {
-                            <td style="text-align:center;">Kraj</td>
-                        }
-                        else if (item.MinutaIgre == -1)
-                        {
-                            <td style="text-align:center;">-</td>
+                <tr class="border-bottom">
+                    @if (item.IsZavrsena)
+                    {
+                        <td style="text-align:center;">Kraj</td>
+                    }
+                    else if (item.MinutaIgre == -1)
+                    {
+                        <td style="text-align:center;">-</td>
 
+                    }
+                    else if (item.IsPoluvrijeme)
+                    {
+                        <td style="text-align:center;">Poluvrijeme</td>
+                    }
+                    else
+                    {
+                        if (item.IsProduzeci)
+                        {
+                            <td style="text-align:center;">@*@item.MinutaIgre'*@ (Produžeci)</td>
                         }
                         else
                         {
-                            if (item.IsProduzeci)
-                            {
-                                <td style="text-align:center;">@item.MinutaIgre' (Produžeci)</td>
-                            }
-                            else
-                            {
-                                <td style="text-align:center;">@item.MinutaIgre'</td>
-                            }
+                            <td style="text-align:center;">U toku</td>
+                            @*<td style="text-align:center;">@item.MinutaIgre'</td>*@
                         }
-                        <td style="float:right">@item.KlubDomacin</td>
-                        <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
-                        @if (item.MinutaIgre == -1)
-                        {
-                            <td style="float:right;">/</td>
-                            <td style="text-align:center"><span>-</span></td>
-                            <td style="float:left;">/</td>
-
-                        }
-                        else
-                        {
-                            <td style="float:right;">@item.RezultatDomacin</td>
-                            <td style="text-align:center"><span>-</span></td>
-                            <td style="float:left;">@item.RezultatGost</td>
-                        }
+                    }
+                    <td style="float:right">@item.KlubDomacin</td>
+                    <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
+                    @if (item.MinutaIgre == -1)
+                    {
+                        <td style="float:right;">/</td>
+                        <td style="text-align:center;padding-top:10px;"><span>-</span></td>
+                        <td style="float:left;">/</td>
                         <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
                         <td style="float:left">@item.KlubGost</td>
-                        @if (item.MinutaIgre == -1)
-                        {
-                            <td>
-                                <div class="form-check">
-                                    <a class="btn btn-warning" href="DodajUredi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Uredi</a>
-                                    <a class="btn btn-warning" href="Obrisi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Obrisi</a>
-                                    <a class="btn btn-outline-warning" asp-action="Pocni" asp-route-id="@item.UtakmicaID">Počni</a>
+                        <td>
+                            <div class="form-check">
+                                <a class="btn btn-warning" href="DodajUredi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Uredi</a>
+                                <a class="btn btn-warning" data-target="#brisanjeModal" data-toggle="modal">Obrisi</a>
+                                <a class="btn btn-outline-warning" asp-action="Pocni" asp-route-id="@item.UtakmicaID">Počni</a>
+                            </div>
+                        </td>
+                    }
+                    else if (item.MinutaIgre >= 0 && !item.IsZavrsena)
+                    {
+                        <td style="float:right;">
+                            <input class="RezultatDomacin" type="number" value="@item.RezultatDomacin" id="@item.UtakmicaID" style="width: 20%; float: right; text-align: center;" />
+                        </td>
+                        <td style="text-align:center;width: 5%;padding-top: 35px;"><span>-</span></td>
+                        <td style="float:left;"><input class="RezultatGost" type="number" value="@item.RezultatGost" id="@item.UtakmicaID" style="width: 20%; float: left; text-align: center;" /></td>
+                        <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
+                        <td style="float:left">@item.KlubGost</td>
+                        <td>
+                            <div class="form-check">
+                                <a class="btn btn-outline-warning">Uredi</a>
+                                <a class="btn btn-outline-warning">Obrisi</a>
+                                <a class="btn btn-outline-warning" asp-action="Poluvrijeme" asp-route-id="@item.UtakmicaID">Poluvrijeme</a>
+                                <a class="btn btn-outline-warning" asp-action="Zavrsi" asp-route-id="@item.UtakmicaID">Zavrsi</a>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="float:right;">@item.RezultatDomacin</td>
+                        <td style="text-align:center;padding-top:35px;"><span>-</span></td>
+                        <td style="float:left;">@item.RezultatGost</td>
+                        <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
+                        <td style="float:left">@item.KlubGost</td>
+                        <td>
+                            <div class="form-check">
+                                <a class="btn btn-outline-warning">Uredi</a>
+                                <a class="btn btn-outline-warning">Obrisi</a>
+                            </div>
+                        </td>
+                    }
+                    <div class="modal" id="brisanjeModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header"></div>
+                                <div class="modal-body">
+                                    <span>Jeste li sigurni da želite obrisati?</span>
                                 </div>
-                            </td>
-                        }
-                        else if (item.MinutaIgre >= 0 && !item.IsZavrsena)
-                        {
-                            <td>
-                                <div class="form-check">
-                                    <a class="btn btn-outline-warning">Uredi</a>
-                                    <a class="btn btn-outline-warning">Obrisi</a>
-                                    <a class="btn btn-outline-warning" asp-action="Poluvrijeme" asp-route-id="@item.UtakmicaID">Poluvrijeme</a>
-                                    <a class="btn btn-outline-warning" asp-action="Zavrsi" asp-route-id="@item.UtakmicaID">Zavrsi</a>
+                                <div class="modal-footer">
+                                    <a class="btn btn-warning" href="Obrisi?UtakmicaID=@item.UtakmicaID&LigaID=@item.LigaID">Da</a>
+                                    <a class="btn btn-warning" data-dismiss="modal">Ne</a>
                                 </div>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <div class="form-check">
-                                    <a class="btn btn-outline-warning">Uredi</a>
-                                    <a class="btn btn-outline-warning">Obrisi</a>
-                                </div>
-                            </td>
-                        }
-                    </tr>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
 
                 }
 
             </tbody>
         </table>
     </div>
-
-
 </body>
+<script>
+    function UpdateRezultatDomacin() {
+        $("input.RezultatDomacin").focusout(function (e, status) {
+            var id = $(this).attr("id");
+            var rezultatDomacin = $(this).val();
+
+            $.post("/Utakmica/UpdateRezultatDomacin?id=" + id + "&rezultatDomacin=" + rezultatDomacin);
+
+
+        });
+    }
+
+    $(document).ready(function () {
+    // izvršava nakon što glavni html dokument bude generisan
+        UpdateRezultatDomacin();
+    });
+
+    $(document).ajaxComplete(function () {
+        // izvršava nakon bilo kojeg ajax poziva
+        UpdateRezultatDomacin();
+    });
+    //===================================================================
+
+    function UpdateRezultatGost() {
+        $("input.RezultatGost").focusout(function (e, status) {
+            var id = $(this).attr("id");
+            var rezultatGost = $(this).val();
+
+            $.post("/Utakmica/UpdateRezultatGost?id=" + id + "&rezultatgost=" + rezultatGost);
+
+
+        });
+    }
+
+    $(document).ready(function () {
+        // izvršava nakon što glavni html dokument bude generisan
+        UpdateRezultatGost();
+    });
+
+    $(document).ajaxComplete(function () {
+        // izvršava nakon bilo kojeg ajax poziva
+        UpdateRezultatGost();
+    });
+</script>

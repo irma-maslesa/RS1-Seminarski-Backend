@@ -38,20 +38,24 @@
                         <td style="text-align:center;">-</td>
 
                     }
+                    else if (item.IsPoluvrijeme)
+                    {
+                <td style="text-align:center;">Poluvrijeme</td>
+                    }
                     else
                     {
                         if (item.IsProduzeci)
                         {
-                            <td style="text-align:center;">@item.MinutaIgre' (Produžeci)</td>
+                            <td style="text-align:center;">@*@item.MinutaIgre'*@ (Produžeci)</td>
                         }
                         else
                         {
-                            <td style="text-align:center;">@item.MinutaIgre'</td>
+                            <td style="text-align:center;">U toku</td>
+                            @*<td style="text-align:center;">@item.MinutaIgre'</td>*@
                         }
                     }
                     <td style="float:right">@item.KlubDomacin</td>
                     <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
-                    <td style="float:right;">@item.RezultatDomacin</td>
                     @if (item.MinutaIgre == -1)
                     {
                         <td style="float:right;">/</td>
@@ -69,6 +73,7 @@
                     <td style="float:left">@item.KlubGost</td>
 
                 </tr>
+
                 }
             </tbody>
         </table>

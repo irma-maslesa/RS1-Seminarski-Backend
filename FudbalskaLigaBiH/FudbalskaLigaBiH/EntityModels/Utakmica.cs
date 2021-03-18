@@ -20,8 +20,8 @@ namespace FudbalskaLigaBiH.EntityModels
 
         public bool IsZavrsena { get; set; }
         public bool IsProduzeci { get; set; }
+        public bool IsPoluvrijeme { get; set; }
         public int MinutaIgre { get; set; }
-        public bool? IsOmiljena { get; set; }
 
         public int LigaID { get; set; }
         public Liga liga { get; set; }

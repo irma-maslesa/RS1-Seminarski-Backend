@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -70,7 +71,8 @@ namespace FudbalskaLigaBiH.Controllers
         public IActionResult ListRoles()
         {
             var roles = roleManager.Roles;
-            return View(roles);
+            PagedList<IdentityRole> model = new PagedList<IdentityRole>(roles, 1, 5);
+            return View(model);
         }
         
         [HttpGet]

@@ -1,8 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Authorization
+@using PagedList.Core
+
 <script src="~/js/site.js"></script>
 
-@model IEnumerable<IdentityRole>
+@*@model IEnumerable<IdentityRole>*@
+@model PagedList<IdentityRole>
 
 @{ ViewBag.Title = "All Roles"; }
 
@@ -49,6 +52,7 @@
                         </div>
                     </div>
                 }
+                <pager list="@Model" asp-controller="Administartion" asp-action="ListRoles"></pager>
             }
         }
         else

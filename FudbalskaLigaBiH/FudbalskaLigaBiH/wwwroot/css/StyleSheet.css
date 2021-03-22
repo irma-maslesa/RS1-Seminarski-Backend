@@ -197,11 +197,11 @@ body {
 }
 
 /*CSS ZA NOVINARA-DODAVANJE I UREDJIVANJE NOVOSTI*/
+
 .opcije {
     width: 100%;
     text-align: center;
-    position: absolute;
-    bottom: 10%;
+    margin-bottom: 10%;
 }
 
     .opcije button {

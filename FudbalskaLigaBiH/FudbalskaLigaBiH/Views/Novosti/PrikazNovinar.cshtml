@@ -40,7 +40,7 @@
                         </div>
                         <div class="uredi-obrisi">
                             <a class="btn btn-warning" href="/Novosti/DodajUredi?NovostiID=@vijest.IDnovosti" style="padding:5px;">Uredi</a><br /><br />
-                            <a class="btn btn-warning"style="padding:5px;" data-target="#brisanjeModal" data-toggle="modal">Obriši</a>
+                            <a class="btn btn-warning" style="padding:5px;" data-target="#brisanjeModal" data-toggle="modal">Obriši</a>
                         </div>
                     </div>
                 </a>
@@ -58,10 +58,15 @@
                         </div>
                     </div>
                 </div>
-            
-             <br />
+
+                <br />
             }
         </div>
 
     </div>
+        <a asp-controller="Novosti" asp-action="IzvjestajNovosti">
+            <img src="~/img/printer.png" style="width:30px;bottom:15px;right:15px;position:absolute" />
+        </a>
+
+
 </body>

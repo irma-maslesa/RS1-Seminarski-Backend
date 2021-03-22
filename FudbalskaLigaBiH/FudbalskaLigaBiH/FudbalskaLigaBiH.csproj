@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="Report1.rdlc" />
+    <None Remove="Reporti\Report1.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Reporti\Report1.rdlc" />
+    <EmbeddedResource Include="Reporti\Report2.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
     <PackageReference Include="PagedList.Core.Mvc" Version="3.0.0" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

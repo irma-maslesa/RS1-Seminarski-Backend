@@ -21,5 +21,6 @@ namespace FudbalskaLigaBiH.Models
             public string slika { get; set; }
         }
         public List<NovostiRed> novosti { get; set; }
+        public DateTime granica { get; set; }
     }
 }

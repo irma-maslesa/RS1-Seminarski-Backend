@@ -1,12 +1,13 @@
-﻿@model IgracDetaljiVM
+﻿
+@model IgracDetaljiVM
 <body>
     <br /><br /><br />
     <div class="container">
-        <div class="row border">
-            <div class="col-sm-4 border-right">
-                <img src="~/upload/@Model.slika" alt="Slika igraca" />
+        <div class="row">
+            <div class="col-sm-2" style="text-align:center;margin:auto;">
+                <img src="~/upload/@Model.slika" alt="Slika igraca" style="width:250px;"/>
             </div>
-            <div class="col-sm-4 " style="text-align:right;">
+            <div class="col-sm-2 " style="text-align:right;">
                 <p>Ime : </p>
                 <p>Prezime : </p>
                 <p>Datum rodjenja : </p>
@@ -17,7 +18,7 @@
                 <p>Pozicija : </p>
                 <p>Klub : </p>
             </div>
-            <div class="col-sm-4" style="text-align:left;">
+            <div class="col-sm-5" style="text-align:left;">
                 <p>@Model.Ime</p>
                 <p>@Model.Prezime</p>
                 <p>@Model.DatumRodjenja.ToString("dd.MM.yyyy")</p>

@@ -5,7 +5,7 @@
 @model UtakmicaPrikazVM
 
 <body>
-    
+
     <div class="btn-group">
         <button type="button" style="outline:none;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
         <div class="dropdown-menu">
@@ -14,70 +14,69 @@
                 <a class="dropdown-item" href="/Utakmica/Prikaz?tip=0&ligaid=@Model.LigaID&filterKlub=@item.Text">@item.Text</a>
             }
         </div>
-    </div>  
-
-    <div class="container">
-        <div>
-            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=1&ligaid=@Model.LigaID">Sve</a>
-            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=4&ligaid=@Model.LigaID">Aktuelne</a>
-            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=2&ligaid=@Model.LigaID">Najavljene</a>
-            <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=3&ligaid=@Model.LigaID">Prošle</a>
-        </div>       
-        <br />
-        <table class="table">
-            <tbody>
-                @foreach (var item in Model.listaUtakmica)
-                {
-                <tr class="border-bottom">
-                    @if (item.IsZavrsena)
-                    {
-                        <td style="text-align:center;">Kraj</td>
-                    }
-                    else if (item.MinutaIgre == -1)
-                    {
-                        <td style="text-align:center;">-</td>
-
-                    }
-                    else if (item.IsPoluvrijeme)
-                    {
-                <td style="text-align:center;">Poluvrijeme</td>
-                    }
-                    else
-                    {
-                        if (item.IsProduzeci)
-                        {
-                            <td style="text-align:center;">@*@item.MinutaIgre'*@ (Produžeci)</td>
-                        }
-                        else
-                        {
-                            <td style="text-align:center;">U toku</td>
-                            @*<td style="text-align:center;">@item.MinutaIgre'</td>*@
-                        }
-                    }
-                    <td style="float:right">@item.KlubDomacin</td>
-                    <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
-                    @if (item.MinutaIgre == -1)
-                    {
-                        <td style="float:right;">/</td>
-                        <td style="text-align:center"><span>-</span></td>
-                        <td style="float:left;">/</td>
-
-                    }
-                    else
-                    {
-                        <td style="float:right;">@item.RezultatDomacin</td>
-                        <td style="text-align:center"><span>-</span></td>
-                        <td style="float:left;">@item.RezultatGost</td>
-                    }
-                    <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
-                    <td style="float:left">@item.KlubGost</td>
-
-                </tr>
-
-                }
-            </tbody>
-        </table>
     </div>
+        <div class="container">
+            <div>
+                <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=1&ligaid=@Model.LigaID">Sve</a>
+                <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=4&ligaid=@Model.LigaID">Aktuelne</a>
+                <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=2&ligaid=@Model.LigaID">Najavljene</a>
+                <a class="btn btn-warning" href="/Utakmica/Prikaz?tip=3&ligaid=@Model.LigaID">Prošle</a>
+            </div>
+            <br />
+            <table class="table">
+                <tbody>
+                    @foreach (var item in Model.listaUtakmica)
+                    {
+                        <tr class="border-bottom">
+                            @if (item.IsZavrsena)
+                            {
+                                <td style="text-align:center;">Kraj</td>
+                            }
+                            else if (item.MinutaIgre == -1)
+                            {
+                                <td style="text-align:center;">-</td>
+
+                            }
+                            else if (item.IsPoluvrijeme)
+                            {
+                                <td style="text-align:center;">Poluvrijeme</td>
+                            }
+                            else
+                            {
+                                if (item.IsProduzeci)
+                                {
+                                    <td style="text-align:center;">@*@item.MinutaIgre'*@ (Produžeci)</td>
+                                }
+                                else
+                                {
+                                    <td style="text-align:center;">U toku</td>
+                                    @*<td style="text-align:center;">@item.MinutaIgre'</td>*@
+                                }
+                            }
+                            <td style="float:right">@item.KlubDomacin</td>
+                            <td><img style="width:20px;height:20px;float:left;" src="~/upload/@item.slikaDomacin" alt="grb" /></td>
+                            @if (item.MinutaIgre == -1)
+                            {
+                                <td style="float:right;">/</td>
+                                <td style="text-align:center"><span>-</span></td>
+                                <td style="float:left;">/</td>
+
+                            }
+                            else
+                            {
+                                <td style="float:right;">@item.RezultatDomacin</td>
+                                <td style="text-align:center"><span>-</span></td>
+                                <td style="float:left;">@item.RezultatGost</td>
+                            }
+                            <td><img style="width:20px;height:20px;float:right;" src="~/upload/@item.slikaGost" alt="grb" /></td>
+                            <td style="float:left">@item.KlubGost</td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
 
 
 </body>

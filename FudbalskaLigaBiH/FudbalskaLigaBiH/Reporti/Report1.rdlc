@@ -2,65 +2,6 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="Textbox1">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Fudbalska liga BiH</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.13in</Top>
-        <Left>0.13in</Left>
-        <Height>0.3in</Height>
-        <Width>1.81666in</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox2">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Novosti</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox2</rd:DefaultName>
-        <Top>0.13in</Top>
-        <Left>5.405in</Left>
-        <Height>0.3in</Height>
-        <Width>0.95in</Width>
-        <ZIndex>1</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="naslov">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -76,11 +17,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>naslov</rd:DefaultName>
-        <Top>0.62167in</Top>
-        <Left>0.67167in</Left>
+        <Top>0.43278in</Top>
+        <Left>1.28833in</Left>
         <Height>0.25in</Height>
-        <Width>5.21667in</Width>
-        <ZIndex>2</ZIndex>
+        <Width>3.64167in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -106,11 +46,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>sadrzaj</rd:DefaultName>
-        <Top>1.055in</Top>
-        <Left>0.67167in</Left>
-        <Height>0.49167in</Height>
-        <Width>5.21667in</Width>
-        <ZIndex>3</ZIndex>
+        <Top>0.86611in</Top>
+        <Left>0.78833in</Left>
+        <Height>1.00556in</Height>
+        <Width>4.64167in</Width>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -136,11 +76,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>datum</rd:DefaultName>
-        <Top>1.96333in</Top>
-        <Left>4.44666in</Left>
+        <Top>1.99111in</Top>
+        <Left>4.23833in</Left>
         <Height>0.25in</Height>
-        <Width>1.44167in</Width>
-        <ZIndex>4</ZIndex>
+        <Width>1.63333in</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -152,11 +92,112 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2.36333in</Height>
+    <Height>2.78333in</Height>
     <Style />
   </Body>
-  <Width>6.5in</Width>
+  <Width>6.05in</Width>
   <Page>
+    <PageHeader>
+      <Height>0.98333in</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Fudbalska Liga BiH</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.14667in</Top>
+          <Left>0.13833in</Left>
+          <Height>0.25in</Height>
+          <Width>1.5in</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox5">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Iz sekcije "Novosti"</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox5</rd:DefaultName>
+          <Top>0.14667in</Top>
+          <Left>4.56333in</Left>
+          <Height>0.25in</Height>
+          <Width>1.30833in</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Ispis novosti:</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>0.57222in</Top>
+          <Left>0.13833in</Left>
+          <Height>0.25in</Height>
+          <Width>1in</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageHeader>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>
@@ -170,7 +211,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>8b5be54c-fc9d-439d-bd93-5516af437feb</rd:DataSourceID>
+      <rd:DataSourceID>40f4f24e-c77c-4e65-a211-3146753b428b</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -195,12 +236,12 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>rep</rd:DataSetName>
-        <rd:TableName>Class1</rd:TableName>
+        <rd:TableName>Class1r</rd:TableName>
         <rd:ObjectDataSourceSelectMethod>Get</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceType>rep.Class1, rep, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>rep.Class1r, rep, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>7e373436-892a-4203-813d-60f314aabfc0</rd:ReportID>
+  <rd:ReportID>146c8494-75e8-4b2d-8564-660483b85fd5</rd:ReportID>
 </Report>

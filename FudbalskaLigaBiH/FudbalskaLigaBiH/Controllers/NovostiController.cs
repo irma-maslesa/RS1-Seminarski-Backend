@@ -60,7 +60,7 @@ namespace FudbalskaLigaBiH.Controllers
 
             NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
             VMnovosti.novosti = lista_novosti;
-
+            VMnovosti.granica = DateTime.Now;
             if (User.IsInRole("Novinar"))
                 return View("PrikazNovinar", VMnovosti);
 
@@ -185,5 +185,15 @@ namespace FudbalskaLigaBiH.Controllers
 
             return RedirectToAction("/Novosti/Prikaz");
         }
+
+        public IActionResult IzvjestajNovosti()
+        {
+            IzvjestajFilterVM model = new IzvjestajFilterVM();
+            model.DonjaGranica = DateTime.Now;
+            model.GornjaGranica = DateTime.Now;
+
+            return View();
+        }
+
     }
 }

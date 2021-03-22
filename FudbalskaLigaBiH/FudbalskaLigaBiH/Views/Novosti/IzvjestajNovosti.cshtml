@@ -1,0 +1,21 @@
+﻿<link href="~/css/Account.css" rel="stylesheet" />
+@model IzvjestajFilterVM
+
+<body>
+    <div class="container">
+            <div class="OkvirLogina">
+                <form asp-controller="Report" asp-action="Index1">
+                    <div class="form-group">
+                        <label>Početak intervala</label>
+                        <input asp-for="DonjaGranica" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Kraj intervala</label>
+                        <input asp-for="GornjaGranica" class="form-control" />
+                    </div>
+                    <button class="btn btn-warning" type="submit">Podnesi</button>
+                </form>
+
+            </div>
+        </div>
+</body>

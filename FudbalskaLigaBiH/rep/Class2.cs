@@ -5,15 +5,16 @@ using System.Web;
 
 namespace rep
 {
-    public class Class1
+    public class Class2
     {
+        public int id { get; set; }
         public string naslov { get; set; }
-        public string sadrzaj { get; set; }
+        public int brojac { get; set; }
         public DateTime datum { get; set; }
 
-        public static List<Class1> Get()
+        public static List<Class2> Get()
         {
-            return new List<Class1>{}; 
+            return new List<Class2> { };
         }
     }
 }

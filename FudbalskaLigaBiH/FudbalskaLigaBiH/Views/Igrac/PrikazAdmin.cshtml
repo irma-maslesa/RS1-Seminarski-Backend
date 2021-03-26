@@ -1,8 +1,8 @@
 ﻿<link href="~/css/StyleSheet.css" rel="stylesheet" />
-@model IgracPrikazVM
+@model IgracPrikazAjaxVM
 
 <body>
-    <div class="btn-group">
+    @*<div class="btn-group">
         <button type="button" style="outline:none;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Klub</button>
         <div class="dropdown-menu">
             @foreach (var item in Model.klubovi)
@@ -10,18 +10,18 @@
                 <a class="dropdown-item" href="/Igrac/Prikaz?filterKlub=@item.Text">@item.Text</a>
             }
         </div>
-    </div>
+    </div>*@
     <div class="container">
         <div class="okvirIgraca">
-            <form>
+            @*<form>
                 <div>
                     <input type="text" name="pretrazivac" value="@Model.pretraga" class="inputcss" placeholder="Unesite ime i/ili prezime igrača" />
                     <button class="btn btn-warning " style="width:10%;" type="submit">Traži</button>
                     <button class="btn btn-warning" style="width:10%;" type="button" onclick="window.location='/Igrac/PrikazAdmin'">Reset</button>
                     <button class="btn btn-warning" style="width:15%;position:relative;float:right; margin-right: 55px;" type="button" onclick="window.location='/Igrac/DodajUredi'">Dodaj igrača</button>
                 </div>
-            </form><br />
-            <table class="table table-hover">
+            </form><br />*@
+            @*<table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Slika</th>
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (IgracPrikazVM.IgracRow x in Model.ListaIgraca)
+                    @foreach (IgracPrikazAjaxVM.IgracRow x in Model.ListaIgraca)
                     {
                         <tr class="Pretraga">
                             <td><img style="width:50px;" src="~/upload/@x.slika" alt="Slika-Igrac" /></td>
@@ -65,7 +65,7 @@
 
                     }
                 </tbody>
-            </table>
+            </table>*@
         </div>
     </div>
     <br />

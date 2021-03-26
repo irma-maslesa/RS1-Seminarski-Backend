@@ -56,7 +56,7 @@ body {
     width: 30%;
     text-align: center;
 }
-.okvirIgraca1 {
+okvirIgraca1 {
     margin: auto;
     width: 40%;
     text-align: center;
@@ -64,7 +64,7 @@ body {
     color: black;
     text-align:start;
 }
-.okvirIgraca {
+#okvirIgraca {
     padding-top: 20px;
     width: 70%;
     height: 70%;
@@ -73,26 +73,26 @@ body {
     top: 15%;
     overflow-y: scroll;
 }
-.okvirIgraca::-webkit-scrollbar {
+#okvirIgraca::-webkit-scrollbar {
     display: normal;
 }
 /* width */
-    .okvirIgraca::-webkit-scrollbar {
+    #okvirIgraca::-webkit-scrollbar {
         width: 10px;
     }
 
 /* Track */
-    .okvirIgraca::-webkit-scrollbar-track {
+    #okvirIgraca::-webkit-scrollbar-track {
         background: #ededed;
     }
 
 /* Handle */
-    .okvirIgraca::-webkit-scrollbar-thumb {
+    #okvirIgraca::-webkit-scrollbar-thumb {
         background: #EFC809;
     }
 
     /* Handle on hover */
-        .okvirIgraca::-webkit-scrollbar-thumb:hover {
+        #okvirIgraca::-webkit-scrollbar-thumb:hover {
             background: #efbd09;
         }
 /*CSS ZA PRIKAZ NOVOSTI*/
@@ -197,11 +197,11 @@ body {
 }
 
 /*CSS ZA NOVINARA-DODAVANJE I UREDJIVANJE NOVOSTI*/
+
 .opcije {
     width: 100%;
     text-align: center;
-    position: absolute;
-    bottom: 10%;
+    margin-bottom: 10%;
 }
 
     .opcije button {

@@ -20,47 +20,95 @@ namespace FudbalskaLigaBiH.Controllers
         {
             _db = db;
         }
+        public IActionResult PrikazAjax(int KlubID, int PozicijaID)
+        {
+            IgracPrikazAjaxVM model = new IgracPrikazAjaxVM();
+            List<IgracPrikazAjaxVM.IgracRow> lista;
+            if (KlubID == 0 && PozicijaID != 0)
+            {
+                lista = _db.Igrac.Where(i => i.PozicijaID == PozicijaID)
+                .Select(i => new IgracPrikazAjaxVM.IgracRow()
+                {
+                    ID = i.IgracID,
+                    Ime = i.Ime,
+                    Prezime = i.Prezime,
+                    BrojDresa = i.BrojDresa,
+                    Pozicija = i.Pozicija.NazivPozicije,
+                    KlubNaziv = i.Klub.Naziv,
+                    slika = i.Slika
+                }).ToList();
+            }
+            else if (KlubID != 0 && PozicijaID == 0)
+            {
+                lista = _db.Igrac.Where(i => i.KlubID == KlubID)
+                .Select(i => new IgracPrikazAjaxVM.IgracRow()
+                {
+                    ID = i.IgracID,
+                    Ime = i.Ime,
+                    Prezime = i.Prezime,
+                    BrojDresa = i.BrojDresa,
+                    Pozicija = i.Pozicija.NazivPozicije,
+                    KlubNaziv = i.Klub.Naziv,
+                    slika = i.Slika
+                }).ToList();
+            }
+            else if(KlubID==0 && PozicijaID==0)
+            {
+                lista = _db.Igrac.Select(i => new IgracPrikazAjaxVM.IgracRow()
+                {
+                    ID = i.IgracID,
+                    Ime = i.Ime,
+                    Prezime = i.Prezime,
+                    BrojDresa = i.BrojDresa,
+                    Pozicija = i.Pozicija.NazivPozicije,
+                    KlubNaziv = i.Klub.Naziv,
+                    slika = i.Slika
+                }).ToList();
+            }
+            else
+            {
+                lista= _db.Igrac.Where(i => i.KlubID == KlubID && i.PozicijaID==PozicijaID)
+                .Select(i => new IgracPrikazAjaxVM.IgracRow()
+                {
+                    ID = i.IgracID,
+                    Ime = i.Ime,
+                    Prezime = i.Prezime,
+                    BrojDresa = i.BrojDresa,
+                    Pozicija = i.Pozicija.NazivPozicije,
+                    KlubNaziv = i.Klub.Naziv,
+                    slika = i.Slika
+                }).ToList();
+            }
+                model.ListaIgraca = lista;
+                return PartialView(model);
+            
+        }
 
-
-        public IActionResult Prikaz(string pretrazivac, string filterKlub)
+        public IActionResult Prikaz(string pretrazivac)
         {
             IgracPrikazVM prikazIgraca = new IgracPrikazVM();
+
 
             List<SelectListItem> klubovi = _db.Klub.Select(g => new SelectListItem
             {
                 Value = g.ID.ToString(),
-                Text = g.Naziv
+                Text = g.Naziv,
+                Selected = false
             }).ToList();
-
-
-            List<IgracPrikazVM.IgracRow> lista;
-            lista = (List<IgracPrikazVM.IgracRow>)_db.Igrac.Where(i => pretrazivac == null ||
-            (i.Ime + " " + i.Prezime).ToLower().StartsWith(pretrazivac) || (i.Prezime + " " + i.Ime).ToLower().StartsWith(pretrazivac))
-           .Select(i => new IgracPrikazVM.IgracRow
-           {
-               ID = i.IgracID,
-               Ime = i.Ime,
-               Prezime = i.Prezime,
-               BrojDresa = i.BrojDresa,
-               Pozicija = i.Pozicija.NazivPozicije,
-               KlubNaziv = i.Klub.Naziv,
-               slika = i.Slika
-           }).ToList();
-
-            if (filterKlub != null)
+            List<SelectListItem> pozicije = _db.Pozicija.Select(g => new SelectListItem
             {
-                List<IgracPrikazVM.IgracRow> listaIgracaPoKlubu = new List<IgracPrikazVM.IgracRow>();
+                Value = g.PozicijaID.ToString(),
+                Text = g.NazivPozicije,
+                 Selected = false
+             }).ToList();
 
-                foreach (var x in lista)
-                {
-                    if (x.KlubNaziv == filterKlub)
-                        listaIgracaPoKlubu.Add(x);
-                }
-                lista = listaIgracaPoKlubu;
-            }
-            prikazIgraca.ListaIgraca = lista;
+            klubovi.Insert(0, new SelectListItem { Text = "", Value = "" });
+            pozicije.Insert(0, new SelectListItem { Text = "", Value = "" });
 
             prikazIgraca.klubovi = klubovi;
+            prikazIgraca.pozicije = pozicije;
+
+
             if (User.IsInRole("Administrator_Igraca"))
                 return View("PrikazAdmin", prikazIgraca);
 

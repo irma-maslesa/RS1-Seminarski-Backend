@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-auto col-form-label">Sadržaj članka</label>
-                <textarea id="SadrzajNovosti" name="SadrzajNovosti" class="form-control" asp-for="SadrzajNovosti"
+                <textarea onkeyup="textAreaAdjust(this)" style="overflow:auto" id="SadrzajNovosti" name="SadrzajNovosti" class="form-control" asp-for="SadrzajNovosti"
                           type="text" data-val="true" data-val-required="Sadržaj novosti je obavezan."></textarea>
                 <span asp-validation-for="SadrzajNovosti" class="text-danger"></span>
 
@@ -64,6 +64,10 @@
     </form>
 </body>
 <script>
+    function textAreaAdjust(element) {
+        element.style.height = "1px";
+        element.style.height = (25 + element.scrollHeight) + "px";
+    }
         function generisiPreview(input) {
             var file = input.files[0];
 

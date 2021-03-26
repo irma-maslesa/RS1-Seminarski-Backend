@@ -154,7 +154,9 @@ namespace FudbalskaLigaBiH.Controllers
 
             }
 
-            List<SelectListItem> listaklub = db.Klub.Select(k => new SelectListItem
+            List<SelectListItem> listaklub = db.Klub
+                .Where(k=>k.LigaID==ligaid)
+                .Select(k => new SelectListItem
             {
                 Value=k.ID.ToString(),
                 Text=k.Naziv

@@ -35,7 +35,7 @@
                         <div class="slika-vijesti"><img src="~/upload/@vijest.slika" alt="Slika-Vijest1" /></div>
                         <div class="clanak">
                             <h6>@vijest.NaslovNovosti</h6><br />
-                            <span style="font-size:smaller;">@(@vijest.SadrzajNovosti!=null?vijest.SadrzajNovosti.Substring(0,vijest.SadrzajNovosti.Length>=90?90:vijest.SadrzajNovosti.Length):null)...</span>
+                            <span style="font-size:10px;position:absolute;top:50%;">@(@vijest.SadrzajNovosti!=null?vijest.SadrzajNovosti.Substring(0,vijest.SadrzajNovosti.Length>=90?90:vijest.SadrzajNovosti.Length):null)...</span>
                             <span style="font-size:small; position:absolute; float:right; bottom:5px; right:5px;margin:0;">@vijest.DatumObjaveNovosti</span>
                         </div>
                         <div class="uredi-obrisi">

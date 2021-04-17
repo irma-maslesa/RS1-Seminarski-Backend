@@ -84,7 +84,7 @@ namespace FudbalskaLigaBiH.Controllers
             
         }
 
-        public IActionResult Prikaz(string pretrazivac)
+        public IActionResult Prikaz()
         {
             IgracPrikazVM prikazIgraca = new IgracPrikazVM();
 
@@ -107,10 +107,6 @@ namespace FudbalskaLigaBiH.Controllers
 
             prikazIgraca.klubovi = klubovi;
             prikazIgraca.pozicije = pozicije;
-
-
-            if (User.IsInRole("Administrator_Igraca"))
-                return View("PrikazAdmin", prikazIgraca);
 
             return View(prikazIgraca);
         }

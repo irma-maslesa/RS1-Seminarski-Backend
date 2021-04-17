@@ -37,6 +37,10 @@ else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Igraca")
     <li class="nav-item">
         <a class="nav-link text-dark" asp-controller="Igrac" asp-action="Prikaz">PODEŠAVANJA</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Igrac" asp-action="DodajUredi">DODAJ IGRAČA</a>
+    </li>
+
 }
 else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator_Utakmica"))
 {

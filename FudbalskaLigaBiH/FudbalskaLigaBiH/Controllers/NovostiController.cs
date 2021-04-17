@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using FudbalskaLigaBiH.Models;
-using FudbalskaLigaBiH.Data;
+﻿using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.EntityModels;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
-using System.IO;
-using Microsoft.AspNetCore.SignalR;
+using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.SignalR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
 
 
 namespace FudbalskaLigaBiH.Controllers
@@ -29,6 +28,40 @@ namespace FudbalskaLigaBiH.Controllers
             _userManager = userManager;
             _hubContext = hubContext;
             _SignInManager = SignInManager;
+        }
+        public IActionResult PrikazN(string filter)
+        {
+            List<NovostiDetaljiVM.NovostiRed> lista_novosti;
+            if (filter == "1")
+            {
+                lista_novosti = _db.Novost.OrderBy(n => n.DatumObjave)
+                    .Select(n => new NovostiDetaljiVM.NovostiRed
+                    {
+                        IDnovosti = n.ID,
+                        NaslovNovosti = n.Naslov,
+                        SadrzajNovosti = n.Sadrzaj,
+                        DatumObjaveNovosti = n.DatumObjave,
+                        slika = n.Slika
+                    }).ToList();
+            }
+            else
+            {
+                lista_novosti = _db.Novost.OrderByDescending(n => n.DatumObjave)
+                    .Select(n => new NovostiDetaljiVM.NovostiRed
+                    {
+                        IDnovosti = n.ID,
+                        NaslovNovosti = n.Naslov,
+                        SadrzajNovosti = n.Sadrzaj,
+                        DatumObjaveNovosti = n.DatumObjave,
+                        slika = n.Slika
+                    }).ToList();
+            }
+
+            NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
+            VMnovosti.novosti = lista_novosti;
+            VMnovosti.granica = DateTime.Now;
+
+            return Ok(VMnovosti);
         }
         public IActionResult Prikaz(string filter)
         {
@@ -61,6 +94,7 @@ namespace FudbalskaLigaBiH.Controllers
             NovostiDetaljiVM VMnovosti = new NovostiDetaljiVM();
             VMnovosti.novosti = lista_novosti;
             VMnovosti.granica = DateTime.Now;
+
             if (User.IsInRole("Novinar"))
                 return View("PrikazNovinar", VMnovosti);
 
@@ -73,6 +107,14 @@ namespace FudbalskaLigaBiH.Controllers
             _db.SaveChanges();
             TempData["BrisanjePoruka"] = "Uspješno ste obrisali članak.";
             return Redirect("/Novosti/Prikaz");
+        }
+        public IActionResult Obrisi1(int NovostiID)
+        {
+            Novost vijestZaBrisanje = _db.Novost.Find(NovostiID);
+            _db.Remove(vijestZaBrisanje);
+            _db.SaveChanges();
+            TempData["BrisanjePoruka"] = "Uspješno ste obrisali članak.";
+            return Ok();
         }
         public IActionResult Detalji(int NovostiID)
         {
@@ -89,6 +131,8 @@ namespace FudbalskaLigaBiH.Controllers
             return View(vijest);
         }
 
+        //.net core novinar
+
         [HttpGet]
         public IActionResult DodajUredi(int NovostiID)
         {
@@ -102,9 +146,9 @@ namespace FudbalskaLigaBiH.Controllers
                     NaslovNovosti = n.Naslov,
                     SadrzajNovosti = n.Sadrzaj,
                     DatumObjaveNovosti = n.DatumObjave,
-                    slika=n.Slika
+                    slika = n.Slika
                 }).Single();
-            if(nova==true)
+            if (nova == true)
             {
                 novaVijest.DatumObjaveNovosti = DateTime.Now;
             }
@@ -166,13 +210,66 @@ namespace FudbalskaLigaBiH.Controllers
                     _db.SaveChanges();
                     TempData["successMessage"] = "Uspješno ste dodali novost.";
                 }
-                else                
-                    TempData["successMessage"] = "Uspješno ste ažurirali novost [ "+nova.Naslov+" ].";
+                else
+                    TempData["successMessage"] = "Uspješno ste ažurirali novost [ " + nova.Naslov + " ].";
 
                 return Redirect("/Novosti/Prikaz");
             }
-            return View(x);
-        }      
+            return Redirect("/Novosti/Prikaz");
+
+        }
+
+        //api za angular
+
+        [HttpPost]
+        public IActionResult Uredi([FromBody]NovostiDetaljiVM.NovostiRed x)
+        {
+            if (ModelState.IsValid)
+            {
+                Novost nova;
+                nova = _db.Novost.Find(x.IDnovosti);
+                
+                nova.ID = x.IDnovosti;
+                nova.Naslov = x.NaslovNovosti;
+                nova.Sadrzaj = x.SadrzajNovosti;
+                nova.DatumObjave = x.DatumObjaveNovosti;
+
+                _db.SaveChanges();
+            }
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult Dodaj([FromBody]NovostiDetaljiVM.NovostiRed x)
+        {
+            if (ModelState.IsValid)
+            {
+                Novost nova;
+               
+                    nova = new Novost();
+                    _db.Novost.Add(nova);
+                nova.ID = x.IDnovosti;
+                nova.Naslov = x.NaslovNovosti;
+                nova.Sadrzaj = x.SadrzajNovosti;
+                nova.DatumObjave = x.DatumObjaveNovosti;
+
+
+                _db.SaveChanges();
+
+                    _hubContext.Clients.All.SendAsync("prijemPoruke", "dodanaNovost");
+
+                    var korisnici = _db.Users.ToList();
+
+                    foreach (var i in korisnici)
+                    {
+                        i.brojNotifikacija = ++i.brojNotifikacija;
+                        _db.Users.Update(i);
+                    }
+
+                    _db.SaveChanges();
+                    TempData["successMessage"] = "Uspješno ste dodali novost.";                
+            }
+            return Ok();
+        }
         //reset counter-a za notifikacije
         public IActionResult ResetCountKorisnik(string Email)
         {

@@ -176,7 +176,9 @@ namespace FudbalskaLigaBiH.Controllers
             if (UtakmicaID == 0)
                 nova = true;
 
-            List<SelectListItem> listaklubova = db.Klub.Select(k => new SelectListItem
+            List<SelectListItem> listaklubova = db.Klub
+                .Where(k=>k.LigaID==LigaID)
+                .Select(k => new SelectListItem
             {
                 Value=k.ID.ToString(),
                 Text=k.Naziv
@@ -256,6 +258,18 @@ namespace FudbalskaLigaBiH.Controllers
         {
             var utakmica = db.Utakmica.Find(id);
             utakmica.MinutaIgre = 0;
+            utakmica.IsPoluvrijeme = false;
+            utakmica.IsProduzeci = false;
+            db.SaveChanges();
+
+            return Redirect("/Utakmica/Prikaz?tip=0&ligaid=" + utakmica.LigaID);
+        }
+        public IActionResult Produzeci(int id)
+        {
+            var utakmica = db.Utakmica.Find(id);
+            utakmica.MinutaIgre = 0;
+            utakmica.IsPoluvrijeme = false;
+            utakmica.IsProduzeci = true;
             db.SaveChanges();
 
             return Redirect("/Utakmica/Prikaz?tip=0&ligaid=" + utakmica.LigaID);

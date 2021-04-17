@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspNetCore.Reporting;
 using FudbalskaLigaBiH.Data;
+using FudbalskaLigaBiH.Models;
 using Microsoft.AspNetCore.Mvc;
 using rep;
-using AspNetCore.Reporting;
-using AspNetCore.ReportingServices.ReportProcessing.ReportObjectModel;
-using FudbalskaLigaBiH.EntityModels;
-using FudbalskaLigaBiH.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FudbalskaLigaBiH.Controllers
 {
@@ -40,6 +37,7 @@ namespace FudbalskaLigaBiH.Controllers
             _localReport.AddDataSource("DataSet1", podatak);
 
 
+
             ReportResult result = _localReport.Execute(RenderType.Pdf);
             return File(result.MainStream, "application/pdf");
         }
@@ -58,7 +56,7 @@ namespace FudbalskaLigaBiH.Controllers
             Class2 novi = new Class2();
             return podaciPripremljeni;
         }
-
+        
         public IActionResult Index1(IzvjestajFilterVM model)
         {
             LocalReport _localReport = new LocalReport("Reporti/Report2.rdlc");
@@ -73,6 +71,6 @@ namespace FudbalskaLigaBiH.Controllers
             ReportResult result = _localReport.Execute(RenderType.Pdf, parameters: parametar);
             return File(result.MainStream, "application/pdf");
         }
-
+        
     }
 }

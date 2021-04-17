@@ -3,36 +3,39 @@
 @model IgracPrikazVM
 
 <body>
-    <div class="container">
-            <button class="btn btn-warning" data-target="#filterModal" data-toggle="modal">Filter</button>
-            <div class="modal" id="filterModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span style="float:left;">Filtriranje igrača</span>
-                            <button class="btn btn-outline-info" style="float:right; font-size:smaller;color:black;" onclick="Reset()">Poništi filtere</button>
-                        </div>
-                        <div class="modal-body">
-                            <label>Klub</label>
-                            <select id="klub" asp-for="KlubID" asp-items="@Model.klubovi"></select><br />
-
-                            <label>Pozicija</label>
-                            <select id="pozicija" asp-for="PozicijaID" asp-items="@Model.pozicije"></select><br />
-
-                            </div><div class="modal-footer">
-                                <buttton class="btn btn-warning" onclick="Filter()" >Filtriraj</buttton>
-                            </div>
-                    </div>
-                        
-                    </div>
+    <div class="btn-group">
+    <button class="btn btn-warning" data-target="#filterModal" data-toggle="modal">Filter</button>
+    </div>
+    <div class="modal" id="filterModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="float:left;">Filtriranje igrača</span>
+                    <button class="btn btn-outline-info" style="float:right; font-size:smaller;color:black;" onclick="Reset()">Poništi filtere</button>
                 </div>
-            </div>      
+                <div class="modal-body">
+                    <label>Klub</label>
+                    <select id="klub" asp-for="KlubID" asp-items="@Model.klubovi"></select><br />
 
+                    <label>Pozicija</label>
+                    <select id="pozicija" asp-for="PozicijaID" asp-items="@Model.pozicije"></select><br />
+
+                </div>
+                <div class="modal-footer">
+                    <buttton class="btn btn-warning" onclick="Filter()">Filtriraj</buttton>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
         <div id="okvirIgraca">
 
 
         </div>
         <br />
+    </div>
+
 </body>
     <script>
         function Filter() {

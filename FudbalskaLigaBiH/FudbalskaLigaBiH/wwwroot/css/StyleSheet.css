@@ -56,7 +56,7 @@ body {
     width: 30%;
     text-align: center;
 }
-okvirIgraca1 {
+.okvirIgraca1 {
     margin: auto;
     width: 40%;
     text-align: center;
@@ -65,7 +65,7 @@ okvirIgraca1 {
     text-align:start;
 }
 #okvirIgraca {
-    padding-top: 20px;
+    margin-top: 20px;
     width: 70%;
     height: 70%;
     position: absolute;

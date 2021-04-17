@@ -2,23 +2,24 @@
     <div class="container">
         @if (ViewBag.ErrorTitle == null)
         {
-        <div class="text-center">
-            <br />
-            <h1 class="text-danger">Error.</h1>
-            <h2 class="text-danger">An error occurred while processing your request.</h2>
+            <div class="text-center">
+                <br />
+                <h1 class="text-danger">Error.</h1>
+                <h2 class="text-danger">An error occurred while processing your request.</h2>
 
-            <h2>@ViewBag.ErrorMessage</h2>
-        </div> }
-                    else
-                    {
+                <h2>@ViewBag.ErrorMessage</h2>
+            </div> }
+                        else
+                        {
         <div class="text-center">
             <br />
             <h2 class="text-danger">@ViewBag.ErrorTitle</h2>
             <h5 class="text-danger">@ViewBag.ErrorMessage</h5>
 
             <br />
-            <img src="~/images/error_warning_alert_attention.png" style="height:450px; width:450px" />
-        </div>}
+            <img src="~/img/accessDenied.png" style="height:450px; width:450px" />
+        </div>
+        }
 
     </div>
 </body>

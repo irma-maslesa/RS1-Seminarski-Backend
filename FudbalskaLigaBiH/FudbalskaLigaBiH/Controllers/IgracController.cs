@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FudbalskaLigaBiH.EntityModels;
+using Data.EntityModel;
 using System.IO;
+using Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {

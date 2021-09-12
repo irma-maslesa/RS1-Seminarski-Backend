@@ -12,11 +12,12 @@ using FudbalskaLigaBiH.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FudbalskaLigaBiH.EntityModels;
+using Data.EntityModel;
 using Microsoft.AspNetCore.Http;
-using FudbalskaLigaBiH.Interfaces;
-using FudbalskaLigaBiH.DTOs;
 using FudbalskaLigaBiH.SignalR;
+using Data.Interfaces;
+using FudbalskaLigaBiH.Data.DTOs;
+using Data;
 
 namespace FudbalskaLigaBiH
 {

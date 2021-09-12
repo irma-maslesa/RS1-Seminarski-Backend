@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FudbalskaLigaBiH.Data;
-using FudbalskaLigaBiH.EntityModels;
+using Data.EntityModel;
 using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.SignalR;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
+using Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {

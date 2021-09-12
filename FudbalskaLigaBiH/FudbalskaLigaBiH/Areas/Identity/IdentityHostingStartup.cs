@@ -1,6 +1,5 @@
 ﻿using System;
 using FudbalskaLigaBiH.Data;
-using FudbalskaLigaBiH.EntityModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

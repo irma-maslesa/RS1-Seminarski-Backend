@@ -1,5 +1,6 @@
-﻿using FudbalskaLigaBiH.Data;
-using FudbalskaLigaBiH.EntityModels;
+﻿using Data;
+using FudbalskaLigaBiH.Data;
+using Data.EntityModel;
 using FudbalskaLigaBiH.Models;
 using FudbalskaLigaBiH.SignalR;
 using Microsoft.AspNetCore.Identity;

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FudbalskaLigaBiH.Models;
-using FudbalskaLigaBiH.EntityModels;
+using Data.EntityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FudbalskaLigaBiH.Data;
+using Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {

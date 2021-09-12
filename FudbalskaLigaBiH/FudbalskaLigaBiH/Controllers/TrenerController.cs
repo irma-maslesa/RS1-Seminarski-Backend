@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using FudbalskaLigaBiH.Data;
 using Microsoft.AspNetCore.Mvc;
 using FudbalskaLigaBiH.Models;
-using FudbalskaLigaBiH.EntityModels;
+using Data.EntityModel;
+using Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {

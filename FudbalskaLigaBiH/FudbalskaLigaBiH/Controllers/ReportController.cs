@@ -1,4 +1,5 @@
 ﻿using AspNetCore.Reporting;
+using Data;
 using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.Models;
 using Microsoft.AspNetCore.Mvc;

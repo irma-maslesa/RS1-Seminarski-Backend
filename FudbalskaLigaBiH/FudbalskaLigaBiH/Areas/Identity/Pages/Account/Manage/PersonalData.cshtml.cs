@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using FudbalskaLigaBiH.EntityModels;
+using Data.EntityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

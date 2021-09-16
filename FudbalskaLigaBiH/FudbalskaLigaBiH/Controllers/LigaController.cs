@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FudbalskaLigaBiH.Data;
 using FudbalskaLigaBiH.Models;
+using Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {

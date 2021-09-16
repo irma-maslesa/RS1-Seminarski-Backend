@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using FudbalskaLigaBiH.Data;
-using FudbalskaLigaBiH.DTOs;
-using FudbalskaLigaBiH.EntityModels;
-using FudbalskaLigaBiH.Interfaces;
+using FudbalskaLigaBiH.Data.DTOs;
+using Data.EntityModel;
+using Data.Interfaces;
 using FudbalskaLigaBiH.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
+using Data;
 
 namespace FudbalskaLigaBiH.Controllers
 {

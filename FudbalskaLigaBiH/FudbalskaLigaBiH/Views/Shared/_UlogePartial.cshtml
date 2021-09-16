@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using FudbalskaLigaBiH.EntityModels
+@using Data.EntityModel;
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
-@inject FudbalskaLigaBiH.Data.ApplicationDbContext context
+@inject Data.ApplicationDbContext context
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 
 @{

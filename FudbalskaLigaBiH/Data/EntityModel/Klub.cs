@@ -12,7 +12,6 @@ namespace Data.EntityModel
         public string Mail { get; set; }
         public string Adresa { get; set; }
 
-        //trebas ubaciti slike za klub
         public string Slika { get; set; }
 
         //public List<StatistikaKlub> Statistika { get; set; }

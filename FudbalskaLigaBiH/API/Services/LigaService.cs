@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Model = Data.Model;
 using Entity = Data.EntityModel;
 using FudbalskaLigaBiH.API.Filter;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace API.Services
 {
-    public class LigaService : ReadService<Model.LigaResponse, Entity.Liga, object>, ILigaService
+    public class LigaService : CRUDService<Model.LigaResponse, Entity.Liga, object, Model.LigaUpsertRequest, Model.LigaUpsertRequest>, ILigaService
     {
         public LigaService(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
         {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Migrations
+namespace FudbalskaLigaBiH.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -388,7 +388,8 @@ namespace Migrations
                     IsProduzeci = table.Column<bool>(nullable: false),
                     IsPoluvrijeme = table.Column<bool>(nullable: false),
                     MinutaIgre = table.Column<int>(nullable: false),
-                    LigaID = table.Column<int>(nullable: false)
+                    LigaID = table.Column<int>(nullable: false),
+                    SezonaID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -409,6 +410,12 @@ namespace Migrations
                         name: "FK_Utakmica_Liga_LigaID",
                         column: x => x.LigaID,
                         principalTable: "Liga",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Utakmica_Sezona_SezonaID",
+                        column: x => x.SezonaID,
+                        principalTable: "Sezona",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -555,6 +562,11 @@ namespace Migrations
                 name: "IX_Utakmica_LigaID",
                 table: "Utakmica",
                 column: "LigaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Utakmica_SezonaID",
+                table: "Utakmica",
+                column: "SezonaID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -584,9 +596,6 @@ namespace Migrations
                 name: "Novost");
 
             migrationBuilder.DropTable(
-                name: "Sezona");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -602,13 +611,16 @@ namespace Migrations
                 name: "Klub");
 
             migrationBuilder.DropTable(
-                name: "Liga");
+                name: "Sezona");
 
             migrationBuilder.DropTable(
                 name: "Stadion");
 
             migrationBuilder.DropTable(
                 name: "Trener");
+
+            migrationBuilder.DropTable(
+                name: "Liga");
 
             migrationBuilder.DropTable(
                 name: "Grad");

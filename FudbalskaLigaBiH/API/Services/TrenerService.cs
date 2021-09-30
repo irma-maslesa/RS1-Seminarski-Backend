@@ -44,5 +44,12 @@ namespace API.Services
 
             return mapper.Map<List<Model.TrenerResponse>>(entityList);
         }
+        public IList<Model.TrenerResponse> getAvailable()
+        {
+            List<Entity.Trener> entityList = context.Set<Entity.Trener>().Where(e => e.Klub == null).ToList();
+
+            return mapper.Map<List<Model.TrenerResponse>>(entityList);
+        }
+
     }
 }

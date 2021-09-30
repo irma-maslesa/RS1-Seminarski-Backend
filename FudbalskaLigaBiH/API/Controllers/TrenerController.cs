@@ -15,9 +15,16 @@ namespace API.Controllers
     [ApiExplorerSettings(GroupName = "trener-api")]
     public class TrenerController : CRUDController<Model.TrenerResponse, Model.TrenerSearchRequest, Model.TrenerUpsertRequest, Model.TrenerUpsertRequest>
     {
-
+        public ITrenerService service { get; set; }
         public TrenerController(ITrenerService service) : base(service)
         {
+            this.service = service; 
+        }
+
+        [HttpGet("available")]
+        public virtual IList<Model.TrenerResponse> getAvailable()
+        {
+            return service.getAvailable();
         }
     }
 }

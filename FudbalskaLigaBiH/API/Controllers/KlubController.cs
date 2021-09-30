@@ -14,8 +14,23 @@ namespace API.Controllers
     [ApiExplorerSettings(GroupName = "klub-api")]
     public class KlubController : CRUDController<Model.KlubResponse, Model.KlubSearchRequest, Model.KlubUpsertRequest, Model.KlubUpsertRequest>
     {
+        IKlubService service;
         public KlubController(IKlubService service) : base(service)
         {
+            this.service = service;
         }
+
+        [HttpPost]
+        public override Model.KlubResponse insert([FromForm] Model.KlubUpsertRequest trener)
+        {
+            return service.insert(trener);
+        }
+
+        [HttpPut("{id}")]
+        public override Model.KlubResponse update(int id, [FromForm] Model.KlubUpsertRequest trener)
+        {
+            return service.update(id, trener);
+        }
+
     }
 }

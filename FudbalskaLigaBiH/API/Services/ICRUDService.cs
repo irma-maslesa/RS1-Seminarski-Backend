@@ -12,6 +12,6 @@ namespace API.Services
     {
         public Response insert(Insert request);
         public Response update(int id, Update request);
-        public string delete(int id);
+        public void delete(int id);
     }
 }

@@ -7,6 +7,8 @@ using Model = Data.Model;
 using Entity = Data.EntityModel;
 using FudbalskaLigaBiH.API.Filter;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Data.EntityModel;
 
 namespace API.Services
 {
@@ -59,6 +61,7 @@ namespace API.Services
             if (entity == null)
                 throw new UserException($"Klub({id}) ne postoji!");
 
+
             return mapper.Map<Model.KlubResponse>(entity);
         }
 
@@ -77,14 +80,17 @@ namespace API.Services
                 }
             }
 
-            Entity.Trener trenerEntity = context.Trener.Find(request.TrenerId);
-            if (trenerEntity == null)
-                errorMessage += $"Trener({request.TrenerId}) ne postoji! ";
-            else
+            if (request.TrenerId != null)
             {
-                Entity.Klub trenerKlub = context.Klub.Where(e => e.TrenerID == request.TrenerId).FirstOrDefault();
-                if (trenerKlub != null)
-                    errorMessage += $"Trener({request.TrenerId}) je već dodijeljen klubu! ";
+                Entity.Trener trenerEntity = context.Trener.Find(request.TrenerId);
+                if (trenerEntity == null)
+                    errorMessage += $"Trener({request.TrenerId}) ne postoji! ";
+                else
+                {
+                    Entity.Klub trenerKlub = context.Klub.Where(e => e.TrenerID == request.TrenerId).FirstOrDefault();
+                    if (trenerKlub != null)
+                        errorMessage += $"Trener({request.TrenerId}) je već dodijeljen klubu! ";
+                }
             }
 
             Entity.Stadion stadionEntity = context.Stadion.Find(request.StadionId);
@@ -102,11 +108,28 @@ namespace API.Services
 
             Entity.Klub entity = mapper.Map<Model.KlubUpsertRequest, Entity.Klub>(request);
 
+            if (request.Slika != null)
+            {
+                string ekstenzija = System.IO.Path.GetExtension(request.Slika.FileName);
+                string contentType = request.Slika.ContentType;
+
+                var fileName = $"{Guid.NewGuid()}{ekstenzija}";
+                string folder = "Assets/Images/";
+                bool exist = Directory.Exists(folder);
+                if (!exist)
+                    Directory.CreateDirectory(folder);
+
+                request.Slika.CopyTo(new System.IO.FileStream(folder + fileName, FileMode.Create));
+                entity.Slika = fileName;
+            }
+
             entity = context.Klub.Add(entity).Entity;
 
             context.SaveChanges();
 
             Entity.Klub responseEntity = context.Klub.Include(e => e.Trener).Include(e => e.Stadion).Include(e => e.Liga).FirstOrDefault(e => e.ID == entity.ID);
+            
+
             return mapper.Map<Entity.Klub, Model.KlubResponse>(responseEntity);
         }
 
@@ -126,11 +149,18 @@ namespace API.Services
                 }
             }
 
-            Entity.Trener trenerEntity = context.Trener.Find(request.TrenerId);
-            if (trenerEntity == null)
-                errorMessage += $"Trener({request.TrenerId}) ne postoji! ";
-            else if (trenerEntity.Klub != null && trenerEntity.Klub.ID != id)
-                errorMessage += $"Trener({request.TrenerId}) je već dodijeljen klubu! ";
+            if (request.TrenerId != null)
+            {
+                Entity.Trener trenerEntity = context.Trener.Find(request.TrenerId);
+                if (trenerEntity == null)
+                    errorMessage += $"Trener({request.TrenerId}) ne postoji! ";
+                else
+                {
+                    Entity.Klub trenerKlub = context.Klub.Where(e => e.TrenerID == request.TrenerId).FirstOrDefault();
+                    if (trenerKlub != null && trenerKlub.ID != id)
+                        errorMessage += $"Trener({request.TrenerId}) je već dodijeljen klubu! ";
+                }
+            }
 
             Entity.Stadion stadionEntity = context.Stadion.Find(request.StadionId);
             if (stadionEntity == null)
@@ -152,12 +182,29 @@ namespace API.Services
 
             entity = mapper.Map(request, entity);
 
+            if (request.Slika != null)
+            {
+                string ekstenzija = System.IO.Path.GetExtension(request.Slika.FileName);
+                string contentType = request.Slika.ContentType;
+
+                var fileName = $"{Guid.NewGuid()}{ekstenzija}";
+                string folder = "Assets/Images/";
+                bool exist = Directory.Exists(folder);
+                if (!exist)
+                    Directory.CreateDirectory(folder);
+
+                request.Slika.CopyTo(new System.IO.FileStream(folder + fileName, FileMode.Create));
+                entity.Slika = fileName;
+            }
+
             context.Klub.Update(entity);
             context.SaveChanges();
 
             Entity.Klub responseEntity = context.Klub.Include(e => e.Trener).Include(e => e.Stadion).Include(e => e.Liga).FirstOrDefault(e => e.ID == id);
+           
 
             return mapper.Map<Entity.Klub, Model.KlubResponse>(responseEntity);
         }
+
     }
 }

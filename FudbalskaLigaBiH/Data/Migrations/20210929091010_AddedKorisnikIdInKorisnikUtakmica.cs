@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Migrations
+namespace FudbalskaLigaBiH.Data.Migrations
 {
-    public partial class UpdateTrenerEntity : Migration
+    public partial class AddedKorisnikIdInKorisnikUtakmica : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -19,21 +19,22 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public Response insert([FromBody] Insert trener)
+        public virtual Response insert([FromBody] Insert trener)
         {
             return crudService.insert(trener);
         }
 
         [HttpPut("{id}")]
-        public Response update(int id, Update trener)
+        public virtual Response update(int id, Update trener)
         {
             return crudService.update(id, trener);
         }
 
         [HttpDelete("{id}")]
-        public string delete(int id)
+        public void delete(int id)
         {
-            return crudService.delete(id);
+            crudService.delete(id);
+            //return crudService.delete(id);
         }
     }
 }

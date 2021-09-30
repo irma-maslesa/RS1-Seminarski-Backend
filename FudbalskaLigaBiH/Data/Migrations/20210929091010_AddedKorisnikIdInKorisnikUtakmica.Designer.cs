@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Migrations
+namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210912050751_UpdateTrenerEntity")]
-    partial class UpdateTrenerEntity
+    [Migration("20210929091010_AddedKorisnikIdInKorisnikUtakmica")]
+    partial class AddedKorisnikIdInKorisnikUtakmica
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -411,6 +411,9 @@ namespace Migrations
                     b.Property<int>("RezultatGost")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SezonaID")
+                        .HasColumnType("int");
+
                     b.HasKey("UtakmicaID");
 
                     b.HasIndex("KlubDomacinID");
@@ -418,6 +421,8 @@ namespace Migrations
                     b.HasIndex("KlubGostID");
 
                     b.HasIndex("LigaID");
+
+                    b.HasIndex("SezonaID");
 
                     b.ToTable("Utakmica");
                 });
@@ -656,11 +661,16 @@ namespace Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Data.EntityModel.Liga", "liga")
+                    b.HasOne("Data.EntityModel.Liga", "Liga")
                         .WithMany()
                         .HasForeignKey("LigaID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Data.EntityModel.Sezona", "Sezona")
+                        .WithMany("utakmice")
+                        .HasForeignKey("SezonaID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

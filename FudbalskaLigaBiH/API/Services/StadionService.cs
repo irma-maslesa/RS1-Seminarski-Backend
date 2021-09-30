@@ -98,5 +98,11 @@ namespace API.Services
 
             return mapper.Map<Entity.Stadion, Model.StadionResponse>(responseEntity);
         }
+        public IList<Model.StadionResponse> getAvailable()
+        {
+            List<Entity.Stadion> entityList = context.Set<Entity.Stadion>().Where(e => e.Klub == null).Include(e=> e.Grad).ToList();
+
+            return mapper.Map<List<Model.StadionResponse>>(entityList);
+        }
     }
 }

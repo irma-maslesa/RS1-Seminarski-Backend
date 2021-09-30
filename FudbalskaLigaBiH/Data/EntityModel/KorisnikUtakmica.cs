@@ -9,6 +9,8 @@ namespace Data.EntityModel
     {
         public int Id { get; set; }
 
+
+        public string KorisnikId { get; set; }
         public Korisnik Korisnik { get; set; }
 
         public int UtakmicaID { get; set; }

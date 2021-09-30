@@ -11,10 +11,10 @@ using Model = Data.Model;
 
 namespace API.Controllers
 {
-    [ApiExplorerSettings(GroupName = "klub-api")]
-    public class LigaController : CRUDController<Model.LigaResponse, object, Model.LigaUpsertRequest, Model.LigaUpsertRequest>
+    [ApiExplorerSettings(GroupName = "utakmica-api")]
+    public class UtakmicaController : ReadController<Model.UtakmicaResponse, Model.UtakmicaSearchRequest>
     {
-        public LigaController(ILigaService service) : base(service)
+        public UtakmicaController(IUtakmicaService service) : base(service)
         {
         }
     }

@@ -114,7 +114,7 @@ namespace API.Services
                 string contentType = request.Slika.ContentType;
 
                 var fileName = $"{Guid.NewGuid()}{ekstenzija}";
-                string folder = "Assets/Images/";
+                string folder = "img/";
                 bool exist = Directory.Exists(folder);
                 if (!exist)
                     Directory.CreateDirectory(folder);
@@ -188,7 +188,7 @@ namespace API.Services
                 string contentType = request.Slika.ContentType;
 
                 var fileName = $"{Guid.NewGuid()}{ekstenzija}";
-                string folder = "Assets/Images/";
+                string folder = "img/";
                 bool exist = Directory.Exists(folder);
                 if (!exist)
                     Directory.CreateDirectory(folder);

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using System;
 using System.Linq;
 using Entity = Data.EntityModel;
@@ -111,9 +112,9 @@ namespace API
             app.UseFileServer(new FileServerOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Images"
+                    Path.Combine(Directory.GetCurrentDirectory(), "img"
                     )),
-                RequestPath ="/Image"
+                RequestPath = "/Image"
             });
 
             app.UseCors(MyAllowSpecificOrigins);

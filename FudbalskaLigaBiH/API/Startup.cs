@@ -42,6 +42,8 @@ namespace API
 
             services.AddSwaggerGen(c =>
             {
+                c.SwaggerDoc("statistika-api", new OpenApiInfo { Title = "statistika-api" });
+                c.SwaggerDoc("igrac-api", new OpenApiInfo { Title = "igrac-api" });
                 c.SwaggerDoc("stadion-api", new OpenApiInfo { Title = "stadion-api" });
                 c.SwaggerDoc("trener-api", new OpenApiInfo { Title = "trener-api" });
                 c.SwaggerDoc("klub-api", new OpenApiInfo { Title = "klub-api" });
@@ -61,6 +63,10 @@ namespace API
             services.AddScoped<ISezonaService, SezonaService>();
             services.AddScoped<IUtakmicaService, UtakmicaService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IStatistikaIgracService, StatistikaIgracService>();
+            services.AddScoped<IStatistikaKlubService, StatistikaKlubService>();
+            services.AddScoped<IStatistikaService, StatistikaService>();
+            services.AddScoped<IIgracService, IgracService>();
 
             services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins, builder =>
             {
@@ -132,6 +138,8 @@ namespace API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
+                c.SwaggerEndpoint("/swagger/statistika-api/swagger.json", "Statistika API");
+                c.SwaggerEndpoint("/swagger/igrac-api/swagger.json", "Igrac API");
                 c.SwaggerEndpoint("/swagger/trener-api/swagger.json", "Trener API");
                 c.SwaggerEndpoint("/swagger/stadion-api/swagger.json", "Stadion API");
                 c.SwaggerEndpoint("/swagger/klub-api/swagger.json", "Klub API");

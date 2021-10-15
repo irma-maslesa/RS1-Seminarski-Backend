@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class TrenerService : 
-        CRUDService<Model.TrenerResponse, Entity.Trener, Model.TrenerSearchRequest, Model.TrenerUpsertRequest, Model.TrenerUpsertRequest>, 
+    public class TrenerService :
+        CRUDService<Model.TrenerResponse, Entity.Trener, Model.TrenerSearchRequest, Model.TrenerUpsertRequest, Model.TrenerUpsertRequest>,
         ITrenerService
     {
         public TrenerService(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
@@ -44,6 +44,29 @@ namespace API.Services
 
             return mapper.Map<List<Model.TrenerResponse>>(entityList);
         }
+        public override void delete(int id)
+        {
+            Entity.Trener entity = context.Set<Entity.Trener>().Find(id);
+
+            if (entity == null)
+                throw new UserException($"{typeof(Entity.Trener).Name}({id}) ne postoji!");
+
+            context.Set<Entity.Trener>().Remove(entity);
+
+
+            Entity.Klub klubEntity = context.Klub.Include(e => e.Trener).Where(e => e.Trener.ID == id).FirstOrDefault();
+
+            if (klubEntity != null)
+            {
+                klubEntity.Trener = null;
+                klubEntity.TrenerID = null;
+                context.Update(klubEntity);
+            }
+
+
+            context.SaveChanges();
+        }
+
         public IList<Model.TrenerResponse> getAvailable()
         {
             List<Entity.Trener> entityList = context.Set<Entity.Trener>().Where(e => e.Klub == null).ToList();

@@ -61,8 +61,6 @@ namespace API.Services
 
             context.Set<Entity>().Remove(entity);
             context.SaveChanges();
-
-            //return $"{typeof(Entity).Name}({id}) uspješno uklonjen!";
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Data.Model
     {
         public string? Status { get; set; }
 
+        public bool? Analitika { get; set; }
         public int? StadionId { get; set; }
 
         public int? KlubId { get; set; }

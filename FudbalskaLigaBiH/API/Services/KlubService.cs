@@ -16,8 +16,13 @@ namespace API.Services
         CRUDService<Model.KlubResponse, Entity.Klub, Model.KlubSearchRequest, Model.KlubUpsertRequest, Model.KlubUpsertRequest>,
         IKlubService
     {
-        public KlubService(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
+        protected readonly IUtakmicaService utakmicaService;
+        protected readonly ISezonaService sezonaService;
+
+        public KlubService(ApplicationDbContext context, IMapper mapper, IUtakmicaService utakmicaService, ISezonaService sezonaService) : base(context, mapper)
         {
+            this.utakmicaService = utakmicaService;
+            this.sezonaService = sezonaService;
         }
 
         public override IList<Model.KlubResponse> get(Model.KlubSearchRequest search)
@@ -128,7 +133,7 @@ namespace API.Services
             context.SaveChanges();
 
             Entity.Klub responseEntity = context.Klub.Include(e => e.Trener).Include(e => e.Stadion).Include(e => e.Liga).FirstOrDefault(e => e.ID == entity.ID);
-            
+
 
             return mapper.Map<Entity.Klub, Model.KlubResponse>(responseEntity);
         }
@@ -201,10 +206,52 @@ namespace API.Services
             context.SaveChanges();
 
             Entity.Klub responseEntity = context.Klub.Include(e => e.Trener).Include(e => e.Stadion).Include(e => e.Liga).FirstOrDefault(e => e.ID == id);
-           
+
 
             return mapper.Map<Entity.Klub, Model.KlubResponse>(responseEntity);
         }
 
+
+        public IList<Model.KlubPoredakResponse> getPoredak(int klubId = 0, int liga = 0)
+        {
+            var ligaId = klubId != 0 ? context.Klub.Find(klubId).LigaID : liga;
+            var trenutnaSezona = sezonaService.getTrenutnuSezonu(ligaId);
+            var entityList = context.Klub.Where(e => e.LigaID == ligaId).ToList();
+
+            var response = mapper.Map<List<Model.KlubPoredakResponse>>(entityList);
+
+            foreach (var klub in response)
+            {
+                List<Entity.Utakmica> utakmice;
+
+                if (trenutnaSezona != null)
+                    utakmice = context.Utakmica.Where(e => e.KlubDomacin.ID == klub.ID || e.KlubGost.ID == klub.ID)
+                        .Where(e => e.DatumOdrzavanja > trenutnaSezona.DatumPocetka && e.DatumOdrzavanja < trenutnaSezona.DatumZavrsetka)
+                        .Where(e => e.IsZavrsena).ToList();
+                else
+                    return new List<Model.KlubPoredakResponse>();
+
+                klub.OdigraneUtakmice = utakmice.Count;
+                klub.Pobjede = utakmice.Where(e => e.KlubDomacinID == klub.ID ? e.RezultatDomacin > e.RezultatGost : e.RezultatDomacin < e.RezultatGost).ToList().Count;
+                klub.Porazi = utakmice.Where(e => e.KlubDomacinID == klub.ID ? e.RezultatDomacin < e.RezultatGost : e.RezultatDomacin > e.RezultatGost).ToList().Count;
+                klub.Remi = utakmice.Where(e => e.RezultatDomacin == e.RezultatGost).ToList().Count;
+                klub.PostignutiGolovi = utakmice.Sum(e => e.KlubDomacinID == klub.ID ? e.RezultatDomacin : e.RezultatGost);
+                klub.PrimljeniGolovi = utakmice.Sum(e => e.KlubDomacinID != klub.ID ? e.RezultatDomacin : e.RezultatGost);
+                klub.Bodovi = klub.Pobjede * 3 + klub.Remi;
+
+
+                klub.prethodneUtakmice = utakmicaService.getLast5ByKlub(klub.ID, ligaId).ToList();
+                klub.iducaUtakmica = utakmicaService.getNextByKlub(klub.ID, ligaId);
+            }
+
+            return response.OrderByDescending(e => e.Bodovi).ThenByDescending(e => e.PostignutiGolovi - e.PrimljeniGolovi).ToList();
+        }
+
+        public IList<Model.LoV> getLoVs()
+        {
+            List<Entity.Klub> entityList = context.Klub.ToList();
+
+            return mapper.Map<List<Model.LoV>>(entityList);
+        }
     }
 }

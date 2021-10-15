@@ -98,6 +98,23 @@ namespace API.Services
 
             return mapper.Map<Entity.Stadion, Model.StadionResponse>(responseEntity);
         }
+        public override void delete(int id)
+        {
+            Entity.Stadion entity = context.Set<Entity.Stadion>().Find(id);
+
+            if (entity == null)
+                throw new UserException($"{typeof(Entity.Stadion).Name}({id}) ne postoji!");
+
+            context.Set<Entity.Stadion>().Remove(entity);
+
+            Entity.Klub klubEntity = context.Klub.Include(e => e.Stadion).Where(e => e.Stadion.ID == id).FirstOrDefault();
+            
+            if(klubEntity != null)
+                throw new UserException($"Klub {klubEntity.Naziv} koristi stadion. Da bi obrisali stadion promijenite stadion kluba!");
+
+            context.SaveChanges();
+        }
+
         public IList<Model.StadionResponse> getAvailable()
         {
             List<Entity.Stadion> entityList = context.Set<Entity.Stadion>().Where(e => e.Klub == null).Include(e=> e.Grad).ToList();

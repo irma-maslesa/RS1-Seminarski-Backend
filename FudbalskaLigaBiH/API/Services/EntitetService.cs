@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class EntitetService : ReadService<Model.EntitetResponse, Entity.Entitet, object>, IEntitetService
+    public class EntitetService : ReadService<Model.LoV, Entity.Entitet, object>, IEntitetService
     {
         public EntitetService(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
         {

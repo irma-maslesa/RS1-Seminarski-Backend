@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FudbalskaLigaBiH.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -446,6 +446,77 @@ namespace FudbalskaLigaBiH.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StatistikaIgrac",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Golovi = table.Column<int>(nullable: false),
+                    ZutiKarton = table.Column<int>(nullable: false),
+                    CrveniKarton = table.Column<int>(nullable: false),
+                    BrojMinuta = table.Column<int>(nullable: false),
+                    Asistencije = table.Column<int>(nullable: false),
+                    IgracId = table.Column<int>(nullable: false),
+                    UtakmicaID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatistikaIgrac", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_StatistikaIgrac_Igrac_IgracId",
+                        column: x => x.IgracId,
+                        principalTable: "Igrac",
+                        principalColumn: "IgracID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatistikaIgrac_Utakmica_UtakmicaID",
+                        column: x => x.UtakmicaID,
+                        principalTable: "Utakmica",
+                        principalColumn: "UtakmicaID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatistikaKlub",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Posjed = table.Column<int>(nullable: false),
+                    Sutevi = table.Column<int>(nullable: false),
+                    SuteviOkvir = table.Column<int>(nullable: false),
+                    SuteviVanOkvira = table.Column<int>(nullable: false),
+                    SuteviBlokirani = table.Column<int>(nullable: false),
+                    Korneri = table.Column<int>(nullable: false),
+                    Ofsajdi = table.Column<int>(nullable: false),
+                    Odbrane = table.Column<int>(nullable: false),
+                    Prekrsaji = table.Column<int>(nullable: false),
+                    Dodavanja = table.Column<int>(nullable: false),
+                    Uklizavanja = table.Column<int>(nullable: false),
+                    ZutiKarton = table.Column<int>(nullable: false),
+                    Napadi = table.Column<int>(nullable: false),
+                    NapadiOpasni = table.Column<int>(nullable: false),
+                    KlubId = table.Column<int>(nullable: false),
+                    UtakmicaID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatistikaKlub", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_StatistikaKlub_Klub_KlubId",
+                        column: x => x.KlubId,
+                        principalTable: "Klub",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatistikaKlub_Utakmica_UtakmicaID",
+                        column: x => x.UtakmicaID,
+                        principalTable: "Utakmica",
+                        principalColumn: "UtakmicaID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -549,6 +620,26 @@ namespace FudbalskaLigaBiH.Data.Migrations
                 column: "GradID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StatistikaIgrac_IgracId",
+                table: "StatistikaIgrac",
+                column: "IgracId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatistikaIgrac_UtakmicaID",
+                table: "StatistikaIgrac",
+                column: "UtakmicaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatistikaKlub_KlubId",
+                table: "StatistikaKlub",
+                column: "KlubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatistikaKlub_UtakmicaID",
+                table: "StatistikaKlub",
+                column: "UtakmicaID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Utakmica_KlubDomacinID",
                 table: "Utakmica",
                 column: "KlubDomacinID");
@@ -587,25 +678,31 @@ namespace FudbalskaLigaBiH.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Igrac");
-
-            migrationBuilder.DropTable(
                 name: "KorisnikUtakmica");
 
             migrationBuilder.DropTable(
                 name: "Novost");
 
             migrationBuilder.DropTable(
+                name: "StatistikaIgrac");
+
+            migrationBuilder.DropTable(
+                name: "StatistikaKlub");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Pozicija");
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Igrac");
 
             migrationBuilder.DropTable(
                 name: "Utakmica");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Pozicija");
 
             migrationBuilder.DropTable(
                 name: "Klub");

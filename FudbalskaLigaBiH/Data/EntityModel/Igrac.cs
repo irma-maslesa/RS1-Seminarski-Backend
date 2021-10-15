@@ -26,6 +26,6 @@ namespace Data.EntityModel
         public Klub Klub { get; set; }
         public string Slika { get; set; }
 
-
+        public List<StatistikaIgrac> Statistika { get; set; }
     }
 }

@@ -29,23 +29,5 @@ namespace API.Controllers
         {
             return readService.getById(id);
         }
-
-        //[HttpPost]
-        //public Model.TrenerResponse insert([FromBody] Model.TrenerUpsertRequest trener)
-        //{
-        //    return trenerService.insert(trener);
-        //}
-
-        //[HttpPut("{id}")]
-        //public Model.TrenerResponse update(int id, Model.TrenerResponse trener)
-        //{
-        //    return trenerService.update(id, trener);
-        //}
-
-        //[HttpDelete("{id}")]
-        //public Model.TrenerResponse delete(int id)
-        //{
-        //    return trenerService.delete(id);
-        //}
     }
 }

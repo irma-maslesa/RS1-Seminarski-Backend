@@ -32,5 +32,22 @@ namespace API.Controllers
             return service.update(id, trener);
         }
 
+        [HttpGet]
+        [Route("poredak")]
+        public IList<Model.KlubPoredakResponse> getPoredak([FromQuery] int klubId= 0, [FromQuery] int ligaId= 0)
+        {
+            if(klubId != 0)
+                return service.getPoredak(klubId: klubId);
+            else
+                return service.getPoredak(ligaId: ligaId);
+        }
+
+        [HttpGet]
+        [Route("lov")]
+        public IList<Model.LoV> getLoV()
+        {
+            return service.getLoVs();
+        }
+
     }
 }

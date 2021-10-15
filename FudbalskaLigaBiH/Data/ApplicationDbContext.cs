@@ -146,6 +146,8 @@ namespace Data
         public DbSet<Igrac> Igrac { get; set; }
         public DbSet<Utakmica> Utakmica { get; set; }
         public DbSet<KorisnikUtakmica> KorisnikUtakmica { get; set; }
+        public DbSet<StatistikaIgrac> StatistikaIgrac { get; set; }
+        public DbSet<StatistikaKlub> StatistikaKlub { get; set; }
 
     }
 }

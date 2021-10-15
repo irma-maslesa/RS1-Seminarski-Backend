@@ -2,7 +2,7 @@
 
 namespace API.Services
 {
-    public interface IEntitetService : IReadService<Model.EntitetResponse, object>
+    public interface IEntitetService : IReadService<Model.LoV, object>
     {
     }
 }

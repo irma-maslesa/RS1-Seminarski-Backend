@@ -96,5 +96,12 @@ namespace API.Services
 
             return mapper.Map<Entity.Sezona, Model.SezonaResponse>(responseEntity);
         }
+
+        public Model.SezonaResponse getTrenutnuSezonu(int ligaId)
+        {
+            var entity = context.Sezona.Where(e => e.Liga.ID == ligaId && e.DatumPocetka <= DateTime.Now && e.DatumZavrsetka > DateTime.Now).FirstOrDefault();
+
+            return mapper.Map<Model.SezonaResponse>(entity);
+        }
     }
 }

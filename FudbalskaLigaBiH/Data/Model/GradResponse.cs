@@ -9,7 +9,7 @@ namespace Data.Model
     {
         public int ID { get; set; }
         public string Naziv { get; set; }
-        public EntitetResponse Entitet { get; set; }
+        public LoV Entitet { get; set; }
         //public List<IgracResponse> Igraci { get; set; }
     }
 }

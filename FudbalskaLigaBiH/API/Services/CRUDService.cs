@@ -52,7 +52,7 @@ namespace API.Services
             return mapper.Map<Entity, Response>(entity);
         }
 
-        public virtual string delete(int id)
+        public virtual void delete(int id)
         {
             Entity entity = context.Set<Entity>().Find(id);
 
@@ -61,8 +61,6 @@ namespace API.Services
 
             context.Set<Entity>().Remove(entity);
             context.SaveChanges();
-
-            return $"{typeof(Entity).Name}({id}) uspješno uklonjen!";
         }
     }
 }

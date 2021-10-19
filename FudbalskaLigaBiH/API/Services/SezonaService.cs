@@ -24,18 +24,18 @@ namespace API.Services
 
             if (search?.DatumPocetka != null)
             {
-                entitySet = entitySet.Where(e => e.DatumPocetka == search.DatumPocetka);
+                entitySet = entitySet.Where(e => e.DatumPocetka <= search.DatumPocetka);
             }
             if (search?.DatumZavrsetka != null)
             {
-                entitySet = entitySet.Where(e => e.DatumZavrsetka == search.DatumZavrsetka);
+                entitySet = entitySet.Where(e => e.DatumZavrsetka > search.DatumZavrsetka);
             }
             if (search?.LigaId != null)
             {
                 entitySet = entitySet.Where(e => e.Liga.ID == search.LigaId);
             }
 
-            List<Entity.Sezona> entityList = entitySet.Include(e => e.Liga).ToList();
+            List<Entity.Sezona> entityList = entitySet.Include(e => e.Liga).OrderByDescending(e => e.DatumPocetka).ToList();
 
             return mapper.Map<List<Model.SezonaResponse>>(entityList);
         }
@@ -95,6 +95,13 @@ namespace API.Services
             Entity.Sezona responseEntity = context.Sezona.Include(e => e.Liga).FirstOrDefault(e => e.ID == id);
 
             return mapper.Map<Entity.Sezona, Model.SezonaResponse>(responseEntity);
+        }
+
+        public Model.SezonaResponse getTrenutnuSezonu(int ligaId)
+        {
+            var entity = context.Sezona.Where(e => e.Liga.ID == ligaId && e.DatumPocetka <= DateTime.Now && e.DatumZavrsetka > DateTime.Now).FirstOrDefault();
+
+            return mapper.Map<Model.SezonaResponse>(entity);
         }
     }
 }

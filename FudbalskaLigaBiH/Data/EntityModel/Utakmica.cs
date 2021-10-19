@@ -24,6 +24,10 @@ namespace Data.EntityModel
         public int MinutaIgre { get; set; }
 
         public int LigaID { get; set; }
-        public Liga liga { get; set; }
+        public Liga Liga { get; set; }
+
+        public int? SezonaID { get; set; }
+        public Sezona Sezona { get; set; }
+
     }
 }

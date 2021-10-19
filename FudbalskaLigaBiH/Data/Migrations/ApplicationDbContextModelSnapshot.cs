@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Migrations
+namespace FudbalskaLigaBiH.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -348,6 +348,107 @@ namespace Migrations
                     b.ToTable("Stadion");
                 });
 
+            modelBuilder.Entity("Data.EntityModel.StatistikaIgrac", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Asistencije")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BrojMinuta")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CrveniKarton")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Golovi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IgracId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UtakmicaID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZutiKarton")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("IgracId");
+
+                    b.HasIndex("UtakmicaID");
+
+                    b.ToTable("StatistikaIgrac");
+                });
+
+            modelBuilder.Entity("Data.EntityModel.StatistikaKlub", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Dodavanja")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KlubId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Korneri")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Napadi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NapadiOpasni")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Odbrane")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ofsajdi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Posjed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Prekrsaji")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sutevi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuteviBlokirani")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuteviOkvir")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuteviVanOkvira")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Uklizavanja")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UtakmicaID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZutiKarton")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KlubId");
+
+                    b.HasIndex("UtakmicaID");
+
+                    b.ToTable("StatistikaKlub");
+                });
+
             modelBuilder.Entity("Data.EntityModel.Trener", b =>
                 {
                     b.Property<int>("ID")
@@ -409,6 +510,9 @@ namespace Migrations
                     b.Property<int>("RezultatGost")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SezonaID")
+                        .HasColumnType("int");
+
                     b.HasKey("UtakmicaID");
 
                     b.HasIndex("KlubDomacinID");
@@ -416,6 +520,8 @@ namespace Migrations
                     b.HasIndex("KlubGostID");
 
                     b.HasIndex("LigaID");
+
+                    b.HasIndex("SezonaID");
 
                     b.ToTable("Utakmica");
                 });
@@ -569,7 +675,7 @@ namespace Migrations
                         .IsRequired();
 
                     b.HasOne("Data.EntityModel.Klub", "Klub")
-                        .WithMany()
+                        .WithMany("Igraci")
                         .HasForeignKey("KlubID")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -640,6 +746,36 @@ namespace Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Data.EntityModel.StatistikaIgrac", b =>
+                {
+                    b.HasOne("Data.EntityModel.Igrac", "Igrac")
+                        .WithMany("Statistika")
+                        .HasForeignKey("IgracId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Data.EntityModel.Utakmica", "Utakmica")
+                        .WithMany()
+                        .HasForeignKey("UtakmicaID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.EntityModel.StatistikaKlub", b =>
+                {
+                    b.HasOne("Data.EntityModel.Klub", "Klub")
+                        .WithMany("Statistika")
+                        .HasForeignKey("KlubId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Data.EntityModel.Utakmica", "Utakmica")
+                        .WithMany()
+                        .HasForeignKey("UtakmicaID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Data.EntityModel.Utakmica", b =>
                 {
                     b.HasOne("Data.EntityModel.Klub", "KlubDomacin")
@@ -654,11 +790,16 @@ namespace Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Data.EntityModel.Liga", "liga")
+                    b.HasOne("Data.EntityModel.Liga", "Liga")
                         .WithMany()
                         .HasForeignKey("LigaID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Data.EntityModel.Sezona", "Sezona")
+                        .WithMany("utakmice")
+                        .HasForeignKey("SezonaID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -12,7 +12,7 @@ using Model = Data.Model;
 namespace API.Controllers
 {
     [ApiExplorerSettings(GroupName = "klub-api")]
-    public class LigaController : ReadController<Model.LigaResponse, object>
+    public class LigaController : CRUDController<Model.LigaResponse, object, Model.LigaUpsertRequest, Model.LigaUpsertRequest>
     {
         public LigaController(ILigaService service) : base(service)
         {

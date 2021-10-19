@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Data.Model
 {
-    public class EntitetResponse
+    public class LigaUpsertRequest
     {
-        public int ID { get; set; }
         public string Naziv { get; set; }
     }
 }

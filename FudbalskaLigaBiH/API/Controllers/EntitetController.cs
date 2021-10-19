@@ -12,7 +12,7 @@ using Model = Data.Model;
 namespace API.Controllers
 {
     [ApiExplorerSettings(GroupName = "stadion-api")]
-    public class EntitetController : ReadController<Model.EntitetResponse, object>
+    public class EntitetController : ReadController<Model.LoV, object>
     {
         public EntitetController(IEntitetService service) : base(service)
         {

@@ -1,6 +1,6 @@
 # Seminarski-RS1
 
-## Login info:
+## Login info
 
 SuperAdmin@sport.ba
 SuperAdmin123.
